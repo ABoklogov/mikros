@@ -1,20 +1,25 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   StyleSheet,
   Dimensions,
   View,
-  Alert,
+  Text,
   TouchableOpacity,
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { useCamera } from 'react-native-camera-hooks';
+import { fetchBarcode } from 'store/scaner/scanerOperation';
+import { removeProduct } from 'store/scaner/scanerSlice';
 // import icons
 import FlashOnIcon from 'components/icons/flash/FlashOnIcon';
 import FlashOffIcon from 'components/icons/flash/FlashOffIcon';
 // import components
-import ViewBarcode from 'components/camera/ViewBarcode'
-import BackdropBottom from 'components/camera/BackdropBottom'
-import BackdropTop from 'components/camera/BackdropTop'
+import ViewBarcode from 'components/camera/ViewBarcode';
+import BackdropBottom from 'components/camera/BackdropBottom';
+import BackdropTop from 'components/camera/BackdropTop';
+import MainModal from 'components/shared/MainModal';
+import ScannedProduct from 'components/camera/ScannedProduct';
 // import vars
 import { colors } from 'res/vars';
 
@@ -22,25 +27,23 @@ const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
 export default BarcodeScanScreen = () => {
+  const { scaner } = useSelector(state => state);
+  const dispatch = useDispatch();
   const [{ cameraRef, autoFocus }] = useCamera(null);
   const [flash, setFlash] = useState(RNCamera.Constants.FlashMode.off);
   const [barcode, setBarcode] = useState(null);
+
+  const removeModal = () => {
+    dispatch(removeProduct());
+    setBarcode(null);
+  };
 
   const barcodeRecognized = ({ data, type }) => {
     if (barcode) {
       return
     } else if (data) {
-      setBarcode({ type, data });
-      console.log("🚀 ~ штрих-код", { type, data });
-
-      Alert.alert(
-        'Штрих-код распознан',
-        `номер: ${data}; типgit: ${type}`,
-        [{
-          text: "OK",
-          onPress: () => setBarcode(null),
-        }]
-      );
+      setBarcode({ data });
+      dispatch(fetchBarcode(data));
     };
   };
 
@@ -77,6 +80,13 @@ export default BarcodeScanScreen = () => {
         <BackdropTop width={WIDTH} height={HEIGHT} />
         <ViewBarcode width={WIDTH} height={HEIGHT} />
         <BackdropBottom width={WIDTH} height={HEIGHT} />
+
+        <MainModal
+          modalVisible={scaner.product ? true : false}
+          removeModal={removeModal}
+        >
+          {scaner.product && <ScannedProduct product={scaner.product} />}
+        </MainModal>
       </RNCamera>
 
       <TouchableOpacity

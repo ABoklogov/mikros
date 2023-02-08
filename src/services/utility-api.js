@@ -1,4 +1,5 @@
-import { keyCity, cityUrl } from 'res/vars';
+import axios from 'axios';
+import { keyCity, cityUrl, prodUrl } from 'res/vars';
 
 // поиск города
 async function fetchAddress(value) {
@@ -12,7 +13,7 @@ async function fetchAddress(value) {
     },
     body: JSON.stringify({
       query: value,
-      count: 5,
+      count: 15,
       from_bound: { value: "city" },
       to_bound: { value: "settlement" },
       locations: {
@@ -27,8 +28,16 @@ async function fetchAddress(value) {
   return data;
 };
 
+// сканер штрих-кода
+async function fetchBarcode(code) {
+  // console.log(`${prodUrl}/barcode/?code=${code}`)
+  const data = await axios.get(`${prodUrl}/barcode/?code=${code}`);
+  return data;
+};
+
 const API = {
   fetchAddress,
+  fetchBarcode,
 };
 
 export default API;
