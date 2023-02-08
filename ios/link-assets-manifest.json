@@ -1,0 +1,21 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/GothamPro-Black.ttf",
+      "sha1": "9bcbadba442ed79dbbfb877f8bce321bd2d51771"
+    },
+    {
+      "path": "src/assets/fonts/GothamPro-Bold.ttf",
+      "sha1": "d45c44e53a24f1417a48a72a88b5bf347314a418"
+    },
+    {
+      "path": "src/assets/fonts/GothamPro-Light.ttf",
+      "sha1": "edee67dba2ad5452f7abad9a97489392eb6486e2"
+    },
+    {
+      "path": "src/assets/fonts/GothamPro-Medium.ttf",
+      "sha1": "27214fca50f1c565c944285a9d7af88bc46ba67b"
+    }
+  ]
+}
