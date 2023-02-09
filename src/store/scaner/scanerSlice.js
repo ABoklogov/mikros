@@ -18,6 +18,7 @@ export const scanerSlice = createSlice({
     removeProduct: (state) => ({
       ...state,
       product: null,
+      error: '',
     }),
     loadingScaner: (state, { payload }) => ({
       ...state,

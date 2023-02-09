@@ -1,6 +1,6 @@
 export const prodUrl = 'https://xn--h1aeekjh.xn--p1ai/dev/api/';
 export const baseUrl = 'http://mobile-api.dev.mikros-vrn.ru/api';
-export const baseUrlImg = 'http://dev.mikros-vrn.ru/upload';
+export const baseUrlImg = 'http://dev.mikros-vrn.ru';
 export const keyCity = '6349ab7250f3cb4baa71145d50bd84cb21dfcd7a';
 export const cityUrl = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
 
@@ -108,6 +108,8 @@ export const strings = {
   textLinkLogIn: 'Нет аккаунта? Зарегистрироваться',
   textLinkRegistration: 'Уже есть аккаунт? Войти',
   textAuth: 'Войдите или зарегистрируйтесь, чтобы получить полный доступ к функциям Микрос',
+  textBtnReturnScan: 'Сканировать еще раз',
+  textNotProductScan: 'Товар не найден',
 
   // плейсхолдеры
   placeholders: {
@@ -156,7 +158,9 @@ export const strings = {
 
   titles: {
     titleSaleProducts: 'Акционные товары',
-  }
+  },
+
+
 };
 
 export const images = {

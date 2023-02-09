@@ -10,11 +10,14 @@ export const fetchBarcode = (code) => async (dispatch, getState) => {
   try {
     dispatch(loadingScaner(true));
     const { data } = await API.fetchBarcode(code);
+
     if (data) {
       dispatch(loadingScaner(false));
       dispatch(errorScaner(''));
       console.log("🚀 отсканированный товар", data)
       dispatch(getScanerProduct(data));
+    } else {
+      throw new Error('Server Error!');
     };
   } catch (error) {
     dispatch(errorScaner(error.message));

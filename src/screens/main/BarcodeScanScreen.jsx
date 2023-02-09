@@ -19,9 +19,11 @@ import ViewBarcode from 'components/camera/ViewBarcode';
 import BackdropBottom from 'components/camera/BackdropBottom';
 import BackdropTop from 'components/camera/BackdropTop';
 import MainModal from 'components/shared/MainModal';
+import MainButton from 'components/shared/MainButton';
 import ScannedProduct from 'components/camera/ScannedProduct';
 // import vars
-import { colors } from 'res/vars';
+import { colors, strings, mHorizontal } from 'res/vars';
+import { title } from 'res/palette';
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
@@ -39,6 +41,7 @@ export default BarcodeScanScreen = () => {
   };
 
   const barcodeRecognized = ({ data, type }) => {
+    console.log
     if (barcode) {
       return
     } else if (data) {
@@ -77,9 +80,17 @@ export default BarcodeScanScreen = () => {
         autoFocus={autoFocus} //автофокус
         onBarCodeRead={barcodeRecognized} // определяет штрих-код
       >
-        <BackdropTop width={WIDTH} height={HEIGHT} />
-        <ViewBarcode width={WIDTH} height={HEIGHT} />
-        <BackdropBottom width={WIDTH} height={HEIGHT} />
+        <View style={styles.preview}>
+          <BackdropTop width={WIDTH} height={HEIGHT} />
+          {
+            !scaner.error ? (
+              <ViewBarcode width={WIDTH} height={HEIGHT} />
+            ) : (
+              <Text style={styles.notProductText}>{strings.textNotProductScan}</Text>
+            )
+          }
+          <BackdropBottom width={WIDTH} height={HEIGHT} />
+        </View>
 
         <MainModal
           modalVisible={scaner.product ? true : false}
@@ -89,12 +100,23 @@ export default BarcodeScanScreen = () => {
         </MainModal>
       </RNCamera>
 
-      <TouchableOpacity
-        onPress={toggleFlash}
-        style={styles.btnFlash}
-      >
-        {flash === RNCamera.Constants.FlashMode.off ? <FlashOffIcon /> : <FlashOnIcon />}
-      </TouchableOpacity>
+      {
+        !scaner.error ? (
+          <TouchableOpacity
+            onPress={toggleFlash}
+            style={styles.btnFlash}
+          >
+            {flash === RNCamera.Constants.FlashMode.off ? <FlashOffIcon /> : <FlashOnIcon />}
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.btnScan}>
+            <MainButton
+              text={strings.textBtnReturnScan}
+              onPress={removeModal}
+            />
+          </View>
+        )
+      }
     </View>
   );
 };
@@ -127,4 +149,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  btnScan: {
+    position: 'absolute',
+    zIndex: 5,
+    bottom: 100,
+    marginHorizontal: mHorizontal.baseBlock,
+    width: WIDTH - 30,
+  },
+  notProductText: {
+    ...title,
+    color: colors.white,
+  }
 });

@@ -14,7 +14,7 @@ export default PtoductItemImg = ({
 
   const definesPathPicture = () => {
     if (productImg) {
-      const linkImage = `${baseUrlImg}/${productImg.SUBDIR}/${productImg.FILE_NAME}`;
+      const linkImage = `${baseUrlImg}/upload/${productImg.SUBDIR}/${productImg.FILE_NAME}`;
       return { uri: linkImage };
     } else {
       setNotImage(true);

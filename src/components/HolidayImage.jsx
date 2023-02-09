@@ -16,7 +16,7 @@ export default HolidayImage = ({ picture, id, width }) => {
   const fetchImage = () => {
     if (!notImage) {
       // с перва пробуем загрузить картинку с сервера
-      return { uri: `${baseUrlImg}/${picture.SUBDIR}/${picture.FILE_NAME}` };
+      return { uri: `${baseUrlImg}/upload/${picture.SUBDIR}/${picture.FILE_NAME}` };
     } else {
       let source = null;
       // если не загрузилась картинка ищем ее в локальной папке

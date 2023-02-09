@@ -29,7 +29,7 @@ export default ImageProduct = ({ notImage: parentNotImage, productImg, nameScree
       };
     } else {
       if (productImg) {
-        const linkImage = `${baseUrlImg}/${productImg.SUBDIR}/${productImg.FILE_NAME}`;
+        const linkImage = `${baseUrlImg}/upload/${productImg.SUBDIR}/${productImg.FILE_NAME}`;
 
         // определяем размер картинки
         setSizeImage({ width: productImg.WIDTH, height: productImg.HEIGHT });
@@ -72,7 +72,7 @@ export default ImageProduct = ({ notImage: parentNotImage, productImg, nameScree
 
   const definesPathPicture = () => {
     if (productImg) {
-      const linkImage = `${baseUrlImg}/${productImg.SUBDIR}/${productImg.FILE_NAME}`;
+      const linkImage = `${baseUrlImg}/upload/${productImg.SUBDIR}/${productImg.FILE_NAME}`;
       return { uri: linkImage };
     } else {
       setNotImage(true);
