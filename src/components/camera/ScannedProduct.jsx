@@ -4,15 +4,17 @@ import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
-  Text,
 } from 'react-native';
 // import icons
 // import components
 import ScannedProductImg from 'components/camera/ScannedProductImg';
 import VendorCode from 'components/card_product/VendorCode';
+import Name from 'components/card_product/Name';
+import Warehouse from 'components/card_product/Warehouse';
+import Price from 'components/card_product/Price';
 // import vars
-import { fonts } from 'res/vars';
-import { text } from 'res/palette'
+// import { fonts } from 'res/vars';
+// import { text } from 'res/palette'
 
 export default ScannedProduct = ({ product }) => {
   return (
@@ -26,12 +28,20 @@ export default ScannedProduct = ({ product }) => {
           productImg={product.DETAIL_PICTURE}
         />
       </View>
-      <View style={styles.block}>
-        <Text style={styles.title}>{product.NAME}</Text>
+
+      <View style={styles.nameBlock}>
+        <Name name={product.NAME} />
       </View>
 
       <View style={styles.block}>
-        <Text style={styles.title}>{`${product.PRICE} ₽/${product.PROPERTYS.CML2_BASE_UNIT}.`}</Text>
+        <Warehouse store={product.STORE} />
+      </View>
+
+      <View style={styles.block}>
+        <Price
+          price={product.PRICE}
+          unit={product.PROPERTYS.CML2_BASE_UNIT}
+        />
       </View>
     </View>
   );
@@ -46,9 +56,8 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: 'tomato'
   },
-  title: {
-    ...text,
-    fontFamily: fonts.bold,
+  nameBlock: {
+    marginBottom: 15,
   }
 });
 

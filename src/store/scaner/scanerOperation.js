@@ -11,7 +11,7 @@ export const fetchBarcode = (code) => async (dispatch, getState) => {
     dispatch(loadingScaner(true));
     const { data } = await API.fetchBarcode(code);
 
-    if (data) {
+    if (data && typeof data === 'object') {
       dispatch(loadingScaner(false));
       dispatch(errorScaner(''));
       console.log("🚀 отсканированный товар", data)

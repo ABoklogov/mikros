@@ -6,6 +6,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Image
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { useCamera } from 'react-native-camera-hooks';
@@ -40,13 +41,14 @@ export default BarcodeScanScreen = () => {
     setBarcode(null);
   };
 
-  const barcodeRecognized = ({ data, type }) => {
-    console.log
+  const barcodeRecognized = (data) => {
+    // console.log("🚀 ~ barcodeRecognized ~ data", data)
+    // console.log("🚀 ~ barcodeRecognized ~ { data, type }", { data, type })
     if (barcode) {
       return
-    } else if (data) {
-      setBarcode({ data });
-      dispatch(fetchBarcode(data));
+    } else if (data.data) {
+      setBarcode(data.data);
+      dispatch(fetchBarcode(data.data));
     };
   };
 
@@ -79,9 +81,12 @@ export default BarcodeScanScreen = () => {
         flashMode={flash} // вспышка
         autoFocus={autoFocus} //автофокус
         onBarCodeRead={barcodeRecognized} // определяет штрих-код
+      // detectedImageInEvent={true}
+      // barCodeTypes={[RNCamera.Constants.BarCodeType.ean13]}
       >
         <View style={styles.preview}>
           <BackdropTop width={WIDTH} height={HEIGHT} />
+          {/* рамка штриш-кода или текст "ничего не найдено" */}
           {
             !scaner.error ? (
               <ViewBarcode width={WIDTH} height={HEIGHT} />
@@ -100,6 +105,7 @@ export default BarcodeScanScreen = () => {
         </MainModal>
       </RNCamera>
 
+      {/* кнопка вспышки или кновка "отсканировать еще" */}
       {
         !scaner.error ? (
           <TouchableOpacity
@@ -117,7 +123,7 @@ export default BarcodeScanScreen = () => {
           </View>
         )
       }
-    </View>
+    </View >
   );
 };
 
