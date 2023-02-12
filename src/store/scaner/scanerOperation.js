@@ -1,4 +1,5 @@
 import API from "services/utility-api";
+
 import {
   getScanerProduct,
   loadingScaner,
@@ -7,18 +8,19 @@ import {
 
 // сканирование штрих-кода
 export const fetchBarcode = (code) => async (dispatch, getState) => {
+  console.log("🚀 ~ fetchBarcode ~ code", code)
   try {
-    dispatch(loadingScaner(true));
-    const { data } = await API.fetchBarcode(code);
+    // dispatch(loadingScaner(true));
+    // const { data } = await API.fetchBarcode(code);
 
-    if (data && typeof data === 'object') {
-      dispatch(loadingScaner(false));
-      dispatch(errorScaner(''));
-      console.log("🚀 отсканированный товар", data)
-      dispatch(getScanerProduct(data));
-    } else {
-      throw new Error('Server Error!');
-    };
+    // if (data && typeof data === 'object') {
+    //   dispatch(loadingScaner(false));
+    //   dispatch(errorScaner(''));
+    //   console.log("🚀 отсканированный товар", data)
+    //   dispatch(getScanerProduct(data));
+    // } else {
+    //   throw new Error('Server Error!');
+    // };
   } catch (error) {
     dispatch(errorScaner(error.message));
     dispatch(loadingScaner(false));
