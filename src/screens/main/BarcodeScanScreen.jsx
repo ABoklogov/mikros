@@ -1,61 +1,214 @@
-import { useState, useEffect } from 'react';
-import { StyleSheet, Text } from 'react-native';
-import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
-import { DBRConfig, decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
-import * as REA from 'react-native-reanimated';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  StyleSheet,
+  Dimensions,
+  View,
+  Text,
+  TouchableOpacity,
+  Image
+} from 'react-native';
+import { RNCamera } from 'react-native-camera';
+import { useCamera } from 'react-native-camera-hooks';
+import { fetchBarcode } from 'store/scaner/scanerOperation';
+import { removeProduct } from 'store/scaner/scanerSlice';
+// import icons
+import FlashOnIcon from 'components/icons/flash/FlashOnIcon';
+import FlashOffIcon from 'components/icons/flash/FlashOffIcon';
+// import components
+import ViewBarcode from 'components/camera/ViewBarcode';
+import BackdropBottom from 'components/camera/BackdropBottom';
+import BackdropTop from 'components/camera/BackdropTop';
+import MainModal from 'components/shared/MainModal';
+import MainButton from 'components/shared/MainButton';
+import ScannedProduct from 'components/camera/ScannedProduct';
+// import vars
+import { colors, strings, mHorizontal } from 'res/vars';
+import { title } from 'res/palette';
 
-export default function BarcodeScanScreen() {
-  const [hasPermission, setHasPermission] = useState(false);
-  const [barcodeResults, setBarcodeResults] = useState([]);
-  // console.log("🚀 ~ BarcodeScanScreen ~ barcodeResults", barcodeResults)
-  const devices = useCameraDevices();
-  const device = devices.back;
-  const frameProcessor = useFrameProcessor((frame) => {
-    'worklet'
-    const config = {};
-    // config.template = "{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}"; //scan qrcode only
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
 
-    const results = decode(frame, config)
-    REA.runOnJS(setBarcodeResults)(results);
-  }, [])
+export default BarcodeScanScreen = () => {
+  const { scaner } = useSelector(state => state);
+  const dispatch = useDispatch();
+  const [{ cameraRef, autoFocus }] = useCamera(null);
+  const [flash, setFlash] = useState(RNCamera.Constants.FlashMode.off);
+  const [barcode, setBarcode] = useState(null);
+  const [text, setText] = useState(null);
+  const [scanText, setScanText] = useState(false);
 
-  useEffect(() => {
-    (async () => {
-      const status = await Camera.requestCameraPermission();
-      setHasPermission(status === 'authorized');
-    })();
-  }, []);
+  console.log("🚀 ~ barcode", barcode)
+  console.log("🚀 ~ text", text)
+  console.log("🚀 ~ scanText", scanText)
+
+  const widthView = WIDTH / 1.12;
+  const heightView = HEIGHT / 3.8;
+  console.log("🚀 ~ WIDTH", WIDTH)
+  console.log("🚀 ~ widthView", widthView)
+
+  const removeModal = () => {
+    dispatch(removeProduct());
+    setBarcode(null);
+    setScanText(false);
+  };
+
+  const barcodeRecognized = (data) => {
+    // console.log("🚀 ~ barcodeRecognized ~ data", data)
+    if (barcode) {
+      return
+    } else if (data) {
+      if (data.bounds.origin.length > 2) {
+        setScanText(true);
+        setBarcode(data.data);
+      } else {
+        setBarcode(data.data);
+        dispatch(fetchBarcode(data.data));
+      };
+    };
+  };
+
+  const textRecognized = (data) => {
+    if (text) {
+      return
+    } else if (data) {
+      setText(data)
+      console.log("🚀 ~ textRecognized ~ data", data)
+    }
+  };
+
+  const toggleFlash = () => {
+    switch (flash) {
+      case 0:
+        setFlash(RNCamera.Constants.FlashMode.torch);
+        break;
+      case 2:
+        setFlash(RNCamera.Constants.FlashMode.off);
+        break;
+      default:
+        break;
+    };
+  };
 
   return (
-    device != null &&
-    hasPermission && (
-      <>
-        <Camera
-          style={StyleSheet.absoluteFill}
-          device={device}
-          isActive={true}
-          frameProcessor={frameProcessor}
-          frameProcessorFps={5}
-        />
-        {barcodeResults.map((barcode, idx) => (
-          <Text key={idx} style={styles.barcodeText}>
-            {barcode.barcodeFormat + ": " + barcode.barcodeText}
-          </Text>
-        ))}
-      </>
-    )
+    <View style={styles.container}>
+      <RNCamera
+        style={styles.preview}
+        ref={cameraRef}
+        type={RNCamera.Constants.Type.back} // тип камеры
+        captureAudio={false} // не запрашивать разрешение на микрофон
+        androidCameraPermissionOptions={{
+          title: 'Разрешение на использование камеры',
+          message: 'Нам нужно ваше разрешение на использование вашей камеры',
+          buttonPositive: 'Да',
+          buttonNegative: 'Отмена',
+        }} // разрешение камеры
+        flashMode={flash} // вспышка
+        autoFocus={autoFocus} //автофокус
+        onBarCodeRead={barcodeRecognized} // определяет штрих-код
+        onTextRecognized={!scanText ? null : textRecognized} // определяет текст
+        detectedImageInEvent={true} // получаем изображение
+        rectOfInterest={{ x: 0.25, y: 0.25, width: 1.12, height: 3.8 }}
+        cameraViewDimensions={{ width: WIDTH, height: HEIGHT }}
+      // barCodeTypes={[RNCamera.Constants.BarCodeType.interleaved2of5]}
+      >
+        <View style={styles.preview}>
+          <BackdropTop width={WIDTH} height={HEIGHT} />
+
+          {/* <Image
+            style={styles.img}
+            source={{ uri: `data:image/jpeg;base64,${barcode?.image}` }} /> */}
+
+          {/* рамка штриш-кода или текст "ничего не найдено" */}
+          {
+            !scaner.error ? (
+              <ViewBarcode
+                width={widthView}
+                height={heightView}
+                barcode={barcode ? true : false}
+              />
+            ) : (
+              <Text style={styles.notProductText}>{strings.textNotProductScan}</Text>
+            )
+          }
+          <BackdropBottom width={WIDTH} height={HEIGHT} />
+        </View>
+
+        <MainModal
+          modalVisible={scaner.product ? true : false}
+          removeModal={removeModal}
+        >
+          {scaner.product && <ScannedProduct product={scaner.product} />}
+        </MainModal>
+      </RNCamera>
+
+      {/* кнопка вспышки или кновка "отсканировать еще" */}
+      {
+        !scaner.error ? (
+          <TouchableOpacity
+            onPress={toggleFlash}
+            style={styles.btnFlash}
+          >
+            {flash === RNCamera.Constants.FlashMode.off ? <FlashOffIcon /> : <FlashOnIcon />}
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.btnScan}>
+            <MainButton
+              text={strings.textBtnReturnScan}
+              onPress={removeModal}
+            />
+          </View>
+        )
+      }
+    </View >
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    position: 'relative',
+    backgroundColor: 'black',
+  },
+  preview: {
+    // justifyContent: 'space-between',
     alignItems: 'center',
+    height: HEIGHT,
+    width: WIDTH,
+  },
+  // img: {
+  //   position: 'absolute',
+  //   zIndex: 5,
+  //   top: 0,
+  //   left: 100,
+  //   width: 200,
+  //   height: 200
+  // },
+  btnFlash: {
+    position: 'absolute',
+    zIndex: 5,
+    bottom: 70,
+    right: '50%',
+    transform: [
+      { translateX: 35 },
+      { translateY: 0 },
+    ],
+    backgroundColor: colors.backgroundGrey,
+    borderRadius: 50,
+    width: 70,
+    height: 70,
+    marginBottom: 20,
     justifyContent: 'center',
+    alignItems: 'center',
   },
-  barcodeText: {
-    fontSize: 20,
-    color: 'white',
-    fontWeight: 'bold',
+  btnScan: {
+    position: 'absolute',
+    zIndex: 5,
+    bottom: 100,
+    marginHorizontal: mHorizontal.baseBlock,
+    width: WIDTH - 30,
   },
+  notProductText: {
+    ...title,
+    color: colors.white,
+  }
 });
