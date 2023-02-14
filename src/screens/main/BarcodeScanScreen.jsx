@@ -34,47 +34,57 @@ export default BarcodeScanScreen = () => {
   const dispatch = useDispatch();
   const [{ cameraRef, autoFocus }] = useCamera(null);
   const [flash, setFlash] = useState(RNCamera.Constants.FlashMode.off);
-  const [barcode, setBarcode] = useState(null);
-  const [text, setText] = useState(null);
   const [scanText, setScanText] = useState(false);
+  const [barcode, setBarcode] = useState(null);
+  const [totalCode, setTotalCode] = useState(null);
 
-  console.log("🚀 ~ barcode", barcode)
-  console.log("🚀 ~ text", text)
-  console.log("🚀 ~ scanText", scanText)
+  // console.log("🚀 ~ barcode", barcode)
+  console.log("🚀 ~ totalCode", totalCode)
+  // console.log("🚀 ~ scanText", scanText)
 
   const widthView = WIDTH / 1.12;
   const heightView = HEIGHT / 3.8;
-  console.log("🚀 ~ WIDTH", WIDTH)
-  console.log("🚀 ~ widthView", widthView)
+  // console.log("🚀 ~ WIDTH", WIDTH)
+  // console.log("🚀 ~ widthView", widthView)
 
   const removeModal = () => {
     dispatch(removeProduct());
     setBarcode(null);
     setScanText(false);
+    setTotalCode(null);
   };
 
   const barcodeRecognized = (data) => {
-    // console.log("🚀 ~ barcodeRecognized ~ data", data)
     if (barcode) {
       return
     } else if (data) {
       if (data.bounds.origin.length > 2) {
         setScanText(true);
-        setBarcode(data.data);
+        setBarcode(data);
       } else {
-        setBarcode(data.data);
-        dispatch(fetchBarcode(data.data));
+        setBarcode(data);
+        setTotalCode(data.data);
+        dispatch(fetchBarcode(totalCode));
       };
     };
   };
 
   const textRecognized = (data) => {
-    if (text) {
+    console.log("🚀 сканирование текста")
+    if (totalCode) {
       return
-    } else if (data) {
-      setText(data)
-      console.log("🚀 ~ textRecognized ~ data", data)
-    }
+    } else if (data.textBlocks.length > 0) {
+      data.textBlocks.forEach(el => {
+        const notSpace = el.value.split(' ').join('');
+        const re = /^[0-9]+$/;
+
+        if (re.test(notSpace) && notSpace.length === 5) {
+          // console.log('notSpace', notSpace);
+          setTotalCode(`${barcode.data}${notSpace}`);
+          dispatch(fetchBarcode(totalCode));
+        };
+      });
+    };
   };
 
   const toggleFlash = () => {
@@ -108,8 +118,8 @@ export default BarcodeScanScreen = () => {
         onBarCodeRead={barcodeRecognized} // определяет штрих-код
         onTextRecognized={!scanText ? null : textRecognized} // определяет текст
         detectedImageInEvent={true} // получаем изображение
-        rectOfInterest={{ x: 0.25, y: 0.25, width: 1.12, height: 3.8 }}
-        cameraViewDimensions={{ width: WIDTH, height: HEIGHT }}
+      // rectOfInterest={{ x: 0, y: 0, width: 1, height: 1 }}
+      // cameraViewDimensions={{ width: WIDTH, height: HEIGHT }}
       // barCodeTypes={[RNCamera.Constants.BarCodeType.interleaved2of5]}
       >
         <View style={styles.preview}>
@@ -125,7 +135,7 @@ export default BarcodeScanScreen = () => {
               <ViewBarcode
                 width={widthView}
                 height={heightView}
-                barcode={barcode ? true : false}
+                barcode={totalCode ? true : false}
               />
             ) : (
               <Text style={styles.notProductText}>{strings.textNotProductScan}</Text>
@@ -160,7 +170,7 @@ export default BarcodeScanScreen = () => {
           </View>
         )
       }
-    </View >
+    </View>
   );
 };
 
@@ -170,19 +180,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   preview: {
-    // justifyContent: 'space-between',
+    justifyContent: 'space-between',
     alignItems: 'center',
     height: HEIGHT,
     width: WIDTH,
   },
-  // img: {
-  //   position: 'absolute',
-  //   zIndex: 5,
-  //   top: 0,
-  //   left: 100,
-  //   width: 200,
-  //   height: 200
-  // },
+  img: {
+    position: 'absolute',
+    zIndex: 5,
+    top: 0,
+    left: 100,
+    width: 200,
+    height: 200
+  },
   btnFlash: {
     position: 'absolute',
     zIndex: 5,
