@@ -24,6 +24,7 @@
     "react-native": "0.70.6",
     "react-native-camera": "^4.2.1",
     "react-native-camera-hooks": "^0.5.3",
+    "react-native-camera-kit": "^13.0.0",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-mask-input": "^1.2.2",
