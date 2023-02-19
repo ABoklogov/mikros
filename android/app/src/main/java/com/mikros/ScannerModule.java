@@ -7,6 +7,8 @@ import com.facebook.react.bridge.ReactMethod;
 import java.util.Map;
 import java.util.HashMap;
 import android.util.Log;
+import com.facebook.react.bridge.Callback;
+// import com.facebook.react.bridge.Promise;
 
 public class ScannerModule extends ReactContextBaseJavaModule {
   ScannerModule(ReactApplicationContext context) {
@@ -19,14 +21,21 @@ public class ScannerModule extends ReactContextBaseJavaModule {
   }
   
   @ReactMethod
-  public void fetchBarcode(String image, Promise promise) {
-    Log.d("ScannerModule", "Картинка штри-кода" + image);
+  public void fetchBarcode(String image, Callback callBack) {
+    Log.d("ScannerModule", "------------ Картинка штрих-кода" + image);
 
-    try {
-      Integer code = '123456789'
-      promise.resolve(code);
-    } catch(Exception e) {
-      promise.reject("fetchBarcode error", e);
-    }
+    String code = "777777777777777";
+    callBack.invoke(code);
   }
+  // @ReactMethod
+  // public void fetchBarcode(String image, Promise promise) {
+  //   Log.d("ScannerModule", "Картинка штри-кода" + image);
+
+  //   try {
+  //     String code = "123456789";
+  //     promise.resolve(code);
+  //   } catch(Exception e) {
+  //     promise.reject("fetchBarcode error", e);
+  //   }
+  // }
 }

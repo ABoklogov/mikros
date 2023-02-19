@@ -31,6 +31,8 @@ import { title } from 'res/palette';
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
+const { ScannerModule } = NativeModules;
+
 export default BarcodeScanScreen = () => {
   const { scaner } = useSelector(state => state);
   const dispatch = useDispatch();
@@ -40,7 +42,7 @@ export default BarcodeScanScreen = () => {
   const [barcode, setBarcode] = useState(null);
   const [totalCode, setTotalCode] = useState(null);
 
-  // console.log("🚀 ~ barcode", barcode)
+  console.log("🚀 ~ barcode", barcode)
   // console.log("🚀 ~ totalCode", totalCode)
   // console.log("🚀 ~ scanText", scanText)
 
@@ -52,7 +54,6 @@ export default BarcodeScanScreen = () => {
   const removeModal = () => {
     dispatch(removeProduct());
     setBarcode(null);
-    setScanText(false);
     setTotalCode(null);
   };
 
@@ -61,18 +62,29 @@ export default BarcodeScanScreen = () => {
       return
     } else if (data) {
       if (data.bounds.origin.length > 2) {
-        (async () => {
-          try {
+        console.log(111);
+        ScannerModule.fetchBarcode(
+          data.image,
+          code => {
             setBarcode(data);
-            const { longBarcode } = await ScannerModule.fetchBarcode(data.image);
-            console.log("🚀 ~ barcodeRecognized ~ longBarcode", longBarcode);
+            console.log("🚀 ~ barcodeRecognized ~ code", code);
+            setTotalCode(code);
+          },
+        );
 
-            setTotalCode(longBarcode);
-          } catch (e) {
-            console.error(e);
-          };
-        })();
+        // (async () => {
+        //   try {
+        //     setBarcode(data);
+        //     const { longBarcode } = await ScannerModule.fetchBarcode(data.image);
+        //     console.log("🚀 ~ barcodeRecognized ~ longBarcode", longBarcode);
+
+        //     setTotalCode(longBarcode);
+        //   } catch (e) {
+        //     console.error(e);
+        //   };
+        // })();
       } else {
+        console.log(222);
         setBarcode(data);
         setTotalCode(data.data);
         dispatch(fetchBarcode(totalCode));
