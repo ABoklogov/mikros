@@ -34,10 +34,7 @@
         "react-native-shadow-2": "^7.0.6",
         "react-native-svg": "^13.6.0",
         "react-native-swiper-flatlist": "^3.0.18",
-        "react-native-vision-camera": "^2.14.1",
-        "react-redux": "^8.0.5",
-        "vision-camera-code-scanner": "^0.2.0",
-        "vision-camera-dynamsoft-barcode-reader": "^0.6.0"
+        "react-redux": "^8.0.5"
     },
     "devDependencies": {
         "@babel/core": "^7.12.9",
