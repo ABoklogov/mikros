@@ -8,8 +8,9 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  NativeModules
+  // NativeModules
 } from 'react-native';
+import Quagga from "quagga";
 import { RNCamera } from 'react-native-camera';
 import { useCamera } from 'react-native-camera-hooks';
 import { fetchBarcode } from 'store/scaner/scanerOperation';
@@ -31,7 +32,8 @@ import { title } from 'res/palette';
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
-const { ScannerModule } = NativeModules;
+const image = require('assets/images/7.jpg')
+// const { ScannerModule } = NativeModules;
 
 export default BarcodeScanScreen = () => {
   const { scaner } = useSelector(state => state);
@@ -61,34 +63,38 @@ export default BarcodeScanScreen = () => {
     if (barcode) {
       return
     } else if (data) {
-      if (data.bounds.origin.length > 2) {
-        console.log(111);
-        ScannerModule.fetchBarcode(
-          data.image,
-          code => {
-            setBarcode(data);
-            console.log("🚀 ~ barcodeRecognized ~ code", code);
-            setTotalCode(code);
-          },
-        );
+      console.log("🚀 ~ barcodeRecognized ~ data:", data)
+      // if (data.bounds.origin.length > 2) {
+      //   console.log(111);
+      //   setBarcode(data);
+      //   setTotalCode(data.data);
+      //   dispatch(fetchBarcode(totalCode));
+      // ScannerModule.fetchBarcode(
+      //   data.image,
+      //   code => {
+      //     setBarcode(data);
+      //     console.log("🚀 ~ barcodeRecognized ~ code", code);
+      //     setTotalCode(code);
+      //   },
+      // );
 
-        // (async () => {
-        //   try {
-        //     setBarcode(data);
-        //     const { longBarcode } = await ScannerModule.fetchBarcode(data.image);
-        //     console.log("🚀 ~ barcodeRecognized ~ longBarcode", longBarcode);
+      // (async () => {
+      //   try {
+      //     setBarcode(data);
+      //     const { longBarcode } = await ScannerModule.fetchBarcode(data.image);
+      //     console.log("🚀 ~ barcodeRecognized ~ longBarcode", longBarcode);
 
-        //     setTotalCode(longBarcode);
-        //   } catch (e) {
-        //     console.error(e);
-        //   };
-        // })();
-      } else {
-        console.log(222);
-        setBarcode(data);
-        setTotalCode(data.data);
-        dispatch(fetchBarcode(totalCode));
-      };
+      //     setTotalCode(longBarcode);
+      //   } catch (e) {
+      //     console.error(e);
+      //   };
+      // })();
+      // } else {
+      //   console.log(222);
+      //   setBarcode(data);
+      //   setTotalCode(data.data);
+      //   dispatch(fetchBarcode(totalCode));
+      // };
     };
   };
 
@@ -139,8 +145,8 @@ export default BarcodeScanScreen = () => {
         flashMode={flash} // вспышка
         autoFocus={autoFocus} //автофокус
         onBarCodeRead={barcodeRecognized} // определяет штрих-код
-        // onTextRecognized={!scanText ? null : textRecognized} // определяет текст
-        detectedImageInEvent={true} // получаем изображение
+      // onTextRecognized={!scanText ? null : textRecognized} // определяет текст
+      // detectedImageInEvent={true} // получаем изображение
       // rectOfInterest={{ x: 0, y: 0, width: 1, height: 1 }}
       // cameraViewDimensions={{ width: WIDTH, height: HEIGHT }}
       // barCodeTypes={[RNCamera.Constants.BarCodeType.interleaved2of5]}
