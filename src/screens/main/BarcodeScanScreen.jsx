@@ -9,6 +9,7 @@ import {
   Image
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import BarcodeMask, { LayoutChangeEvent } from 'react-native-barcode-mask';
 import { useCamera } from 'react-native-camera-hooks';
 import { fetchBarcode } from 'store/scaner/scanerOperation';
 import { removeProduct } from 'store/scaner/scanerSlice';
@@ -100,6 +101,10 @@ export default BarcodeScanScreen = () => {
     };
   };
 
+  const onLayoutMeasuredHandler = (e) => {
+    alert(JSON.stringify(e));
+  };
+
   return (
     <View style={styles.container}>
       <RNCamera
@@ -118,19 +123,33 @@ export default BarcodeScanScreen = () => {
         onBarCodeRead={barcodeRecognized} // определяет штрих-код
         onTextRecognized={!scanText ? null : textRecognized} // определяет текст
         detectedImageInEvent={true} // получаем изображение
-      // rectOfInterest={{ x: 0, y: 0, width: 1, height: 1 }}
+      // rectOfInterest={{ x: 0.25, y: 0.5, width: 300, height: 100 }}
       // cameraViewDimensions={{ width: WIDTH, height: HEIGHT }}
       // barCodeTypes={[RNCamera.Constants.BarCodeType.interleaved2of5]}
       >
-        <View style={styles.preview}>
-          <BackdropTop width={WIDTH} height={HEIGHT} />
+        {
+          !scaner.error ? (
+            <BarcodeMask
+              width={300}
+              height={100}
+              onLayoutMeasured={onLayoutMeasuredHandler}
+            />
 
-          {/* <Image
+          ) : (
+            <Text style={styles.notProductText}>{strings.textNotProductScan}</Text>
+          )
+        }
+
+
+        {/* <View style={styles.preview}>
+          <BackdropTop width={WIDTH} height={HEIGHT} /> */}
+
+        {/* <Image
             style={styles.img}
             source={{ uri: `data:image/jpeg;base64,${barcode?.image}` }} /> */}
 
-          {/* рамка штриш-кода или текст "ничего не найдено" */}
-          {
+        {/* рамка штриш-кода или текст "ничего не найдено" */}
+        {/* {
             !scaner.error ? (
               <ViewBarcode
                 width={widthView}
@@ -142,7 +161,7 @@ export default BarcodeScanScreen = () => {
             )
           }
           <BackdropBottom width={WIDTH} height={HEIGHT} />
-        </View>
+        </View> */}
 
         <MainModal
           modalVisible={scaner.product ? true : false}
