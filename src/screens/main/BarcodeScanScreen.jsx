@@ -1,4 +1,4 @@
-// import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
 import {
   StyleSheet,
@@ -18,7 +18,13 @@ import {
 const { ScannerModule } = NativeModules;
 
 export default BarcodeScanScreen = () => {
+    const onBarcodeRead = (event) => {
+        console.log(event)
+    };
 
+    useEffect(() => {
+        ScannerModule.openScanner(true, null, onBarcodeRead);
+    }, []);
   return (
     <View style={styles.container}>
 
