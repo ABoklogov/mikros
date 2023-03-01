@@ -3,6 +3,10 @@ apply plugin: "com.android.application"
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
 
+task prepareKotlinBuildScriptModel {
+
+}
+
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
@@ -288,6 +292,9 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+    //todo: выбрать рабочий сканер
+    implementation "com.google.zxing:core:3.3.0"
+    implementation "com.budiyev.android:code-scanner:2.1.0"
 }
 
 if (isNewArchitectureEnabled()) {
