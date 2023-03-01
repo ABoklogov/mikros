@@ -1,41 +1,122 @@
-package com.mikros; // replace com.your-app-name with your app’s name
-import com.facebook.react.bridge.NativeModule;
+package com.mikros;
+
+import android.app.Activity;
+import android.content.Intent;
+import androidx.annotation.NonNull;
+import android.util.Log;
+
+import com.facebook.react.bridge.ActivityEventListener;
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import java.util.Map;
-import java.util.HashMap;
-import android.util.Log;
-import com.facebook.react.bridge.Callback;
-// import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.ReadableArray;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
-public class ScannerModule extends ReactContextBaseJavaModule {
-  ScannerModule(ReactApplicationContext context) {
-    super(context);
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class ScannerModule extends ReactContextBaseJavaModule implements ActivityEventListener {
+
+  private final ReactApplicationContext mReactContext;
+  private Callback mCallback;
+
+  public ScannerModule(ReactApplicationContext reactContext) {
+    super(reactContext);
+    mReactContext = reactContext;
   }
 
   @Override
   public String getName() {
     return "ScannerModule";
   }
-  
+
   @ReactMethod
-  public void fetchBarcode(String image, Callback callBack) {
-    Log.d("ScannerModule", "------------ Картинка штрих-кода" + image);
+  void openScanner(boolean isBeepEnable,
+                   String prompt,
+                   Callback callback) {
+    mCallback = callback;
+    Activity activity = getCurrentActivity();
 
-    String code = "777777777777777";
-    callBack.invoke(code);
+    if (activity != null) {
+      new IntentIntegrator(activity)
+              .setPrompt(prompt == null ? "" : prompt)
+              .setBeepEnabled(isBeepEnable)
+              .initiateScan();
+      mReactContext.addActivityEventListener(this);
+    }
   }
-  // @ReactMethod
-  // public void fetchBarcode(String image, Promise promise) {
-  //   Log.d("ScannerModule", "Картинка штри-кода" + image);
 
-  //   try {
-  //     String code = "123456789";
-  //     promise.resolve(code);
-  //   } catch(Exception e) {
-  //     promise.reject("fetchBarcode error", e);
-  //   }
-  // }
+  @ReactMethod
+  void openCustomScanner(boolean isBeepEnable,
+                         boolean isOrientationLocked,
+                         ReadableArray barcodeTypes,
+                         Callback callback) {
+    mCallback = callback;
+    Activity activity = getCurrentActivity();
+
+    List<String> types = getBarcodesTypes(barcodeTypes);
+
+    if (activity != null) {
+      IntentIntegrator intentIntegrator = new IntentIntegrator(activity);
+      intentIntegrator
+              .setBeepEnabled(isBeepEnable)
+              .setDesiredBarcodeFormats(types)
+              .setOrientationLocked(isOrientationLocked)
+              .setCaptureActivity(ScannerActivity.class)
+              .initiateScan();
+      mReactContext.addActivityEventListener(this);
+    }
+  }
+
+  @ReactMethod
+  void openScannerWithPhoto(boolean isBeepEnable,
+                            String prompt,
+                            ReadableArray barcodeTypes,
+                            Callback callback) {
+    mCallback = callback;
+    Activity activity = getCurrentActivity();
+    List<String> types = getBarcodesTypes(barcodeTypes);
+
+    if (activity != null) {
+      new IntentIntegrator(activity)
+              .setPrompt(prompt == null ? "" : prompt)
+              .setBeepEnabled(isBeepEnable)
+              .setDesiredBarcodeFormats(types)
+              .setBarcodeImageEnabled(true)
+              .initiateScan();
+      mReactContext.addActivityEventListener(this);
+    }
+  }
+
+
+  private List<String> getBarcodesTypes(ReadableArray barcodeTypes) {
+    if (barcodeTypes == null) {
+      return null;
+    }
+
+    ArrayList<Object> objects = barcodeTypes.toArrayList();
+
+    List<String> types = new ArrayList<>();
+
+    for (Object type: objects) {
+      types.add((String) type);
+    }
+    return types;
+  }
+
+  @Override
+  public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+    IntentResult result = IntentIntegrator.parseActivityResult(resultCode, data);
+    mCallback.invoke(result.getContents(), result.getBarcodeImagePath());
+
+    // Remove the listener since we are removing this activity.
+    mReactContext.removeActivityEventListener(this);
+  }
+
+  @Override
+  public void onNewIntent(Intent intent) {}
 }
