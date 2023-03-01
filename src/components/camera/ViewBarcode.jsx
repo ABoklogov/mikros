@@ -3,21 +3,45 @@ import PropTypes from 'prop-types';
 // import vars
 import { colors, radius } from 'res/vars';
 
-export default ViewBarcode = ({ width, height }) => {
+export default ViewBarcode = ({ width, height, barcode }) => {
+  const colorBorder = barcode ? colors.blue : colors.grey;
   return (
     <View style={{
       ...styles.viewBarcode,
-      width: width - 40,
-      height: height / 3.8
+      width: width,
+      height: height
     }}>
       <View style={styles.subView}>
-        <View style={[styles.cornerView, styles.topLeft]}></View>
-        <View style={[styles.cornerView, styles.topRight]}></View>
+        <View style={{
+          ...styles.cornerView,
+          ...styles.topLeft,
+          borderLeftColor: colorBorder,
+          borderTopColor: colorBorder,
+        }}></View>
+        <View style={{
+          ...styles.cornerView,
+          ...styles.topRight,
+          borderRightColor: colorBorder,
+          borderTopColor: colorBorder,
+        }}></View>
       </View>
-      <View style={styles.centerLine}></View>
-      <View style={{ ...styles.subView, width: width - 40 }}>
-        <View style={[styles.cornerView, styles.bottomLeft]}></View>
-        <View style={[styles.cornerView, styles.bottomRight]}></View>
+      <View style={{
+        ...styles.centerLine,
+        borderColor: colorBorder
+      }}></View>
+      <View style={{ ...styles.subView, width: width }}>
+        <View style={{
+          ...styles.cornerView,
+          ...styles.bottomLeft,
+          borderLeftColor: colorBorder,
+          borderBottomColor: colorBorder,
+        }}></View>
+        <View style={{
+          ...styles.cornerView,
+          ...styles.bottomRight,
+          borderRightColor: colorBorder,
+          borderBottomColor: colorBorder,
+        }}></View>
       </View>
     </View>
   );
@@ -37,39 +61,31 @@ const styles = StyleSheet.create({
   },
   topLeft: {
     borderLeftWidth: 3,
-    borderLeftColor: colors.grey,
     borderTopWidth: 3,
-    borderTopColor: colors.grey,
     borderTopLeftRadius: radius.block
   },
   topRight: {
     borderRightWidth: 3,
-    borderRightColor: colors.grey,
     borderTopWidth: 3,
-    borderTopColor: colors.grey,
     borderTopRightRadius: radius.block
   },
   bottomLeft: {
     borderLeftWidth: 3,
-    borderLeftColor: colors.grey,
     borderBottomWidth: 3,
-    borderBottomColor: colors.grey,
     borderBottomLeftRadius: radius.block
   },
   bottomRight: {
     borderRightWidth: 3,
-    borderRightColor: colors.grey,
     borderBottomWidth: 3,
-    borderBottomColor: colors.grey,
     borderBottomRightRadius: radius.block
   },
   centerLine: {
-    borderColor: colors.grey,
-    borderWidth: 1.5,
+    borderWidth: 1,
   }
 });
 
 ViewBarcode.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
+  barcode: PropTypes.bool,
 };

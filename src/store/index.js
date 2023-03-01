@@ -7,6 +7,7 @@ import { holidaysSlice } from './holidays/holidaysSlice';
 import { ordersSlice } from './orders/ordersSlice';
 import { saleSlice } from './sale/saleSlice';
 import { basketSlice } from './basket/basketSlice';
+import { scanerSlice } from './scaner/scanerSlice';
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     [saleSlice.name]: saleSlice.reducer,
     [ordersSlice.name]: ordersSlice.reducer,
     [basketSlice.name]: basketSlice.reducer,
+    [scanerSlice.name]: scanerSlice.reducer,
   },
 });

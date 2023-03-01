@@ -83,7 +83,7 @@ export default BannersSwiper = () => {
                 <Image
                   resizeMode='stretch'
                   style={{ ...styles.wrap, ...calcSizeImage(sizeImage) }}
-                  source={{ uri: `${baseUrlImg}/${item.picture.SUBDIR}/${item.picture.FILE_NAME}` }}
+                  source={{ uri: `${baseUrlImg}/upload/${item.picture.SUBDIR}/${item.picture.FILE_NAME}` }}
                   onLoad={({ nativeEvent: { source: { width, height } } }) => setSizeImage({ width, height })}
                 />
               </TouchableOpacity>

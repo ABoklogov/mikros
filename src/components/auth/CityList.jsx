@@ -1,6 +1,7 @@
 import {
   StyleSheet,
   View,
+  ScrollView,
   Text,
   TouchableOpacity
 } from 'react-native';
@@ -12,19 +13,21 @@ export default CityList = ({ listCity, selectCity }) => {
   return (
     listCity.length > 0 &&
     <View style={styles.cityList}>
-      {
-        listCity.map(item => (
-          <TouchableOpacity
-            key={item.value}
-            activeOpacity={0.8}
-            onPress={() => selectCity(item.data.city)}
-          >
-            <Text style={styles.cityItem}>
-              {item.data.city}
-            </Text>
-          </TouchableOpacity>
-        ))
-      }
+      <ScrollView>
+        {
+          listCity.map(item => (
+            <TouchableOpacity
+              key={item.value}
+              activeOpacity={0.8}
+              onPress={() => selectCity(item.data.city)}
+            >
+              <Text style={styles.cityItem}>
+                {item.data.city}
+              </Text>
+            </TouchableOpacity>
+          ))
+        }
+      </ScrollView>
     </View>
   );
 };
@@ -36,6 +39,7 @@ const styles = StyleSheet.create({
     top: '100%',
     backgroundColor: colors.white,
     width: '100%',
+    maxHeight: 170,
     padding: 5,
     borderWidth: 2,
     borderColor: colors.blue,
