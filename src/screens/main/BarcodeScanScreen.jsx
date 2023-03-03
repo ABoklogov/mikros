@@ -22,8 +22,12 @@ export default BarcodeScanScreen = () => {
         console.log(event)
     };
 
+var barcodeTypes = [
+    'QR_CODE',
+    'EAN_13'
+]
     useEffect(() => {
-        ScannerModule.openScanner(true, null, onBarcodeRead);
+        ScannerModule.openCustomScanner(false, false, barcodeTypes, onBarcodeRead);
     }, []);
   return (
     <View style={styles.container}>

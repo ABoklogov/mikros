@@ -3,7 +3,6 @@ package com.mikros;
 import android.app.Activity;
 import android.content.Intent;
 
-import androidx.annotation.NonNull;
 
 import android.util.Log;
 
@@ -17,8 +16,6 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -112,13 +109,13 @@ public class ScannerModule extends ReactContextBaseJavaModule implements Activit
 
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+        Log.d("LogTrack", "result = " + resultCode);
         IntentResult result = IntentIntegrator.parseActivityResult(resultCode, data);
         mCallback.invoke(result.getContents(), result.getBarcodeImagePath());
 
         // Remove the listener since we are removing this activity.
         mReactContext.removeActivityEventListener(this);
     }
-
 
     @Override
     public void onNewIntent(Intent intent) {
