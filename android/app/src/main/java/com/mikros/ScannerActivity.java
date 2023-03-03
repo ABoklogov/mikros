@@ -1,21 +1,26 @@
 package com.mikros;
 
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
+
 import android.widget.ImageButton;
+import android.util.Log;
 
 import com.facebook.react.ReactActivity;
+import com.google.zxing.ResultPoint;
+import com.journeyapps.barcodescanner.BarcodeCallback;
+import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.journeyapps.barcodescanner.ViewfinderView;
 
-import java.util.Random;
+import java.util.List;
 
-public class ScannerActivity extends ReactActivity implements DecoratedBarcodeView.TorchListener {
+
+public class ScannerActivity extends ReactActivity implements DecoratedBarcodeView.TorchListener, BarcodeCallback {
     private CaptureManager capture;
     private DecoratedBarcodeView barcodeScannerView;
     private ImageButton switchFlashlightButton;
@@ -74,6 +79,7 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
 
     /**
      * Check if the device's camera has a Flashlight.
+     *
      * @return true if there is Flashlight, otherwise false.
      */
     private boolean hasFlash() {
@@ -99,5 +105,19 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
     public void onTorchOff() {
         switchFlashlightButton.setBackground(getResources().getDrawable(R.drawable.ic_flash_on));
         isFlashOn = false;
+    }
+
+    @Override
+    public void barcodeResult(BarcodeResult result) {
+        Log.d("LogTrack", "barcodeResult");
+        if (result != null) {
+            Log.d("LogTrack", "result = " + result.getResult().toString());
+            Log.d("LogTrack", "result = " + result.getResultMetadata().toString());
+        }
+    }
+
+    @Override
+    public void possibleResultPoints(List<ResultPoint> resultPoints) {
+
     }
 }

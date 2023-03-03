@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.journeyapps.barcodescanner.DecoratedBarcodeView
-        android:id="@+id/zxing_barcode_scanner"
+    <com.journeyapps.barcodescanner.BarcodeView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:zxing_scanner_layout="@layout/custom_barcode_scanner" />
+        android:id="@+id/zxing_barcode_surface"
+        app:zxing_framing_rect_width="250dp"
+        app:zxing_framing_rect_height="50dp"/>
 
-    <ImageButton
-        android:id="@+id/switch_flashlight"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="25dp"
-        android:background="@drawable/ic_flash_on"
-        android:onClick="switchFlashlight" />
+    <com.journeyapps.barcodescanner.ViewfinderView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/zxing_viewfinder_view"
+        app:zxing_possible_result_points="@color/zxing_custom_possible_result_points"
+        app:zxing_result_view="@color/zxing_custom_result_view"
+        app:zxing_viewfinder_laser="@color/zxing_custom_viewfinder_laser"
+        app:zxing_viewfinder_mask="@color/zxing_custom_viewfinder_mask"/>
 
-</RelativeLayout>
+</merge>
