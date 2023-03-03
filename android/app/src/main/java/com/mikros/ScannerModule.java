@@ -109,7 +109,6 @@ public class ScannerModule extends ReactContextBaseJavaModule implements Activit
 
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-        Log.d("LogTrack", "result = " + resultCode);
         IntentResult result = IntentIntegrator.parseActivityResult(resultCode, data);
         mCallback.invoke(result.getContents(), result.getBarcodeImagePath());
 

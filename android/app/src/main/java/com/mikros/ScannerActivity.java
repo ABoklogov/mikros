@@ -38,8 +38,6 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_scanner);
 
-        startScanning();
-
         barcodeScannerView = findViewById(R.id.zxing_barcode_scanner);
         barcodeScannerView.setTorchListener(this);
 
@@ -50,7 +48,6 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
         if (!hasFlash()) {
             switchFlashlightButton.setVisibility(View.GONE);
         }
-
 
         capture = new CaptureManager(this, barcodeScannerView);
         capture.initializeFromIntent(getIntent(), savedInstanceState);
@@ -63,6 +60,9 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
                 if (result != null) {
                     Log.d("LogTrack", "result = " + result.getResult().toString());
                     Log.d("LogTrack", "result = " + result.getResultMetadata().toString());
+
+                    Toast.makeText(getApplication(), result.getResult().toString() + " " + result.getResultMetadata().toString(), Toast.LENGTH_LONG).show();
+                    return;
                 }
             }
 
@@ -72,12 +72,6 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
             }
         });
     }
-
-    private void startScanning() {
-
-    }
-
-
 
     @Override
     protected void onResume() {
@@ -147,6 +141,4 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
     public void possibleResultPoints(List<ResultPoint> resultPoints) {
 
     }
-
-
 }
