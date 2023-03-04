@@ -18,16 +18,16 @@ import {
 const { ScannerModule } = NativeModules;
 
 export default BarcodeScanScreen = () => {
-    const onBarcodeRead = (event) => {
-        console.log(event)
-    };
+  const onBarcodeRead = (event) => {
+    console.log(event)
+  };
 
-    useEffect(() => {
-        ScannerModule.openScanner(true, null, onBarcodeRead);
-    }, []);
+  useEffect(() => {
+    ScannerModule.openScanner(true, null, onBarcodeRead);
+  }, []);
   return (
     <View style={styles.container}>
-
+      <View></View>
     </View>
   );
 };
