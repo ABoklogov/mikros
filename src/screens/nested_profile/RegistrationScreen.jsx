@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from 'react-redux';
-import { StyleSheet, View, Text, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Keyboard,
+  TouchableWithoutFeedback,
+  ActivityIndicator
+} from 'react-native';
 // import components
 import FormRegistration from 'components/auth/FormRegistration';
 import Link from 'components/shared/Link';
 // import vars
 import { strings, colors } from 'res/vars';
-import { text } from 'res/palette';
+// import { text } from 'res/palette';
 
 export default RegistrationScreen = () => {
   const { auth } = useSelector(state => state);
@@ -32,7 +38,10 @@ export default RegistrationScreen = () => {
       {
         auth.isLoading && (
           <View style={styles.backdrop}>
-            <Text style={styles.loader}>Пожалуйста подождите</Text>
+            <ActivityIndicator
+              size="large"
+              color={colors.blue}
+            />
           </View>
         )
       }
@@ -87,7 +96,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  loader: {
-    ...text
-  }
 });

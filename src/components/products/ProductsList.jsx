@@ -5,14 +5,15 @@ import {
   FlatList,
   View,
   Text,
-  useWindowDimensions
+  useWindowDimensions,
+  ActivityIndicator
 } from 'react-native';
 import PropTypes from 'prop-types';
 // import components
 import ProductsItem from 'components/products/ProductsItem';
 import Title from "components/shared/Title";
 // import vars
-import { mHorizontal } from 'res/vars';
+import { mHorizontal, colors } from 'res/vars';
 import { text } from 'res/palette.js';
 
 export default ProductsList = ({
@@ -31,7 +32,10 @@ export default ProductsList = ({
   if (isLoading) {
     return (
       <View style={styles.containerMsg}>
-        <Text style={{ ...text }}>Загрузка</Text>
+        <ActivityIndicator
+          size="large"
+          color={colors.blue}
+        />
       </View>
     )
   } else if (products.length === 0) {

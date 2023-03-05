@@ -1,13 +1,17 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, View, Text } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ActivityIndicator
+} from 'react-native';
 import { fetchBasket } from 'store/basket/basketOperations';
 // import components
 import BasketList from 'components/basket/BasketList';
 import ViewEmptyBasket from 'components/basket/ViewEmptyBasket';
 // import vars
 import { colors } from 'res/vars';
-import { text } from 'res/palette.js';
+// import { text } from 'res/palette.js';
 
 export default DefaultBasketScreen = () => {
   const dispatch = useDispatch();
@@ -21,7 +25,10 @@ export default DefaultBasketScreen = () => {
   if (basket.isLoading) {
     return (
       <View style={styles.preloader}>
-        <Text style={{ ...text }}>Загрузка</Text>
+        <ActivityIndicator
+          size="large"
+          color={colors.blue}
+        />
       </View>
     )
   } else if (basket.items.length === 0) {
