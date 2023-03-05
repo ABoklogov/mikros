@@ -109,7 +109,8 @@ export const strings = {
   textLinkRegistration: 'Уже есть аккаунт? Войти',
   textAuth: 'Войдите или зарегистрируйтесь, чтобы получить полный доступ к функциям Микрос',
   textBtnReturnScan: 'Сканировать еще раз',
-  textNotProductScan: 'Товар не найден',
+  textBtnOpenScan: 'открыть сканер',
+  // textNotProductScan: 'Товар не найден',
 
   // плейсхолдеры
   placeholders: {
