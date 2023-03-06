@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchOrdersHistory } from 'store/orders/ordersOperations';
-import { StyleSheet, View, Text } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ActivityIndicator
+} from 'react-native';
 // import components
 import OrdersList from 'components/orders/OrdersList';
 import NotOrdersBlock from 'components/orders/NotOrdersBlock';
 // import vars
 import { colors } from 'res/vars';
-import { text } from 'res/palette';
+// import { text } from 'res/palette';
 
 export default OrderHistoryScreen = () => {
   const dispatch = useDispatch();
@@ -20,7 +24,10 @@ export default OrderHistoryScreen = () => {
   if (orders.ordersHistory.isLoading) {
     return (
       <View style={styles.container}>
-        <Text style={{ ...text }}>Загрузка</Text>
+        <ActivityIndicator
+          size="large"
+          color={colors.blue}
+        />
       </View>
     )
   } else {

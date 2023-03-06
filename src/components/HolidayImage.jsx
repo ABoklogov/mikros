@@ -31,7 +31,7 @@ export default HolidayImage = ({ picture, id, width }) => {
   };
 
   const errorPicture = (error) => {
-    console.log(error);
+    // console.log(error);
     setNotImage(true);
   };
 

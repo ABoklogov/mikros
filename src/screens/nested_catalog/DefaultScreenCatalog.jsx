@@ -7,14 +7,14 @@ import {
   View,
   Keyboard,
   TouchableWithoutFeedback,
-  Text,
+  ActivityIndicator
 } from 'react-native';
 // import components
 import SearchForm from 'components/search_form/SearchForm';
 import CategorysList from 'components/categorys/CategorysList';
 // import vars
-import { fonts, strings } from 'res/vars';
-import { text } from 'res/palette';
+import { colors } from 'res/vars';
+// import { text } from 'res/palette';
 
 export default DefaultScreenCatalog = () => {
   const { catalog } = useSelector(state => state);
@@ -52,7 +52,10 @@ export default DefaultScreenCatalog = () => {
         {
           catalog.categorys.isLoading ? (
             <View style={styles.loader}>
-              <Text style={{ ...text }}>Загрузка</Text>
+              <ActivityIndicator
+                size="large"
+                color={colors.blue}
+              />
             </View>
           ) : (
             <CategorysList categorys={catalog.categorys.items} />
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
   },
   formSearch: {
     marginHorizontal: 15,
