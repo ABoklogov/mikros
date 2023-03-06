@@ -1,8 +1,11 @@
 package com.mikros;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -10,11 +13,8 @@ import android.widget.ImageButton;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 
 import com.facebook.react.ReactActivity;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Result;
 import com.google.zxing.ResultPoint;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
@@ -22,7 +22,6 @@ import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.journeyapps.barcodescanner.ViewfinderView;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -31,6 +30,7 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
     private DecoratedBarcodeView barcodeScannerView;
     private ImageButton switchFlashlightButton;
     //private ViewfinderView viewfinderView;
+    private Handler handler;
     private boolean isFlashOn = false;
 
     @Override
@@ -50,18 +50,19 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
         }
 
         capture = new CaptureManager(this, barcodeScannerView);
-        capture.initializeFromIntent(getIntent(), savedInstanceState);
-        capture.decode();
-
+/*
         barcodeScannerView.decodeSingle(new BarcodeCallback() {
             @Override
             public void barcodeResult(BarcodeResult result) {
                 Log.d("LogTrack", "barcodeResult");
                 if (result != null) {
+                    barcodeScannerView.pause();
                     Log.d("LogTrack", "result = " + result.getResult().toString());
                     Log.d("LogTrack", "result = " + result.getResultMetadata().toString());
 
                     Toast.makeText(getApplication(), result.getResult().toString() + " " + result.getResultMetadata().toString(), Toast.LENGTH_LONG).show();
+
+                    barcodeScannerView.resume();
                     return;
                 }
             }
@@ -71,22 +72,30 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
 
             }
         });
+*/
+        barcodeScannerView.decodeSingle(this);
+        //capture.initializeFromIntent(getIntent(), savedInstanceState);
+        //capture.decode();
+
     }
 
     @Override
     protected void onResume() {
+        Log.d("LogTrack", "onResume");
         super.onResume();
         capture.onResume();
     }
 
     @Override
     protected void onPause() {
+        Log.d("LogTrack", "onPause");
         super.onPause();
         capture.onPause();
     }
 
     @Override
     protected void onDestroy() {
+        Log.d("LogTrack", "onDestroy");
         super.onDestroy();
         capture.onDestroy();
     }
@@ -134,7 +143,14 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
 
     @Override
     public void barcodeResult(BarcodeResult result) {
+        Log.v("LogTrack", "barcodeResult");
+        if (result != null) {
 
+            Log.d("LogTrack", "result = " + result.getResult().toString());
+            Log.d("LogTrack", "result = " + result.getResultMetadata().toString());
+            onDestroy();
+
+        }
     }
 
     @Override

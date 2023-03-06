@@ -22,31 +22,33 @@ export default BarcodeScanScreen = () => {
   const [barcode, setBarcode] = useState(null);
   console.log("🚀 ~ barcode:", barcode)
 
+  var barcodeTypes = [
+      'QR_CODE',
+      'EAN_13'
+  ]
   useEffect(() => {
     if (!barcode) {
-      ScannerModule.openScanner(true, null, onBarcodeRead);
+      // ScannerModule.openScanner(true, null, onBarcodeRead);
+      ScannerModule.openCustomScanner(false, false, barcodeTypes, onBarcodeRead);
     };
   }, [barcode]);
 
   const onBarcodeRead = (code) => {
     setBarcode(code);
-    // console.log(code);
+    console.log(code);
   };
 
   const removeBarcode = () => {
     setBarcode(null);
     if (!barcode) {
-      ScannerModule.openScanner(true, null, onBarcodeRead);
+      // ScannerModule.openScanner(true, null, onBarcodeRead);
+      ScannerModule.openCustomScanner(false, false, barcodeTypes, onBarcodeRead);
     };
   };
 
-var barcodeTypes = [
-    'QR_CODE',
-    'EAN_13'
-]
-    useEffect(() => {
-        ScannerModule.openCustomScanner(false, false, barcodeTypes, onBarcodeRead);
-    }, []);
+    // useEffect(() => {
+    //     ScannerModule.openCustomScanner(false, false, barcodeTypes, onBarcodeRead);
+    // }, []);
 
   return (
     <View style={styles.container}>
