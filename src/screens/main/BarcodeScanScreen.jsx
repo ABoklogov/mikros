@@ -40,6 +40,14 @@ export default BarcodeScanScreen = () => {
     };
   };
 
+var barcodeTypes = [
+    'QR_CODE',
+    'EAN_13'
+]
+    useEffect(() => {
+        ScannerModule.openCustomScanner(false, false, barcodeTypes, onBarcodeRead);
+    }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.barcodeText}>
