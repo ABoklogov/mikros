@@ -34,7 +34,7 @@ export const fetchHolidays = () => async (dispatch, getState) => {
       dispatch(errorSetHolidays(''));
       // сортируем массив
       const totalArray = sortArr(data);
-      console.log("🚀 ~ праздники", totalArray)
+      //console.log("🚀 ~ праздники", totalArray)
       dispatch(setHolidays(totalArray));
     };
   } catch (error) {

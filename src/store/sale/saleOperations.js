@@ -31,7 +31,7 @@ export const fetchSaleProducts = (name) => async (dispatch, getState) => {
       dispatch(errorSetSaleProducts(''));
       // сортируем массив
       const totalArray = sortArr(data);
-      console.log("🚀 акционные товары", data)
+      //console.log("🚀 акционные товары", data)
       dispatch(setSaleProducts({ totalArray, name }));
     };
   } catch (error) {
@@ -48,7 +48,7 @@ export const fetchSalerProduct = (id) => async (dispatch, getState) => {
   try {
     dispatch(loadingSetProduct(true));
     const data = await API.fetchProduct(id);
-    console.log("🚀 ~ карточка акционного товара", data)
+    //console.log("🚀 ~ карточка акционного товара", data)
 
     if (data) {
       dispatch(loadingSetProduct(false));

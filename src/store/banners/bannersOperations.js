@@ -36,7 +36,7 @@ export const fetchBanners = () => async (dispatch, getState) => {
       dispatch(errorSetBanners(''));
       // сортируем массив
       const totalArray = sortArr(data);
-      console.log("🚀 ~ список баннеров", totalArray)
+      //console.log("🚀 ~ список баннеров", totalArray)
       dispatch(setBanners(totalArray))
     };
   } catch (error) {
