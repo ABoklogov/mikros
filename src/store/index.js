@@ -10,6 +10,11 @@ import { basketSlice } from './basket/basketSlice';
 import { scanerSlice } from './scaner/scanerSlice';
 
 export const store = configureStore({
+  // отключает время ожидания SerializableStateInvariantMiddleware
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    immutableCheck: false,
+    serializableCheck: false,
+  }),
   reducer: {
     [authSlice.name]: authSlice.reducer,
     [catalogSlice.name]: catalogSlice.reducer,

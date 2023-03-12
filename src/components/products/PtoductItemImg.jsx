@@ -11,13 +11,12 @@ export default PtoductItemImg = ({
   productImg,
   setNotImage,
 }) => {
-
   const definesPathPicture = () => {
     if (productImg) {
       const linkImage = `${baseUrlImg}/upload/${productImg.SUBDIR}/${productImg.FILE_NAME}`;
       return { uri: linkImage };
     } else {
-      setNotImage(true);
+      // setNotImage(true);
       return linkNotImage;
     };
   };

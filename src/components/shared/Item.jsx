@@ -10,13 +10,24 @@ import PropTypes from 'prop-types';
 import { text } from 'res/palette';
 import ArrowIcon from "components/icons/ArrowIcon";
 
-export default Item = ({ children, text, link }) => {
+export default Item = ({
+  children,
+  text,
+  link,
+  data,
+  callback
+}) => {
   const navigation = useNavigation();
+
+  const onPress = () => {
+    if (callback) callback();
+    navigation.navigate(link, data)
+  };
 
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={() => navigation.navigate(link)}
+      onPress={onPress}
       style={styles.btn}
     >
 

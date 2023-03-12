@@ -1,119 +1,110 @@
 import { useState, useEffect } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from 'react-redux';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Image
+} from 'react-native';
 import PropTypes from 'prop-types';
 
 import { fetchProducts } from 'store/catalog/catalogOperations';
 
 // import components
-import CategorysSubList from 'components/categorys/CategorysSubList';
+// import CategorysSubList from 'components/categorys/CategorysSubList';
+import Item from 'components/shared/Item';
 // import vars
 import { text } from 'res/palette';
-import { colors, strings, images } from 'res/vars';
+import { colors, strings, images, mHorizontal } from 'res/vars';
 // import icons
 import ArrowIcon from 'components/icons/ArrowIcon';
 
-
 export default CategoryItem = ({
   name,
-  subCategorys,
+  categorys,
   level,
   id,
 }) => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [showCategory, setShowCategory] = useState(false);
-
-  const showListCategorys = () => {
-    // если нет подкатегорий у данной категории, то отправляем запрос на получение товаров данной категории и переходим на страницу товаров
-    if (subCategorys.length === 0) {
-      dispatch(fetchProducts(id, name));
-      navigation.navigate(strings.nameNestedCatalog.products)
-    };
-
-    setShowCategory(!showCategory);
-  };
 
   const findCategory = (id, obj) => {
     for (let key in obj) {
       if (key === id) {
         return obj[key];
-      }
-    }
+      };
+    };
+  };
+
+  const subCategorysName = () => {
+    let nameScreen = '';
+
+    // если нет подкатегорий у данной категории, то переходим на страницу товаров
+    if (categorys.length === 0) {
+      nameScreen = strings.nameNestedCatalog.products;
+    } else {
+      switch (level) {
+        case 1:
+          nameScreen = strings.nameNestedCatalog.subCategorys_1;
+          break;
+        case 2:
+          nameScreen = strings.nameNestedCatalog.subCategorys_2;
+          break;
+        case 3:
+          nameScreen = strings.nameNestedCatalog.subCategorys_3;
+          break;
+        case 4:
+          nameScreen = strings.nameNestedCatalog.subCategorys_4;
+          break;
+        case 5:
+          nameScreen = strings.nameNestedCatalog.subCategorys_5;
+          break;
+        case 6:
+          nameScreen = strings.nameNestedCatalog.subCategorys_6;
+          break;
+        case 7:
+          nameScreen = strings.nameNestedCatalog.subCategorys_7;
+          break;
+        default:
+          break;
+      };
+    };
+
+    return nameScreen;
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={showListCategorys}
-        style={styles.btm}
+      <Item
+        text={name}
+        link={subCategorysName()}
+        data={{ categorys, name, id }}
+        // если нет подкатегорий у данной категории, то отправляем запрос на получение товаров данной категории
+        callback={categorys.length === 0 ? () => dispatch(fetchProducts(id, name)) : null}
       >
-        <View style={styles.item}>
-          {
-            level === 1 &&
-            <Image
-              style={styles.iconCategorys}
-              source={findCategory(id, images.categorys)}
-            />
-          }
-
-          <Text style={styles.name}>{name}</Text>
-        </View>
-
-        {subCategorys.length > 0 && (
-          <View style={{
-            ...styles.icon,
-            transform: showCategory ?
-              [{ rotate: '90deg' }] :
-              [{ rotate: '0deg' }]
-          }}>
-            <ArrowIcon />
-          </View>
-        )}
-      </TouchableOpacity>
-
-      {
-        (subCategorys.length > 0) && (
-          <View>
-            {showCategory && <CategorysSubList subCategorys={subCategorys} />}
-          </View>
-        )
-      }
+        {
+          (level === 1) &&
+          <Image
+            style={styles.iconCategorys}
+            source={findCategory(id, images.categorys)}
+          />
+        }
+      </Item>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    //   alignItems: 'center',
-    //   justifyContent: 'center',
-  },
-  btm: {
-    position: 'relative',
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderTopWidth: 1,
-    borderColor: colors.borderColor,
-  },
-  item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  name: {
-    ...text,
-  },
-  icon: {
-    position: 'absolute',
-    top: '50%',
-    right: 16,
+    marginHorizontal: mHorizontal.baseBlock,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.lightGrey,
   },
   iconCategorys: {
     width: 22,
     height: 22,
-    // backgroundColor: colors.grey,
     marginRight: 7,
   }
 });

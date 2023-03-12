@@ -64,7 +64,7 @@ export const fetchCategorys = () => async (dispatch, getState) => {
         return sortArr(newArr);
       }, []);
 
-      console.log("🚀 ~ список категорий", totalArr);
+      // console.log("🚀 ~ список категорий", totalArr);
       dispatch(setCategorys(totalArr));
     };
   } catch (error) {
@@ -99,7 +99,7 @@ export const fetchProducts = (id, name) => async (dispatch, getState) => {
         totalArr = sort(totalArr);
       };
 
-      console.log("🚀 ~ список товаров ", totalArr)
+      // console.log("🚀 ~ список товаров ", totalArr)
       dispatch(setCatalog({ totalArr, id, name }))
     };
   } catch (error) {
@@ -116,7 +116,7 @@ export const fetchProduct = (id) => async (dispatch, getState) => {
   try {
     dispatch(loadingSetProduct(true));
     const data = await API.fetchProduct(id);
-    console.log("🚀 ~ карточка продукта", data)
+    // console.log("🚀 ~ карточка продукта", data)
 
     if (data) {
       dispatch(loadingSetProduct(false));

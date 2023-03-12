@@ -7,6 +7,7 @@ import ProductsList from 'components/products/ProductsList';
 import { fonts, colors } from 'res/vars';
 
 export default ProductsScreen = ({ route }) => {
+  // console.log("🚀 ~ route:", route)
   // const navigation = useNavigation();
   const { catalog } = useSelector(state => state);
 

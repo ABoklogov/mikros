@@ -83,7 +83,13 @@ export const strings = {
   // каталог (2 уровень)
   nameNestedCatalog: {
     categorys: 'Список категорий',
-    // subCategorys: 'Список подкатегорий',
+    subCategorys_1: 'Список подкатегорий 1 уровня',
+    subCategorys_2: 'Список подкатегорий 2 уровня',
+    subCategorys_3: 'Список подкатегорий 3 уровня',
+    subCategorys_4: 'Список подкатегорий 4 уровня',
+    subCategorys_5: 'Список подкатегорий 5 уровня',
+    subCategorys_6: 'Список подкатегорий 6 уровня',
+    subCategorys_7: 'Список подкатегорий 7 уровня',
     products: 'Список товаров',
     cardProduct: 'Карточка товара',
   },
