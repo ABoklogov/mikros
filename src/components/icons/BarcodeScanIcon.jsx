@@ -17,8 +17,8 @@ export default BarcodeScanIcon = ({ color }) => (
   // </Svg>
 
   <Svg
-    width={50}
-    height={50}
+    width={35}
+    height={35}
     viewBox="0 0 23 25"
     strokeWidth={2}
     stroke={color}

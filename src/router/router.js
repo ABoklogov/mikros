@@ -8,17 +8,17 @@ const NotTabsStack = createStackNavigator();
 import HomeScreen from 'screens/main/HomeScreen';
 import CatalogScreen from 'screens/main/CatalogScreen';
 import BasketScreen from 'screens/main/BasketScreen';
-// import FavoriteScreen from 'screens/main/FavoriteScreen';
-import BarcodeScanScreen from 'screens/main/BarcodeScanScreen';
+import FavoriteScreen from 'screens/main/FavoriteScreen';
 import ProfileScreen from 'screens/main/ProfileScreen';
 import LogInScreen from "screens/nested_profile/LogInScreen";
 import RegistrationScreen from "screens/nested_profile/RegistrationScreen";
+import BarcodeScanScreen from "screens/BarcodeScanScreen";
 // import icons
 import HomeIcon from 'components/icons/tabs_icons/HomeIcon';
 import CatalogIcon from 'components/icons/tabs_icons/CatalogIcon';
 import BasketIcon from 'components/icons/tabs_icons/BasketIcon';
 import ProfileIcon from 'components/icons/tabs_icons/ProfileIcon';
-import BarcodeScanIcon from 'components/icons/tabs_icons/BarcodeScanIcon';
+import FavoriteIcon from 'components/icons/tabs_icons/FavoriteIcon';
 // import vars
 import { colors, fonts, strings } from 'res/vars';
 
@@ -76,7 +76,7 @@ export default useRoute = () => {
               />
           }}
         />
-        {/* <MainTabs.Screen
+        <MainTabs.Screen
           name={strings.nameMainScreens.favorite}
           component={FavoriteScreen}
           options={{
@@ -86,21 +86,6 @@ export default useRoute = () => {
                 isFull={false}
                 size={focused ? 32 : 28}
               />
-          }}
-        /> */}
-        <MainTabs.Screen
-          name={strings.nameMainScreens.barcodeScan}
-          component={BarcodeScanScreen}
-          options={{
-            tabBarLabel: () => null, // удаляет лейбл
-            tabBarItemStyle: [{
-              borderRadius: 50,
-              paddingBottom: 5,
-              paddingTop: 5,
-              backgroundColor: colors.lightGrey,
-            }],
-            tabBarIcon: ({ color }) =>
-              <BarcodeScanIcon color={color} />
           }}
         />
 
@@ -151,15 +136,31 @@ export default useRoute = () => {
         options={{
           headerShown: false,
         }}
-        name={strings.nameNestedProfile.logIn}
+        name={strings.nameNotTabs.logIn}
         component={LogInScreen}
       />
       <NotTabsStack.Screen
         options={{
           headerShown: false,
         }}
-        name={strings.nameNestedProfile.registration}
+        name={strings.nameNotTabs.registration}
         component={RegistrationScreen}
+      />
+      <NotTabsStack.Screen
+        name={strings.nameNotTabs.barcodeScan}
+        component={BarcodeScanScreen}
+        options={{
+          headerShown: false,
+          // tabBarLabel: () => null, // удаляет лейбл
+          // tabBarItemStyle: [{
+          //   borderRadius: 50,
+          //   paddingBottom: 5,
+          //   paddingTop: 5,
+          //   backgroundColor: colors.lightGrey,
+          // }],
+          // tabBarIcon: ({ color }) =>
+          //   <BarcodeScanIcon color={color} />
+        }}
       />
     </NotTabsStack.Navigator>
   )

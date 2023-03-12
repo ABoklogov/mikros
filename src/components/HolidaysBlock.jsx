@@ -31,7 +31,7 @@ export default HolidaysBlock = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       {
         (homeHolidays.holidays.items.length === 0 || homeHolidays.holidays.isLoading) ? (
           <HolidaysPreloader
@@ -72,6 +72,9 @@ export default HolidaysBlock = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    height: 90,
+  },
   item: {
     alignItems: 'center',
   },

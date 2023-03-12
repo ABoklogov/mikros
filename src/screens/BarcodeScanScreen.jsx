@@ -9,7 +9,6 @@ import {
 // import { fetchBarcode } from 'store/scaner/scanerOperation';
 // import { removeProduct } from 'store/scaner/scanerSlice';
 // import icons
-
 // import components
 import MainButton from 'components/shared/MainButton';
 // import vars
@@ -17,38 +16,35 @@ import { colors, strings, mHorizontal } from 'res/vars';
 import { title } from 'res/palette';
 
 const { ScannerModule } = NativeModules;
+const barcodeTypes = [
+  'QR_CODE',
+  'EAN_13'
+];
 
 export default BarcodeScanScreen = () => {
   const [barcode, setBarcode] = useState(null);
   console.log("🚀 ~ barcode:", barcode)
 
-  var barcodeTypes = [
-      'QR_CODE',
-      'EAN_13'
-  ]
+  // при изменении barcode, если его нет, открываем сканер
   useEffect(() => {
-    if (!barcode) {
-      // ScannerModule.openScanner(true, null, onBarcodeRead);
-      ScannerModule.openCustomScanner(false, false, barcodeTypes, onBarcodeRead);
-    };
+    if (!barcode) openScaner();
   }, [barcode]);
 
+  // открывает нативный модуль сканера
+  const openScaner = () => {
+    // ScannerModule.openScanner(true, null, onBarcodeRead);
+    ScannerModule.openCustomScanner(false, false, barcodeTypes, onBarcodeRead);
+  };
+  // получает и записывает в state номер штрих-кода
   const onBarcodeRead = (code) => {
     setBarcode(code);
     console.log(code);
   };
-
+  // очищает из state номер штрих - кода
   const removeBarcode = () => {
     setBarcode(null);
-    if (!barcode) {
-      // ScannerModule.openScanner(true, null, onBarcodeRead);
-      ScannerModule.openCustomScanner(false, false, barcodeTypes, onBarcodeRead);
-    };
+    if (!barcode) openScaner();
   };
-
-    // useEffect(() => {
-    //     ScannerModule.openCustomScanner(false, false, barcodeTypes, onBarcodeRead);
-    // }, []);
 
   return (
     <View style={styles.container}>
@@ -56,12 +52,16 @@ export default BarcodeScanScreen = () => {
         {barcode}
       </Text>
 
-      <View style={styles.btnScan}>
-        <MainButton
-          text={strings.textBtnOpenScan}
-          onPress={removeBarcode}
-        />
-      </View>
+      {
+        // если есть barcode показываем кнопку "сканировать еще"
+        barcode &&
+        <View style={styles.btnScan}>
+          <MainButton
+            text={strings.textBtnOpenScan}
+            onPress={removeBarcode}
+          />
+        </View>
+      }
     </View>
   );
 };

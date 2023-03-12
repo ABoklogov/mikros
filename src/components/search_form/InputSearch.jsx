@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { useState } from 'react';
 import {
   StyleSheet,
@@ -8,6 +9,7 @@ import {
 import PropTypes from 'prop-types';
 //import components
 import SearchIcon from 'components/icons/SearchIcon';
+import BarcodeScanIcon from 'components/icons/BarcodeScanIcon';
 // import vars
 import { colors, strings } from 'res/vars.js';
 import { text, input } from 'res/palette.js';
@@ -18,6 +20,7 @@ export default InputSearch = ({
   submit,
   opensKeyboard,
 }) => {
+  const navigation = useNavigation();
   const [isFocus, setIsFocus] = useState(false);
 
   const chengeFocusInput = () => {
@@ -25,10 +28,26 @@ export default InputSearch = ({
     opensKeyboard();
   };
 
+  const goBarcodeScreen = () => {
+    navigation.navigate(strings.nameNotTabs.barcodeScan);
+  };
+
   return (
     <View style={styles.containerInput}>
+      <View style={styles.searchIcon}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={submit}
+        >
+          <SearchIcon color={isFocus ? colors.blue : colors.grey} />
+        </TouchableOpacity>
+      </View>
+
       <TextInput
-        style={{ ...styles.input, borderColor: isFocus ? colors.blue : colors.transparentGrey }}
+        style={{
+          ...styles.input,
+          borderColor: isFocus ? colors.blue : colors.transparentGrey
+        }}
         textAlign={'left'}
         keyboardType={'web-search'}
         placeholder={strings.placeholders.search}
@@ -41,12 +60,13 @@ export default InputSearch = ({
         placeholderTextColor={colors.grey}
         cursorColor={colors.blue}
       />
-      <View style={styles.searchIcon}>
+
+      <View style={styles.barcodeIcon}>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={submit}
+          onPress={goBarcodeScreen}
         >
-          <SearchIcon color={isFocus ? colors.blue : colors.grey} />
+          <BarcodeScanIcon color={colors.grey} />
         </TouchableOpacity>
       </View>
     </View>
@@ -60,16 +80,36 @@ const styles = StyleSheet.create({
   input: {
     ...text,
     ...input,
+    paddingLeft: 50,
   },
   searchIcon: {
     position: 'absolute',
     top: '50%',
-    right: 16,
+    left: 10,
     transform: [
       { translateX: 0 },
       { translateY: -10 },
     ]
   },
+  barcodeIcon: {
+    position: 'absolute',
+    top: '50%',
+    right: 10,
+    transform: [
+      { translateX: 0 },
+      { translateY: -17 },
+    ]
+  },
+
+  // searchIcon: {
+  //   position: 'absolute',
+  //   top: '50%',
+  //   right: 16,
+  //   transform: [
+  //     { translateX: 0 },
+  //     { translateY: -10 },
+  //   ]
+  // },
 });
 
 InputSearch.propTypes = {

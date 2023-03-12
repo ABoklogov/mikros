@@ -13,7 +13,7 @@ import {
 import SearchForm from 'components/search_form/SearchForm';
 import CategorysList from 'components/categorys/CategorysList';
 // import vars
-import { colors } from 'res/vars';
+import { colors, mHorizontal } from 'res/vars';
 // import { text } from 'res/palette';
 
 export default DefaultScreenCatalog = () => {
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   formSearch: {
-    marginHorizontal: 15,
+    marginHorizontal: mHorizontal.baseBlock,
     paddingBottom: 10,
     paddingTop: 10,
   },

@@ -16,9 +16,8 @@ import Preloader from 'components/shared/Preloader';
 import { radius, strings, baseUrlImg } from 'res/vars';
 
 const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
-const widthBanner = WIDTH - 30;
-const heightBanner = HEIGHT * 0.25;
+const widthBanner = WIDTH - 30; // ширина баннера (прелоадера)
+const heightBanner = 162; // высота баннера (прелоадера)
 
 export default BannersSwiper = () => {
   const navigation = useNavigation();
@@ -50,6 +49,7 @@ export default BannersSwiper = () => {
         photoHeight = sizes.height;
       };
     };
+
     return {
       width: photoWidth,
       height: photoHeight
@@ -68,7 +68,7 @@ export default BannersSwiper = () => {
         ) : (
           <SwiperFlatList
             autoplay
-            autoplayDelay={7}
+            autoplayDelay={10}
             autoplayLoop
             index={0}
             showPagination
