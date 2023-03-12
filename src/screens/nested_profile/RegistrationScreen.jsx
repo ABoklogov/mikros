@@ -62,7 +62,7 @@ export default RegistrationScreen = () => {
           </View>
           <Link
             text={strings.textLinkRegistration}
-            onPress={() => navigation.navigate(strings.nameNestedProfile.logIn)}
+            onPress={() => navigation.navigate(strings.nameNotTabs.logIn)}
           />
         </View>
       </TouchableWithoutFeedback>

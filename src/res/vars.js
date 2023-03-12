@@ -67,7 +67,7 @@ export const strings = {
   nameMainScreens: {
     home: 'Главная',
     catalog: 'Каталог',
-    barcodeScan: 'Сканер',
+    favorite: 'Избранное',
     basket: 'Корзина',
     profile: 'Профиль',
   },
@@ -100,9 +100,12 @@ export const strings = {
     orderHistory: 'История заказов',
     payment: 'Оплата без заказа',
     subscription: 'Подписка',
+  },
+  // экраны без нижних табов
+  nameNotTabs: {
     logIn: 'Вход',
     registration: 'Регистрация',
-    favorite: 'Избранное',
+    barcodeScan: 'Сканер штри-кода',
   },
 
   textLinkLogIn: 'Нет аккаунта? Зарегистрироваться',

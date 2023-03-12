@@ -19,7 +19,7 @@ export default AuthBtnBlock = () => {
       <Text style={styles.authText}>{strings.textAuth}</Text>
       <MainButton
         text={'Вход или регистрация'}
-        onPress={() => navigation.navigate(strings.nameNestedProfile.logIn)}
+        onPress={() => navigation.navigate(strings.nameNotTabs.logIn)}
       />
     </View>
   );

@@ -60,7 +60,7 @@ export default LogInScreen = () => {
 
           <Link
             text={strings.textLinkLogIn}
-            onPress={() => navigation.navigate(strings.nameNestedProfile.registration)}
+            onPress={() => navigation.navigate(strings.nameNotTabs.registration)}
           />
         </View>
       </TouchableWithoutFeedback>

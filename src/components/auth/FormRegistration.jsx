@@ -362,7 +362,7 @@ export default FormRegistration = ({
               <MainButton
                 text={'Вход'}
                 onPress={() => {
-                  navigation.navigate(strings.nameNestedProfile.logIn);
+                  navigation.navigate(strings.nameNotTabs.logIn);
                 }}
               />
             </View>
