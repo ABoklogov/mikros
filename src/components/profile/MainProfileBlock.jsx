@@ -81,17 +81,17 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   firstItem: {
-    paddingBottom: 8,
+    paddingBottom: 3,
     borderBottomWidth: 1,
     borderBottomColor: colors.lightGrey,
   },
   item: {
-    paddingTop: 8,
-    paddingBottom: 8,
+    paddingTop: 3,
+    paddingBottom: 3,
     borderBottomWidth: 1,
     borderBottomColor: colors.lightGrey,
   },
   lastItem: {
-    paddingTop: 8,
+    paddingTop: 3,
   }
 });

@@ -37,9 +37,13 @@ export default Item = ({ children, text, link }) => {
 
 const styles = StyleSheet.create({
   btn: {
+    // borderColor: 'tomato',
+    // borderWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingBottom: 8,
+    paddingTop: 8,
   },
   container: {
     flexDirection: 'row',
