@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 
 import com.facebook.react.ReactActivity;
+import com.google.zxing.ResultMetadataType;
 import com.google.zxing.ResultPoint;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
@@ -25,7 +26,7 @@ import com.journeyapps.barcodescanner.ViewfinderView;
 import java.util.List;
 
 
-public class ScannerActivity extends ReactActivity implements DecoratedBarcodeView.TorchListener{
+public class ScannerActivity extends ReactActivity implements DecoratedBarcodeView.TorchListener {
     private CaptureManager capture;
     private DecoratedBarcodeView barcodeScannerView;
     private ImageButton switchFlashlightButton;
@@ -57,12 +58,14 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
             public void barcodeResult(BarcodeResult result) {
                 Log.d("LogTrack", "barcodeResult");
                 if (result != null) {
+                    String eanExtension = "";
+                    //Toast.makeText(getApplication(), result.getResult().toString() + " " + result.getResultMetadata().toString(), Toast.LENGTH_LONG).show();
+                    if (result.getResultMetadata().containsKey(ResultMetadataType.UPC_EAN_EXTENSION)) {
+                        Log.d("LogTrack", "UPC_EAN_EXTENSION = true");
+                        eanExtension = result.getResultMetadata().get(ResultMetadataType.UPC_EAN_EXTENSION).toString();
+                    }
 
-                    Log.d("LogTrack", "result = " + result.getResult().toString());
-                    Log.d("LogTrack", "result = " + result.getResultMetadata().toString());
-
-                    Toast.makeText(getApplication(), result.getResult().toString() + " " + result.getResultMetadata().toString(), Toast.LENGTH_LONG).show();
-                    onScanSuccess(result.getResult().toString(), result.getResultMetadata().toString());
+                    onScanSuccess(result.getResult().toString(), eanExtension);
                     return;
                 }
             }
@@ -77,7 +80,6 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
 
     private void onScanSuccess(String key, String key5) {
         Intent intent = getIntent();
-        Log.d("LogTrack", "onScanSuccess");
         intent.putExtra("key", key);
         intent.putExtra("key5", key5);
         setResult(RESULT_OK, intent);
