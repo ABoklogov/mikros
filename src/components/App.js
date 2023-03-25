@@ -1,5 +1,6 @@
-// import { useEffect, useState, useCallback } from 'react';
-import { StatusBar, StyleSheet, View, Text } from 'react-native';
+import { useEffect } from 'react';
+import { StatusBar, StyleSheet } from 'react-native';
+import SplashScreen from 'react-native-splash-screen'
 import { Provider } from 'react-redux';
 import { store } from 'store/index';
 //import components
@@ -8,7 +9,9 @@ import Main from 'components/Main';
 import { colors } from 'res/vars';
 
 export default App = () => {
-
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   return (
     <Provider store={store}>
