@@ -10,6 +10,8 @@ import PropTypes from 'prop-types';
 // import slices
 import * as catalogSlice from 'store/catalog/catalogSlice';
 import * as saleSlice from 'store/sale/saleSlice';
+import * as holidaysSlice from 'store/holidays/holidaysSlice';
+import * as bannersSlice from 'store/banners/bannersSlice';
 // import vars
 import { baseUrlImg, strings } from 'res/vars';
 
@@ -38,6 +40,12 @@ export default ImageProduct = ({
         case strings.nameNestedHome.homeSaleCardProduct:
           dispatch(saleSlice.setImageProduct(''));
           break;
+        case strings.nameNestedHome.homeHolidaysCardProduct:
+          dispatch(holidaysSlice.setImageProduct(''));
+          break;
+        case strings.nameNestedHome.homeBannersCardProduct:
+          dispatch(bannersSlice.setImageProduct(''));
+          break;
         default:
           break;
       };
@@ -54,6 +62,12 @@ export default ImageProduct = ({
             break;
           case strings.nameNestedHome.homeSaleCardProduct:
             dispatch(saleSlice.setImageProduct(linkImage));
+            break;
+          case strings.nameNestedHome.homeHolidaysCardProduct:
+            dispatch(holidaysSlice.setImageProduct(linkImage));
+            break;
+          case strings.nameNestedHome.homeBannersCardProduct:
+            dispatch(bannersSlice.setImageProduct(linkImage));
             break;
           default:
             break;

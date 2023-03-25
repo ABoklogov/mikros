@@ -40,6 +40,7 @@ export default BarcodeScanScreen = () => {
   const onBarcodeRead = (code) => {
     setBarcode(code);
     dispatch(fetchBarcode(code));
+    console.log("🚀 ~ onBarcodeRead ~ code:", code)
   };
 
   // очищает из state номер штрих - кода
