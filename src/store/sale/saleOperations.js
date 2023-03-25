@@ -42,7 +42,7 @@ export const fetchSaleProducts = (name) => async (dispatch, getState) => {
 };
 
 // карточка продукта
-export const fetchSalerProduct = (id) => async (dispatch, getState) => {
+export const fetchSaleProduct = (id) => async (dispatch, getState) => {
   const { sale } = getState();
 
   try {

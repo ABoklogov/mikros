@@ -8,7 +8,6 @@ import {
 
 // сканирование штрих-кода
 export const fetchBarcode = (code) => async (dispatch, getState) => {
-  // console.log("🚀 ~ fetchBarcode ~ barcode", code)
   try {
     dispatch(loadingScaner(true));
     const { data } = await API.fetchBarcode(code);

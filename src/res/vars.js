@@ -119,7 +119,7 @@ export const strings = {
   textAuth: 'Войдите или зарегистрируйтесь, чтобы получить полный доступ к функциям Микрос',
   textBtnReturnScan: 'Сканировать еще раз',
   textBtnOpenScan: 'открыть сканер',
-  // textNotProductScan: 'Товар не найден',
+  textNotProductScan: 'Товар не найден',
 
   // плейсхолдеры
   placeholders: {

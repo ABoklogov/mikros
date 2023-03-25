@@ -30,8 +30,6 @@ async function fetchAddress(value) {
 
 // сканер штрих-кода
 async function fetchBarcode(code) {
-  // console.log("🚀 ~ fetchBarcode ~ code", code)
-  // console.log(`${prodUrl}/barcode/?code=${code}`)
   const data = await axios.get(`${prodUrl}/barcode/?code=${code}`);
   return data;
 };
