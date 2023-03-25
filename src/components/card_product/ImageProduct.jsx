@@ -1,12 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { StyleSheet, Image, View, useWindowDimensions } from 'react-native';
-import { setImageProduct } from 'store/catalog/catalogSlice';
+import {
+  StyleSheet,
+  Image,
+  View,
+  useWindowDimensions
+} from 'react-native';
 import PropTypes from 'prop-types';
+// import slices
+import * as catalogSlice from 'store/catalog/catalogSlice';
+import * as saleSlice from 'store/sale/saleSlice';
+import * as holidaysSlice from 'store/holidays/holidaysSlice';
+import * as bannersSlice from 'store/banners/bannersSlice';
 // import vars
 import { baseUrlImg, strings } from 'res/vars';
 
-export default ImageProduct = ({ notImage: parentNotImage, productImg, nameScreen }) => {
+export default ImageProduct = ({
+  notImage: parentNotImage,
+  productImg,
+  nameScreen
+}) => {
   const dispatch = useDispatch();
   const window = useWindowDimensions();
   const [sizeImage, setSizeImage] = useState(null);
@@ -17,12 +30,21 @@ export default ImageProduct = ({ notImage: parentNotImage, productImg, nameScree
     setNotImage(parentNotImage); // записываем в локальный стейт данные о картинке (загрузилась или нет)
   }, []);
 
-  // при изменении флага фото, отправляем url в стейт
+  // при изменении флага фото, отправляем url в стейт (взависимости от экрана)
   useEffect(() => {
     if (notImage) {
       switch (nameScreen) {
         case strings.nameNestedCatalog.cardProduct:
-          dispatch(setImageProduct(''));
+          dispatch(catalogSlice.setImageProduct(''));
+          break;
+        case strings.nameNestedHome.homeSaleCardProduct:
+          dispatch(saleSlice.setImageProduct(''));
+          break;
+        case strings.nameNestedHome.homeHolidaysCardProduct:
+          dispatch(holidaysSlice.setImageProduct(''));
+          break;
+        case strings.nameNestedHome.homeBannersCardProduct:
+          dispatch(bannersSlice.setImageProduct(''));
           break;
         default:
           break;
@@ -36,7 +58,16 @@ export default ImageProduct = ({ notImage: parentNotImage, productImg, nameScree
 
         switch (nameScreen) {
           case strings.nameNestedCatalog.cardProduct:
-            dispatch(setImageProduct(linkImage));
+            dispatch(catalogSlice.setImageProduct(linkImage));
+            break;
+          case strings.nameNestedHome.homeSaleCardProduct:
+            dispatch(saleSlice.setImageProduct(linkImage));
+            break;
+          case strings.nameNestedHome.homeHolidaysCardProduct:
+            dispatch(holidaysSlice.setImageProduct(linkImage));
+            break;
+          case strings.nameNestedHome.homeBannersCardProduct:
+            dispatch(bannersSlice.setImageProduct(linkImage));
             break;
           default:
             break;
