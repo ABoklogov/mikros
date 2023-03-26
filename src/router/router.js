@@ -27,21 +27,18 @@ export default useRoute = () => {
   const TabsStack = () => {
     return (
       <MainTabs.Navigator
-        initialRouteName='Главная'
+        initialRouteName={strings.nameMainScreens.home}
         screenOptions={{
           "headerShown": false, // шапка скрина
           // стили нижней навигации
-          "tabBarStyle": [
-            {
-              "height": 55,
-            },
-            null
-          ],
+          "tabBarStyle": {
+            "height": 55,
+          },
           // стили одной кнопки нижней навигации
-          tabBarItemStyle: [{
+          "tabBarItemStyle": {
             "paddingBottom": 5,
             "paddingTop": 5,
-          }],
+          },
           // стили лейблов нижней навигации
           "tabBarLabelStyle": [
             {
