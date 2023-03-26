@@ -68,8 +68,8 @@ export default CardProduct = ({
 
 const styles = StyleSheet.create({
   container: {
-    borderColor: 'tomato',
-    borderWidth: 1,
+    // borderColor: 'tomato',
+    // borderWidth: 1,
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'flex-start',

@@ -9,6 +9,7 @@ import Main from 'components/Main';
 import { colors } from 'res/vars';
 
 export default App = () => {
+  // закрытие заставки
   useEffect(() => {
     SplashScreen.hide();
   }, []);

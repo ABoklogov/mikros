@@ -1,25 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from 'react-redux';
 import {
   StyleSheet,
   View,
-  Text,
-  TouchableOpacity,
   Image
 } from 'react-native';
 import PropTypes from 'prop-types';
-
 import { fetchProducts } from 'store/catalog/catalogOperations';
-
 // import components
-// import CategorysSubList from 'components/categorys/CategorysSubList';
 import Item from 'components/shared/Item';
 // import vars
-import { text } from 'res/palette';
 import { colors, strings, images, mHorizontal } from 'res/vars';
-// import icons
-import ArrowIcon from 'components/icons/ArrowIcon';
 
 export default CategoryItem = ({
   name,
@@ -27,7 +17,6 @@ export default CategoryItem = ({
   level,
   id,
 }) => {
-  // const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const findCategory = (id, obj) => {

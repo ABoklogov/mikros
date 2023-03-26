@@ -8,7 +8,7 @@ import { colors } from 'res/vars.js';
 export default BasketIcon = ({ color, size }) => {
   const { basket } = useSelector(state => state);
   const navigation = useNavigation();
-
+  // счетчик у иконки
   useEffect(() => {
     if (basket.items.length > 0) {
       navigation.setOptions({
