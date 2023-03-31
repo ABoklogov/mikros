@@ -9,7 +9,7 @@ import {
 // import components
 import FavoriteIcon from 'components/icons/tabs_icons/FavoriteIcon';
 // import vars
-import { strings, fonts, colors, mHorizontal, heightText } from 'res/vars';
+import { strings, fonts, colors, activeOpacity, heightText } from 'res/vars';
 import { text, title } from 'res/palette';
 
 export default FavoritesBlock = () => {
@@ -36,7 +36,7 @@ export default FavoritesBlock = () => {
 
       <View style={styles.footer}>
         <TouchableOpacity
-          activeOpacity={0.8}
+          activeOpacity={activeOpacity}
           onPress={() => navigation.navigate(strings.nameMainScreens.catalog)}
         >
           <Text style={styles.btnText}>

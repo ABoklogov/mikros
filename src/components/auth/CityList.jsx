@@ -6,7 +6,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 // import vars
-import { colors, radius } from 'res/vars';
+import { colors, radius, activeOpacity } from 'res/vars';
 import { text } from 'res/palette';
 
 export default CityList = ({ listCity, selectCity }) => {
@@ -18,7 +18,7 @@ export default CityList = ({ listCity, selectCity }) => {
           listCity.map(item => (
             <TouchableOpacity
               key={item.value}
-              activeOpacity={0.8}
+              activeOpacity={activeOpacity}
               onPress={() => selectCity(item.data.city)}
             >
               <Text style={styles.cityItem}>

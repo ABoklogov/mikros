@@ -10,7 +10,7 @@ import { fetchProducts } from 'store/catalog/catalogOperations';
 import CategorysSubList from 'components/categorys/CategorysSubList';
 // import vars
 import { text } from 'res/palette';
-import { colors, strings, images } from 'res/vars';
+import { colors, strings, images, activeOpacity } from 'res/vars';
 // import icons
 import ArrowIcon from 'components/icons/ArrowIcon';
 
@@ -46,7 +46,7 @@ export default CategoryItem = ({
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={activeOpacity}
         onPress={showListCategorys}
         style={styles.btm}
       >

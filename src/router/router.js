@@ -1,7 +1,9 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 // import { getHeaderTitle } from '@react-navigation/elements';
-const MainTabs = createBottomTabNavigator();
+// const MainTabs = createBottomTabNavigator();
+const MainTabs = createMaterialBottomTabNavigator();
 const NotTabsStack = createStackNavigator();
 
 // import screens
@@ -28,32 +30,57 @@ export default useRoute = () => {
     return (
       <MainTabs.Navigator
         initialRouteName={strings.nameMainScreens.home}
-        screenOptions={{
-          "headerShown": false, // шапка скрина
-          // стили нижней навигации
-          "tabBarStyle": {
-            "height": 55,
-          },
-          // стили одной кнопки нижней навигации
-          "tabBarItemStyle": {
-            "paddingBottom": 5,
-            "paddingTop": 5,
-          },
-          // стили лейблов нижней навигации
-          "tabBarLabelStyle": [
-            {
-              "fontFamily": fonts.medium,
-            }
-          ],
-          "tabBarActiveTintColor": colors.blue, // цвет активной иконки
-          "tabBarInactiveTintColor": colors.darkGrey, // цвет не активной иконки
-          "tabBarHideOnKeyboard": true, // скрывает панель вкладок при открытии клавиатуры
+        shifting={true}
+        // headerMode={none}
+        // sceneAnimationType={'shifting'} // горизонтальная анифация перехода
+        activeColor={colors.blue} // цвет активной иконки
+        inactiveColor={colors.darkGrey} // цвет не активной иконки
+        barStyle={{
+          backgroundColor: colors.lightBlue,
+          height: 70,
+          // paddingBottom: 5,
+          // paddingTop: 5,
+          safeAreaInsets: { // чтобы не прыгала нижняя навигация при первой загрузке
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+          }
         }}
+      // screenOptions={{
+      //   "safeAreaInsets": { // чтобы не прыгала нижняя навигация при первой загрузке
+      //     top: 0,
+      //     bottom: 0,
+      //     left: 0,
+      //     right: 0,
+      //   },
+      //   "headerShown": false, // шапка скрина
+      //   // стили нижней навигации
+      //   "tabBarStyle": {
+      //     "height": 55,
+      //   },
+      //   // стили одной кнопки нижней навигации
+      //   "tabBarItemStyle": {
+      //     "paddingBottom": 5,
+      //     "paddingTop": 5,
+      //   },
+      //   // стили лейблов нижней навигации
+      //   "tabBarLabelStyle": [
+      //     {
+      //       "fontFamily": fonts.medium,
+      //     }
+      //   ],
+      //   "tabBarActiveTintColor": colors.blue, // цвет активной иконки
+      //   "tabBarInactiveTintColor": colors.darkGrey, // цвет не активной иконки
+      //   "tabBarHideOnKeyboard": true, // скрывает панель вкладок при открытии клавиатуры
+      // }}
       >
         <MainTabs.Screen
           name={strings.nameMainScreens.home}
           component={HomeScreen}
+          shifting={true}
           options={{
+            tabBarColor: colors.grey,
             tabBarIcon: ({ focused, color }) =>
               <HomeIcon
                 active={focused}
@@ -65,7 +92,9 @@ export default useRoute = () => {
         <MainTabs.Screen
           name={strings.nameMainScreens.catalog}
           component={CatalogScreen}
+          shifting={true}
           options={{
+            tabBarColor: colors.green,
             tabBarIcon: ({ focused, color }) =>
               <CatalogIcon
                 color={color}
@@ -77,6 +106,7 @@ export default useRoute = () => {
           name={strings.nameMainScreens.favorite}
           component={FavoriteScreen}
           options={{
+            // tabBarColor: colors.grey,
             tabBarIcon: ({ focused, color }) =>
               <FavoriteIcon
                 color={color}
@@ -96,6 +126,7 @@ export default useRoute = () => {
               top: -5,
               left: 8,
             }],
+            // tabBarColor: colors.blue,
             tabBarIcon: ({ focused, color }) =>
               <BasketIcon
                 color={color}
@@ -108,6 +139,7 @@ export default useRoute = () => {
           name={strings.nameMainScreens.profile}
           component={ProfileScreen}
           options={{
+            // tabBarColor: colors.red,
             tabBarIcon: ({ focused, color }) =>
               <ProfileIcon
                 color={color}

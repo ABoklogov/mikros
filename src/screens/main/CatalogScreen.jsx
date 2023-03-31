@@ -24,7 +24,10 @@ export default CatalogScreen = () => {
   return (
     <NestedScreen.Navigator
       screenOptions={{
-        "headerShown": true, // шапка скрина
+        headerShown: true, // шапка скрина
+        // TODO: узнать как сделать перемещение между экранами по горизонтали
+        // gestureEnabled: true, 
+        // gestureDirection: 'horizontal',
       }}>
       <NestedScreen.Screen
         name={strings.nameNestedCatalog.categorys}

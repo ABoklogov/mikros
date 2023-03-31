@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import InfoIcon from 'components/icons/InfoIcon';
 import PasswordVisibilityIcon from 'components/icons/PasswordVisibilityIcon';
 // import vars
-import { colors } from 'res/vars.js';
+import { colors, activeOpacity } from 'res/vars.js';
 import { text, input } from 'res/palette.js';
 
 export default InputPassword = ({
@@ -85,7 +85,7 @@ export default InputPassword = ({
 
       <View style={styles.blockBtns}>
         <TouchableOpacity
-          activeOpacity={0.8}
+          activeOpacity={activeOpacity}
           onPress={() => setIsHiddenPassword(!isHiddenPassword)}
         >
           <PasswordVisibilityIcon
@@ -98,7 +98,7 @@ export default InputPassword = ({
           infoText &&
           <View style={styles.infoIcon}>
             <TouchableOpacity
-              activeOpacity={0.8}
+              activeOpacity={activeOpacity}
               onPress={showAlert}
             >
               <InfoIcon />

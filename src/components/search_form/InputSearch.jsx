@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import SearchIcon from 'components/icons/SearchIcon';
 import BarcodeScanIcon from 'components/icons/BarcodeScanIcon';
 // import vars
-import { colors, strings } from 'res/vars.js';
+import { colors, strings, activeOpacity } from 'res/vars.js';
 import { text, input } from 'res/palette.js';
 
 export default InputSearch = ({
@@ -36,7 +36,7 @@ export default InputSearch = ({
     <View style={styles.containerInput}>
       <View style={styles.searchIcon}>
         <TouchableOpacity
-          activeOpacity={0.8}
+          activeOpacity={activeOpacity}
           onPress={submit}
         >
           <SearchIcon color={isFocus ? colors.blue : colors.grey} />
@@ -63,7 +63,7 @@ export default InputSearch = ({
 
       <View style={styles.barcodeIcon}>
         <TouchableOpacity
-          activeOpacity={0.8}
+          activeOpacity={activeOpacity}
           onPress={goBarcodeScreen}
         >
           <BarcodeScanIcon color={colors.grey} />

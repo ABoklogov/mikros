@@ -6,9 +6,11 @@ import {
   Text
 } from "react-native";
 import PropTypes from 'prop-types';
-// import { colors, radius } from 'res/vars';
-import { text } from 'res/palette';
+// import icons
 import ArrowIcon from "components/icons/ArrowIcon";
+// import vars
+import { activeOpacity } from 'res/vars';
+import { text } from 'res/palette';
 
 export default Item = ({
   children,
@@ -26,7 +28,7 @@ export default Item = ({
 
   return (
     <TouchableOpacity
-      activeOpacity={0.8}
+      activeOpacity={activeOpacity}
       onPress={onPress}
       style={styles.btn}
     >

@@ -14,8 +14,8 @@ import FormQuantity from 'components/shared/FormQuantity';
 // import icons
 
 // import vars
+import { radius, colors, strings, activeOpacity } from 'res/vars';
 import { miniText, miniTitle } from 'res/palette.js';
-import { radius, colors, strings } from 'res/vars';
 
 export default ProductsItem = ({
   screenName,
@@ -80,7 +80,7 @@ export default ProductsItem = ({
 
   return (
     <TouchableOpacity
-      activeOpacity={0.8}
+      activeOpacity={activeOpacity}
       onPress={openCardProduct}
     >
       <View style={styles.container}>
@@ -113,7 +113,7 @@ export default ProductsItem = ({
 
               {
                 !showForm && !quantity ? (
-                  <BasketButton onPress={addToBasket} />
+                  <BasketButton onPress={addToBasket} active={true} />
                 ) : (
                   <FormQuantity
                     quantity={quantity}

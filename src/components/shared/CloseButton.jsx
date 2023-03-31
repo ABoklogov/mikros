@@ -1,11 +1,13 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import CloseIcon from 'components/icons/CloseIcon';
+// import vars
+import { activeOpacity } from 'res/vars';
 
 export default CloseButton = ({ onPress }) => {
   return (
     <TouchableOpacity
-      activeOpacity={0.8}
+      activeOpacity={activeOpacity}
       onPress={onPress}
     >
       <CloseIcon />

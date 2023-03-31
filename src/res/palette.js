@@ -63,3 +63,12 @@ export const input = {
   padding: 15,
   backgroundColor: colors.transparentGrey,
 };
+
+export const rippleBasketBtn = {
+  color: colors.borderColor,
+  radius: 90,
+};
+
+export const rippleMainBtn = {
+  color: colors.borderColor,
+};

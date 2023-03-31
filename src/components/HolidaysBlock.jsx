@@ -14,7 +14,7 @@ import {
 import HolidaysPreloader from 'components/preloaders/HolidaysPreloader';
 import HolidayImage from 'components/HolidayImage';
 // import vars
-import { strings } from 'res/vars';
+import { strings, activeOpacity } from 'res/vars';
 import { miniText } from 'res/palette';
 
 const WIDTH = Dimensions.get('window').width;
@@ -48,7 +48,7 @@ export default HolidaysBlock = () => {
                 homeHolidays.holidays.items?.map(item => (
                   <TouchableOpacity
                     key={item.id}
-                    activeOpacity={0.8}
+                    activeOpacity={activeOpacity}
                     onPress={() => goToSectionHolidays(item.id, item.name)}
                   >
                     <View style={{ ...styles.item, width: widthItem }}>
