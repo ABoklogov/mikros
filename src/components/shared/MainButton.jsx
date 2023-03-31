@@ -11,16 +11,18 @@ import { colors, radius, activeOpacity } from 'res/vars';
 import { textButton, rippleMainBtn } from 'res/palette';
 
 export default MainButton = ({ text, onPress, active }) => {
+  const stylesButton = {
+    ...styles.button,
+    backgroundColor: active ? colors.blue : colors.lightGrey,
+    borderColor: active ? colors.blue : colors.lightGrey,
+  };
+
   if (Platform.OS === 'ios') {
     return (
       <TouchableOpacity
         onPress={onPress}
         activeOpacity={activeOpacity}
-        style={{
-          ...styles.button,
-          backgroundColor: active ? colors.blue : colors.lightGrey,
-          borderColor: active ? colors.blue : colors.lightGrey,
-        }}
+        style={stylesButton}
       >
         <Text style={styles.text}>{text}</Text>
       </TouchableOpacity>
@@ -30,11 +32,7 @@ export default MainButton = ({ text, onPress, active }) => {
       <Pressable
         onPress={onPress}
         android_ripple={rippleMainBtn}
-        style={{
-          ...styles.button,
-          backgroundColor: active ? colors.blue : colors.lightGrey,
-          borderColor: active ? colors.blue : colors.lightGrey,
-        }}
+        style={stylesButton}
       >
         <Text style={styles.text}>{text}</Text>
       </Pressable>

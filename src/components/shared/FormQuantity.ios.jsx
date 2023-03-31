@@ -7,8 +7,8 @@ import { addToBasket } from 'store/basket/basketOperations';
 // import icons
 
 // import vars
+import { radius, colors, activeOpacity } from 'res/vars';
 import { baseText, text } from 'res/palette';
-import { radius, colors } from 'res/vars';
 
 export default FormQuantity = ({
   quantity,
@@ -33,7 +33,7 @@ export default FormQuantity = ({
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={activeOpacity}
         onPress={decrement}
         style={[styles.btn, styles.decrement]}
       >
@@ -51,7 +51,7 @@ export default FormQuantity = ({
       />
 
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={activeOpacity}
         onPress={increment}
         style={[styles.btn, styles.increment]}
       >
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     height: 25,
   },
   btn: {
-    width: '20%',
+    width: '25%',
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   input: {
-    width: '60%',
+    width: '50%',
     height: '100%',
     ...baseText,
     paddingBottom: 0,

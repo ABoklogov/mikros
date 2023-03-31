@@ -72,3 +72,8 @@ export const rippleBasketBtn = {
 export const rippleMainBtn = {
   color: colors.borderColor,
 };
+
+export const rippleTabsBottom = {
+  borderless: true,
+  radius: 45,
+};

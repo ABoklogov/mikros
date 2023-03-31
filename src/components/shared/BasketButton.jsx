@@ -11,16 +11,18 @@ import { colors, radius, activeOpacity } from 'res/vars';
 import { textButton, rippleBasketBtn } from 'res/palette';
 
 export default BasketButton = ({ onPress, active }) => {
+  const stylesButton = {
+    ...styles.button,
+    backgroundColor: active ? colors.blue : colors.lightGrey,
+    borderColor: active ? colors.blue : colors.lightGrey,
+  };
+
   if (Platform.OS === 'ios') {
     return (
       <TouchableOpacity
         activeOpacity={activeOpacity}
         onPress={active ? onPress : null}
-        style={{
-          ...styles.button,
-          backgroundColor: active ? colors.blue : colors.lightGrey,
-          borderColor: active ? colors.blue : colors.lightGrey,
-        }}
+        style={stylesButton}
       >
         <Text style={styles.text}>
           {active ? 'в корзину' : 'нет в наличии'}
@@ -32,11 +34,7 @@ export default BasketButton = ({ onPress, active }) => {
       <Pressable
         onPress={active ? onPress : null}
         android_ripple={rippleBasketBtn}
-        style={{
-          ...styles.button,
-          backgroundColor: active ? colors.blue : colors.lightGrey,
-          borderColor: active ? colors.blue : colors.lightGrey,
-        }}
+        style={stylesButton}
       >
         <Text style={styles.text}>
           {active ? 'в корзину' : 'нет в наличии'}
