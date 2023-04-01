@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
   input: {
     ...text,
     ...input,
+    paddingRight: 60,
     paddingLeft: 50,
   },
   searchIcon: {
