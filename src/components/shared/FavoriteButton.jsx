@@ -4,14 +4,14 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 // import icons
 import FavoriteIcon from 'components/icons/tabs_icons/FavoriteIcon';
 // import vars
-import { colors } from 'res/vars';
+import { colors, activeOpacity } from 'res/vars';
 
 export default FavoriteButton = () => {
   const [inFavorite, setInFavorite] = useState(false);
 
   return (
     <TouchableOpacity
-      activeOpacity={0.8}
+      activeOpacity={activeOpacity}
       onPress={() => setInFavorite(!inFavorite)}
     >
       <FavoriteIcon

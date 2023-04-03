@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 // import vars
-import { colors, sizeText } from 'res/vars.js';
+import { colors, sizeText, activeOpacity } from 'res/vars.js';
 import { text } from 'res/palette.js';
 
 export default HeaderRegistration = ({
@@ -30,7 +30,7 @@ export default HeaderRegistration = ({
         borderBottomColor: firstStep ? colors.blue : colors.transparentGrey
       }}>
         <TouchableOpacity
-          activeOpacity={0.8}
+          activeOpacity={activeOpacity}
           onPress={() => setFirstStep(true)}
           style={styles.button}
         >
@@ -55,7 +55,7 @@ export default HeaderRegistration = ({
         borderBottomColor: !firstStep ? colors.blue : colors.transparentGrey
       }}>
         <TouchableOpacity
-          activeOpacity={0.8}
+          activeOpacity={activeOpacity}
           onPress={goToNextStep}
           style={styles.button}
         >

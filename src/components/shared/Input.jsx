@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import ErrorMessage from 'components/shared/ErrorMessage';
 import InfoIcon from 'components/icons/InfoIcon';
 // import vars
-import { colors } from 'res/vars.js';
+import { colors, activeOpacity } from 'res/vars.js';
 import { baseText, text, input } from 'res/palette.js';
 
 export default Input = ({
@@ -98,7 +98,7 @@ export default Input = ({
         infoText &&
         <TouchableOpacity
           style={styles.inputInfoBtn}
-          activeOpacity={0.8}
+          activeOpacity={activeOpacity}
           onPress={showAlert}
         >
           <View style={styles.inputInfoBtnText}>

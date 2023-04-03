@@ -61,6 +61,8 @@ export const mHorizontal = {
   baseBlock: 15,
 };
 
+export const activeOpacity = 0.3;
+
 export const strings = {
   //--- имена экранов ---
   // - главные - (1 уровень)

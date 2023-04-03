@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // import { getHeaderTitle } from '@react-navigation/elements';
 const MainTabs = createBottomTabNavigator();
 const NotTabsStack = createStackNavigator();
-
+import { Pressable } from 'react-native';
 // import screens
 import HomeScreen from 'screens/main/HomeScreen';
 import CatalogScreen from 'screens/main/CatalogScreen';
@@ -21,33 +21,38 @@ import ProfileIcon from 'components/icons/tabs_icons/ProfileIcon';
 import FavoriteIcon from 'components/icons/tabs_icons/FavoriteIcon';
 // import vars
 import { colors, fonts, strings } from 'res/vars';
+import { rippleTabsBottom } from 'res/palette';
 
 export default useRoute = () => {
   // навигация с нижними табами
   const TabsStack = () => {
     return (
       <MainTabs.Navigator
-        initialRouteName={strings.nameMainScreens.home}
         screenOptions={{
-          "headerShown": false, // шапка скрина
-          // стили нижней навигации
-          "tabBarStyle": {
-            "height": 55,
+          tabBarButton: (props) => <Pressable android_ripple={rippleTabsBottom} {...props} />,
+          safeAreaInsets: { // чтобы не прыгала нижняя навигация при первой загрузке
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
           },
+          headerShown: false, // шапка скрина
+          // стили нижней навигации
+          tabBarStyle: { height: 55 },
           // стили одной кнопки нижней навигации
-          "tabBarItemStyle": {
-            "paddingBottom": 5,
-            "paddingTop": 5,
+          tabBarItemStyle: {
+            paddingBottom: 5,
+            paddingTop: 5,
           },
           // стили лейблов нижней навигации
-          "tabBarLabelStyle": [
+          tabBarLabelStyle: [
             {
-              "fontFamily": fonts.medium,
+              fontFamily: fonts.medium,
             }
           ],
-          "tabBarActiveTintColor": colors.blue, // цвет активной иконки
-          "tabBarInactiveTintColor": colors.darkGrey, // цвет не активной иконки
-          "tabBarHideOnKeyboard": true, // скрывает панель вкладок при открытии клавиатуры
+          tabBarActiveTintColor: colors.blue, // цвет активной иконки
+          tabBarInactiveTintColor: colors.darkGrey, // цвет не активной иконки
+          tabBarHideOnKeyboard: true, // скрывает панель вкладок при открытии клавиатуры
         }}
       >
         <MainTabs.Screen
@@ -115,7 +120,7 @@ export default useRoute = () => {
               />
           }}
         />
-      </MainTabs.Navigator>
+      </MainTabs.Navigator >
     )
   };
 

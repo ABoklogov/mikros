@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context'; // чтобы не прыгала нижняя навигация при первой загрузке
+import { Provider as StoreProvider } from 'react-redux';
 import { StatusBar, StyleSheet } from 'react-native';
 import SplashScreen from 'react-native-splash-screen'
-import { Provider } from 'react-redux';
 import { store } from 'store/index';
 //import components
 import Main from 'components/Main';
@@ -15,21 +16,20 @@ export default App = () => {
   }, []);
 
   return (
-    <Provider store={store}>
-      <StatusBar
-        backgroundColor={colors.grey}
-        barStyle="dark-content"
-        hidden={false}
-      />
-      <Main />
-    </Provider>
+    <SafeAreaProvider>
+      <StoreProvider store={store}>
+        <StatusBar
+          backgroundColor={colors.grey}
+          barStyle="dark-content"
+          hidden={false}
+        />
+        <Main />
+      </StoreProvider>
+    </SafeAreaProvider>
   );
 };
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  // },
 });
 
 

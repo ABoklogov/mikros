@@ -1,23 +1,43 @@
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Platform,
+  Pressable
+} from 'react-native';
 import PropTypes from 'prop-types';
 // import vars
-import { colors, radius } from 'res/vars';
-import { textButton } from 'res/palette';
+import { colors, radius, activeOpacity } from 'res/vars';
+import { textButton, rippleMainBtn } from 'res/palette';
 
 export default MainButton = ({ text, onPress, active }) => {
-  return (
-    <TouchableOpacity
-      activeOpacity={0.8}
-      onPress={onPress}
-      style={{
-        ...styles.button,
-        backgroundColor: active ? colors.blue : colors.lightGrey,
-        borderColor: active ? colors.blue : colors.lightGrey,
-      }}
-    >
-      <Text style={styles.text}>{text}</Text>
-    </TouchableOpacity>
-  );
+  const stylesButton = {
+    ...styles.button,
+    backgroundColor: active ? colors.blue : colors.lightGrey,
+    borderColor: active ? colors.blue : colors.lightGrey,
+  };
+
+  if (Platform.OS === 'ios') {
+    return (
+      <TouchableOpacity
+        onPress={onPress}
+        activeOpacity={activeOpacity}
+        style={stylesButton}
+      >
+        <Text style={styles.text}>{text}</Text>
+      </TouchableOpacity>
+    )
+  } else {
+    return (
+      <Pressable
+        onPress={onPress}
+        android_ripple={rippleMainBtn}
+        style={stylesButton}
+      >
+        <Text style={styles.text}>{text}</Text>
+      </Pressable>
+    )
+  }
 };
 
 const styles = StyleSheet.create({

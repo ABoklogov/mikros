@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import Card from 'components/shared/Card';
 // import CategoryItem from 'components/categorys/CategoryItem';
 // import vars
-import { strings, images, radius } from 'res/vars';
+import { strings, images, radius, activeOpacity } from 'res/vars';
 import { baseText, } from 'res/palette';
 
 export default CategoryItem = ({
@@ -50,7 +50,7 @@ export default CategoryItem = ({
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={activeOpacity}
         onPress={openSubCategory}
       >
         <Card>

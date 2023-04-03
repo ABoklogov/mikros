@@ -9,7 +9,7 @@ import {
 // import components
 import BasketIcon from 'components/icons/tabs_icons/BasketIcon';
 // import vars
-import { strings, fonts, colors } from 'res/vars';
+import { strings, fonts, colors, activeOpacity } from 'res/vars';
 import { text, title } from 'res/palette';
 
 export default BasketBlock = () => {
@@ -36,7 +36,7 @@ export default BasketBlock = () => {
 
       <View style={styles.footer}>
         <TouchableOpacity
-          activeOpacity={0.8}
+          activeOpacity={activeOpacity}
           onPress={() => navigation.navigate(strings.nameMainScreens.basket)}
         >
           <Text style={styles.btnText}>

@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 // import vars
-import { colors } from 'res/vars';
+import { colors, activeOpacity } from 'res/vars';
 import { text } from 'res/palette';
 
 export default Header = ({
@@ -23,7 +23,7 @@ export default Header = ({
   return (
     <View style={styles.component}>
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={activeOpacity}
         onPress={toBack}
       >
         <Text>назад</Text>

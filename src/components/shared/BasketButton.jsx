@@ -1,29 +1,47 @@
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  Platform,
+  TouchableOpacity,
+  Pressable
+} from 'react-native';
 import PropTypes from 'prop-types';
 // import vars
-import { colors, radius } from 'res/vars';
-import { textButton } from 'res/palette';
+import { colors, radius, activeOpacity } from 'res/vars';
+import { textButton, rippleBasketBtn } from 'res/palette';
 
 export default BasketButton = ({ onPress, active }) => {
-  return (
-    <TouchableOpacity
-      activeOpacity={0.8}
-      onPress={onPress}
-      style={{
-        ...styles.button,
-        backgroundColor: active ? colors.blue : colors.lightGrey,
-        borderColor: active ? colors.blue : colors.lightGrey,
-      }}
-    >
-      {
-        active ? (
-          <Text style={styles.text}>в корзину</Text>
-        ) : (
-          <Text style={styles.text}>нет в наличии</Text>
-        )
-      }
-    </TouchableOpacity>
-  );
+  const stylesButton = {
+    ...styles.button,
+    backgroundColor: active ? colors.blue : colors.lightGrey,
+    borderColor: active ? colors.blue : colors.lightGrey,
+  };
+
+  if (Platform.OS === 'ios') {
+    return (
+      <TouchableOpacity
+        activeOpacity={activeOpacity}
+        onPress={active ? onPress : null}
+        style={stylesButton}
+      >
+        <Text style={styles.text}>
+          {active ? 'в корзину' : 'нет в наличии'}
+        </Text>
+      </TouchableOpacity>
+    )
+  } else {
+    return (
+      <Pressable
+        onPress={active ? onPress : null}
+        android_ripple={rippleBasketBtn}
+        style={stylesButton}
+      >
+        <Text style={styles.text}>
+          {active ? 'в корзину' : 'нет в наличии'}
+        </Text>
+      </Pressable>
+    )
+  }
 };
 
 const styles = StyleSheet.create({

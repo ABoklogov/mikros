@@ -7,7 +7,7 @@ import MaskInput from 'react-native-mask-input'
 import ErrorMessage from 'components/shared/ErrorMessage';
 import InfoIcon from 'components/icons/InfoIcon';
 // import vars
-import { colors } from 'res/vars.js';
+import { colors, activeOpacity } from 'res/vars.js';
 import { text, input } from 'res/palette.js';
 
 export default InputPhone = ({
@@ -107,7 +107,7 @@ export default InputPhone = ({
         infoText &&
         <TouchableOpacity
           style={styles.inputInfoBtn}
-          activeOpacity={0.8}
+          activeOpacity={activeOpacity}
           onPress={showAlert}
         >
           <InfoIcon />

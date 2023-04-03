@@ -13,7 +13,7 @@ import { SwiperFlatList } from 'react-native-swiper-flatlist';
 // import components
 import Preloader from 'components/shared/Preloader';
 // import vars
-import { radius, strings, baseUrlImg } from 'res/vars';
+import { radius, strings, baseUrlImg, activeOpacity } from 'res/vars';
 
 const WIDTH = Dimensions.get('window').width;
 const widthBanner = WIDTH - 30; // ширина баннера (прелоадера)
@@ -77,7 +77,7 @@ export default BannersSwiper = () => {
             renderItem={({ item }) => (
               <TouchableOpacity
                 key={item.id}
-                activeOpacity={0.8}
+                activeOpacity={activeOpacity}
                 onPress={() => goToSectionSale(item.categoryId, item.name)}
               >
                 <Image

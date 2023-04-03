@@ -13,8 +13,8 @@ import PropTypes from 'prop-types';
 // import components
 
 // import vars
-import { strings, images, radius } from 'res/vars';
-import { text, } from 'res/palette';
+import { strings, images, radius, activeOpacity } from 'res/vars';
+import { text } from 'res/palette';
 
 export default SubCategoryItem = ({
   id,
@@ -45,7 +45,7 @@ export default SubCategoryItem = ({
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={activeOpacity}
         onPress={openSubCategory}
       >
         <View style={styles.textBox}>
