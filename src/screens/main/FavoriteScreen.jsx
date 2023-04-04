@@ -18,6 +18,9 @@ export default FavoriteScreen = () => {
       <NestedScreen.Screen
         name={strings.nameNestedFavorites.home}
         component={DefaultScreenFavorites}
+        options={{
+          headerLeft: null,
+        }}
       />
     </NestedScreen.Navigator>
   );

@@ -1,11 +1,16 @@
 import { StyleSheet, View, Text } from 'react-native';
-import { fonts } from 'res/vars';
+// import components
+import EmptyFavoriteBlock from 'components/EmptyFavoriteBlock';
+// import vars
+import { colors, mHorizontal } from 'res/vars';
 
 export default DefaultScreenFavorites = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontFamily: fonts.medium }}>FavoriteScreen</Text>
+      <View style={styles.emptyBox}>
+        <EmptyFavoriteBlock />
+      </View>
     </View>
   );
 };
@@ -13,7 +18,11 @@ export default DefaultScreenFavorites = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: '100%',
+    backgroundColor: colors.white,
   },
+  emptyBox: {
+    paddingTop: 30,
+    marginHorizontal: mHorizontal.baseBlock,
+  }
 });

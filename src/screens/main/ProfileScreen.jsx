@@ -22,6 +22,9 @@ export default ProfileScreen = () => {
       <NestedScreen.Screen
         name={strings.nameNestedProfile.home}
         component={DefaultScreenProfile}
+        options={{
+          headerLeft: null,
+        }}
       />
       <NestedScreen.Screen
         name={strings.nameNestedProfile.profileInfo}

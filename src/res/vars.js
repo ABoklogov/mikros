@@ -97,7 +97,7 @@ export const strings = {
   },
   // избранные (2 уровень)
   nameNestedFavorites: {
-    home: 'Избранное',
+    home: 'Отложенные товары',
   },
   // корзина (2 уровень)
   nameNestedBasket: {
@@ -120,12 +120,6 @@ export const strings = {
     barcodeScan: 'Сканер штри-кода',
   },
 
-  textLinkLogIn: 'Нет аккаунта? Зарегистрироваться',
-  textLinkRegistration: 'Уже есть аккаунт? Войти',
-  textAuth: 'Войдите или зарегистрируйтесь, чтобы получить полный доступ к функциям Микрос',
-  textBtnReturnScan: 'Сканировать еще раз',
-  textBtnOpenScan: 'открыть сканер',
-  textNotProductScan: 'Товар не найден',
 
   // плейсхолдеры
   placeholders: {
@@ -167,16 +161,25 @@ export const strings = {
   },
 
   profileText: {
-    favorite: 'Добавляйте сюда товары, которые вам понравились, чтобы не забыть купить их',
     basket: 'Ваша корзина пуста',
     orderHistory: 'У вас еще нет заказов',
   },
+  favoritesText: {
+    emptyText: 'Добавляйте сюда товары, которые вам понравились, чтобы не забыть купить их',
+  },
+  basketText: {
+    textAuth: 'Войдите или зарегистрируйтесь, чтобы получить полный доступ к функциям Микрос',
+  },
+
+  textLinkLogIn: 'Нет аккаунта? Зарегистрироваться',
+  textLinkRegistration: 'Уже есть аккаунт? Войти',
+  textBtnReturnScan: 'Сканировать еще раз',
+  textBtnOpenScan: 'открыть сканер',
+  textNotProductScan: 'Товар не найден',
 
   titles: {
     titleSaleProducts: 'Акционные товары',
   },
-
-
 };
 
 export const images = {

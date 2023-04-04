@@ -23,6 +23,9 @@ export default BasketScreen = () => {
       <NestedScreen.Screen
         name={strings.nameNestedBasket.home}
         component={DefaultBasketScreen}
+        options={{
+          headerLeft: null,
+        }}
       />
       {/* оформление заказа */}
       <NestedScreen.Screen
