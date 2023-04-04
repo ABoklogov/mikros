@@ -7,6 +7,13 @@ export const title = {
   color: colors.black,
 }
 
+export const titleHeader = {
+  fontFamily: fonts.bold,
+  fontSize: sizeText.medium,
+  lineHeight: heightText.big,
+  color: colors.black,
+}
+
 export const miniTitle = {
   fontFamily: fonts.bold,
   fontSize: sizeText.light,

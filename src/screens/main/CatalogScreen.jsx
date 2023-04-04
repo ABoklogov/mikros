@@ -15,6 +15,7 @@ import ProductsScreen from "screens/nested_catalog/ProductsScreen";
 // import Header from "components/shared/Header";
 // import vars
 import { strings } from "res/vars";
+import { titleHeader } from "res/palette";
 
 const NestedScreen = createStackNavigator();
 
@@ -24,7 +25,9 @@ export default CatalogScreen = () => {
   return (
     <NestedScreen.Navigator
       screenOptions={{
+        headerLeft: (props) => <BackButton {...props} />, // кнопка назад в шапке
         headerShown: true, // шапка скрина
+        headerTitleStyle: titleHeader // стиль заголовка в шапке
         // TODO: узнать как сделать перемещение между экранами по горизонтали
         // gestureEnabled: true, 
         // gestureDirection: 'horizontal',
@@ -90,6 +93,9 @@ export default CatalogScreen = () => {
       <NestedScreen.Screen
         name={strings.nameNestedCatalog.cardProduct}
         component={ProductCardScreen}
+        options={{
+          headerShown: false,
+        }}
       />
     </NestedScreen.Navigator>
   );

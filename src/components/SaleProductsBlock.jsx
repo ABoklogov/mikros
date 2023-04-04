@@ -33,7 +33,11 @@ export default SaleProductsBlock = ({
   return (
     <View style={styles.container}>
       <View style={styles.title}>
-        <Item text={title} link={screenName} />
+        <Item
+          text={title}
+          link={screenName}
+          data={{ name: title }}
+        />
       </View>
 
       {

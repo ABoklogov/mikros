@@ -11,9 +11,8 @@ import {
 import PropTypes from 'prop-types';
 // import components
 import ProductsItem from 'components/products/ProductsItem';
-import Title from "components/shared/Title";
 // import vars
-import { mHorizontal, colors } from 'res/vars';
+import { colors } from 'res/vars';
 import { text } from 'res/palette.js';
 
 export default ProductsList = ({
@@ -49,10 +48,6 @@ export default ProductsList = ({
   } else {
     return (
       <View style={styles.container}>
-        <View style={styles.titleSection}>
-          <Title text={nameSection} />
-        </View>
-
         <SafeAreaView>
           <FlatList
             contentContainerStyle={styles.list}
@@ -89,11 +84,6 @@ const styles = StyleSheet.create({
   },
   container: {
     marginHorizontal: 5,
-  },
-  titleSection: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginHorizontal: mHorizontal.baseBlock,
   },
   list: {
     alignItems: 'flex-start',

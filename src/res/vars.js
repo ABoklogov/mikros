@@ -95,6 +95,10 @@ export const strings = {
     products: 'Список товаров',
     cardProduct: 'Карточка товара',
   },
+  // избранные (2 уровень)
+  nameNestedFavorites: {
+    home: 'Избранное',
+  },
   // корзина (2 уровень)
   nameNestedBasket: {
     home: 'Моя корзина',

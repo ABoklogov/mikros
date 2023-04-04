@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// import { getHeaderTitle } from '@react-navigation/elements';
+import { headerLeft } from '@react-navigation/elements';
 const MainTabs = createBottomTabNavigator();
 const NotTabsStack = createStackNavigator();
 import { Pressable } from 'react-native';
@@ -19,9 +19,11 @@ import CatalogIcon from 'components/icons/tabs_icons/CatalogIcon';
 import BasketIcon from 'components/icons/tabs_icons/BasketIcon';
 import ProfileIcon from 'components/icons/tabs_icons/ProfileIcon';
 import FavoriteIcon from 'components/icons/tabs_icons/FavoriteIcon';
+// import components
+import BackButton from 'components/BackButton';
 // import vars
 import { colors, fonts, strings } from 'res/vars';
-import { rippleTabsBottom } from 'res/palette';
+import { rippleTabsBottom, titleHeader } from 'res/palette';
 
 export default useRoute = () => {
   // навигация с нижними табами
@@ -120,13 +122,18 @@ export default useRoute = () => {
               />
           }}
         />
-      </MainTabs.Navigator >
+      </MainTabs.Navigator>
     )
   };
 
   return (
     // навигация без нижних табов
-    <NotTabsStack.Navigator>
+    <NotTabsStack.Navigator
+      screenOptions={{
+        headerLeft: (props) => <BackButton {...props} />, // кнопка назад в шапке
+        headerTitleStyle: titleHeader // стиль заголовка в шапке
+      }}
+    >
       <NotTabsStack.Screen
         name="Home"
         component={TabsStack}
@@ -135,16 +142,10 @@ export default useRoute = () => {
         }}
       />
       <NotTabsStack.Screen
-        options={{
-          headerShown: false,
-        }}
         name={strings.nameNotTabs.logIn}
         component={LogInScreen}
       />
       <NotTabsStack.Screen
-        options={{
-          headerShown: false,
-        }}
         name={strings.nameNotTabs.registration}
         component={RegistrationScreen}
       />
@@ -153,15 +154,6 @@ export default useRoute = () => {
         component={BarcodeScanScreen}
         options={{
           headerShown: false,
-          // tabBarLabel: () => null, // удаляет лейбл
-          // tabBarItemStyle: [{
-          //   borderRadius: 50,
-          //   paddingBottom: 5,
-          //   paddingTop: 5,
-          //   backgroundColor: colors.lightGrey,
-          // }],
-          // tabBarIcon: ({ color }) =>
-          //   <BarcodeScanIcon color={color} />
         }}
       />
     </NotTabsStack.Navigator>

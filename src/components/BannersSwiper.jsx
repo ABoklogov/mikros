@@ -27,7 +27,7 @@ export default BannersSwiper = () => {
 
   const goToSectionSale = (id, name) => {
     dispatch(fetchBannersProducts(id, name));
-    navigation.navigate(strings.nameNestedHome.homeBannersProducts)
+    navigation.navigate(strings.nameNestedHome.homeBannersProducts, { name })
   };
 
   // вычисляет размер картинки

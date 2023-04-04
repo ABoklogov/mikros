@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
@@ -7,8 +8,14 @@ import ProductsList from 'components/products/ProductsList';
 import { colors } from 'res/vars';
 
 export default SaleProductsScreen = ({ route }) => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const { sale } = useSelector(state => state);
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: route.params.name
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
