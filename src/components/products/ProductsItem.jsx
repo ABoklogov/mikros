@@ -28,10 +28,17 @@ export default ProductsItem = ({
 }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [firstRender, setFirstRender] = useState(false);
   const [notImage, setNotImage] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [showForm, setShowForm] = useState(false);
 
+  useEffect(() => {
+    if (firstRender) {
+      dispatch(addToBasket(idProduct, quantity));
+    };
+    setFirstRender(true);
+  }, [quantity]);
 
   const sliceName = () => {
     return name.length < 38 ? name : `${name.slice(0, 38)} ...`;
@@ -60,10 +67,9 @@ export default ProductsItem = ({
     };
   };
 
-  const addToBasket = () => {
+  const addToBasketProduct = () => {
     setQuantity(quantity + 1);
     setShowForm(true);
-    // dispatch(addToBasket(idProduct))
   };
 
   const calculate = () => {
@@ -113,7 +119,7 @@ export default ProductsItem = ({
 
               {
                 !showForm && !quantity ? (
-                  <BasketButton onPress={addToBasket} active={true} />
+                  <BasketButton onPress={addToBasketProduct} active={true} />
                 ) : (
                   <FormQuantity
                     quantity={quantity}

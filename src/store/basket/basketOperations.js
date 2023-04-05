@@ -62,7 +62,7 @@ export const fetchBasket = () => async (dispatch, getState) => {
         dispatch(loadingSetBasket(false));
         dispatch(errorSetBasket(''));
         setLocalBasket([]);
-      } else if (localBasket.length === 0) {
+      } else if (Object.keys(localBasket).length === 0) {
         dispatch(loadingSetBasket(false));
         dispatch(errorSetBasket(''));
         dispatch(setBasket([]));
@@ -80,22 +80,46 @@ export const fetchBasket = () => async (dispatch, getState) => {
   }
 };
 
-export const addToBasket = (id) => async (dispatch, getState) => {
-  // console.log("🚀 ~ addToBasket ~ product", product)
+export const addToBasket = (idProduct, quantity) => async (dispatch, getState) => {
   const { auth } = getState();
-
   try {
     if (auth.isLoggedIn) {
 
     } else {
-      // removeLocalBasket()
       const localBasket = await getLocalBasket();
-      const findProduct = localBasket.find(el => el === id);
+      console.log("🚀 ~ addToBasket ~ localBasket:", localBasket)
 
+      // let cartData = localBasket;
+      // if (Object.keys(localBasket).length === 0) {
+      //   cartData[idProduct] = quantity;
+      //   setLocalBasket(cartData);
+      // } else {
+      //   for (let key in cartData) {
+      //     if (key === idProduct) {
+      //       cartData[key] = quantity;
+      //     } else {
+      //       cartData[idProduct] = quantity;
+      //     };
+      //   };
+      //   setLocalBasket(cartData);
+
+      //   const localBasket1 = await getLocalBasket();
+      //   console.log("🚀 ~ addToBasket ~ localBasket1:", localBasket1)
+      // };
+
+      // removeLocalBasket()
+
+      let findProduct = localBasket.find(el => el.id === idProduct);
       if (findProduct) {
-        return
+        let cartData = [...localBasket];
+
+        cartData.forEach(el => {
+          if (el.id === idProduct) {
+            el.quantity = quantity;
+          }
+        })
       } else {
-        const totalBasket = [...localBasket, id];
+        const totalBasket = [...localBasket, { id: idProduct, quantity: quantity }];
         setLocalBasket(totalBasket);
       };
 
