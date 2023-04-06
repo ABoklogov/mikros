@@ -3,7 +3,9 @@ import { StyleSheet, View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 // import components
 import Card from 'components/shared/Card';
-import VendorCode from 'components/shared/VendorCode';
+import VendorCode from 'components/shared/poduct_components/VendorCode';
+import Name from 'components/shared/poduct_components/Name';
+import Price from 'components/shared/poduct_components/Price';
 import FavoriteButton from 'components/shared/FavoriteButton';
 // import icons
 import CloseIcon from 'components/icons/CloseIcon';
@@ -32,7 +34,7 @@ export default BasketItem = ({
         <View style={styles.content}>
           <View style={styles.header}>
             <View style={styles.vendorCodeBox}>
-              <VendorCode vendorCode={''} />
+              <VendorCode code={vendorCode} />
             </View>
 
             <View style={styles.iconsBox}>
@@ -44,11 +46,11 @@ export default BasketItem = ({
           </View>
 
           <View style={styles.nameBox}>
-            <Text style={styles.name}>{sliceName(name)}</Text>
+            <Name name={sliceName(name)} />
           </View>
 
           <View style={styles.priceBox}>
-            <Text style={styles.price}>{price.slice(0, -2)} ₽/{unit}</Text>
+            <Price price={price} />
           </View>
         </View>
       </View>
@@ -95,16 +97,13 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     marginBottom: 5,
   },
-  name: {
-    ...miniText,
-  },
+  // name: {
+  //   ...miniText,
+  // },
   priceBox: {
     // borderColor: 'green',
     // borderWidth: 1,
   },
-  price: {
-    ...miniTitle
-  }
 });
 
 BasketItem.propTypes = {

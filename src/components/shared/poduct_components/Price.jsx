@@ -6,16 +6,20 @@ import {
 } from 'react-native';
 // import vars
 import { fonts } from 'res/vars';
-import { title, text } from 'res/palette'
+import { title, text, miniTitle } from 'res/palette'
 
-export default Price = ({ price, unit }) => {
+export default Price = ({ price, unit, big }) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.price}>{`${price}`}</Text>
+        <Text style={big ? styles.priceBig : styles.price}>
+          {`${price}`}
+        </Text>
       </View>
       <View>
-        <Text style={styles.unit}> {`₽/${unit}.`}</Text>
+        <Text style={big ? styles.unitBig : styles.price}>
+          {` ₽/${unit}.`}
+        </Text>
       </View>
     </View>
   );
@@ -27,9 +31,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end'
   },
   price: {
+    ...miniTitle,
+  },
+  priceBig: {
     ...title,
   },
-  unit: {
+  unitBig: {
     ...text,
     fontFamily: fonts.bold,
   }
@@ -38,8 +45,10 @@ const styles = StyleSheet.create({
 Price.propTypes = {
   price: PropTypes.string,
   unit: PropTypes.string,
+  big: PropTypes.bool,
 };
 
 Price.defaultProps = {
   unit: 'шт',
+  big: false,
 };

@@ -7,7 +7,9 @@ import { calculateBasket } from 'store/basket/basketOperations';
 // import components
 import Card from 'components/shared/Card';
 import PtoductItemImg from 'components/products/PtoductItemImg';
-import VendorCode from 'components/shared/VendorCode';
+import VendorCode from 'components/shared/poduct_components/VendorCode';
+import Name from 'components/shared/poduct_components/Name';
+import Price from 'components/shared/poduct_components/Price';
 import FavoriteButton from 'components/shared/FavoriteButton';
 import BasketButton from 'components/shared/BasketButton';
 import FormQuantity from 'components/shared/FormQuantity';
@@ -96,7 +98,7 @@ export default ProductsItem = ({
             height: widthItem * 1.6,
           }}>
             <View style={styles.header}>
-              <VendorCode vendorCode={''} />
+              <VendorCode code={''} />
               <FavoriteButton />
             </View>
 
@@ -110,10 +112,10 @@ export default ProductsItem = ({
             <View style={styles.content}>
               <View>
                 <View style={styles.nameBox}>
-                  <Text style={styles.name}>{sliceName()}</Text>
+                  <Name name={sliceName()} />
                 </View>
                 <View>
-                  <Text style={styles.price}>{price} ₽</Text>
+                  <Price price={price} />
                 </View>
               </View>
 
@@ -166,14 +168,8 @@ const styles = StyleSheet.create({
     // borderColor: 'tomato',
     // borderWidth: 1,
   },
-  name: {
-    ...miniText,
-  },
   priceBox: {
     alignItems: 'flex-end'
-  },
-  price: {
-    ...miniTitle,
   },
 });
 

@@ -31,7 +31,8 @@ export default BasketList = ({ products }) => {
             <View style={styles.item}>
               <BasketItem
                 name={item.NAME}
-                price={item.PRICE}
+                // price={item.PRICE}
+                price={item.PRICE.PRICE}
                 unit={item.MEASURE_NAME}
               />
             </View>
