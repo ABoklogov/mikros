@@ -58,7 +58,7 @@ export default SaleProductsBlock = ({
                     price={item.PRICE?.PRICE}
                     productImg={item.PICTURE}
                     idProduct={item.ID}
-                  // product={item}
+                    product={item}
                   />
                 </View>
               ))

@@ -4,6 +4,8 @@ const initialState = {
   items: [],
   isLoading: false,
   error: '',
+  isLoadingCalculate: false,
+  errorCalculate: '',
 };
 
 export const basketSlice = createSlice({
@@ -23,6 +25,14 @@ export const basketSlice = createSlice({
       ...state,
       error: payload,
     }),
+    loadingCalculateBasket: (state, { payload }) => ({
+      ...state,
+      isLoadingCalculate: payload,
+    }),
+    errorCalculateBasket: (state, { payload }) => ({
+      ...state,
+      errorCalculate: payload,
+    }),
   },
 });
 
@@ -30,4 +40,6 @@ export const {
   setBasket,
   loadingSetBasket,
   errorSetBasket,
+  loadingCalculateBasket,
+  errorCalculateBasket,
 } = basketSlice.actions;

@@ -65,7 +65,7 @@ export default ProductsList = ({
                 price={item.PRICE?.PRICE}
                 productImg={item.PICTURE}
                 idProduct={item.ID}
-              // product={item}
+                product={item}
               />
             )}
           />

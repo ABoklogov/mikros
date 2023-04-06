@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native';
 import PropTypes from 'prop-types';
-import { addToBasket } from 'store/basket/basketOperations';
+import { calculateBasket } from 'store/basket/basketOperations';
 // import components
 import Card from 'components/shared/Card';
 import PtoductItemImg from 'components/products/PtoductItemImg';
@@ -24,7 +24,7 @@ export default ProductsItem = ({
   price,
   productImg,
   idProduct,
-  // product
+  product
 }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ export default ProductsItem = ({
 
   useEffect(() => {
     if (firstRender) {
-      dispatch(addToBasket(idProduct, quantity));
+      dispatch(calculateBasket(product, quantity));
     };
     setFirstRender(true);
   }, [quantity]);

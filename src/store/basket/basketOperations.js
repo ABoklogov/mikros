@@ -1,43 +1,21 @@
 import API from "services/profile-api";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  setLocalBasket,
+  removeLocalBasket,
+  getLocalBasket,
+  calcLocalBasket,
+  calcBasket,
+} from 'hooks/basket';
 import {
   setBasket,
   loadingSetBasket,
   errorSetBasket,
+  loadingCalculateBasket,
+  errorCalculateBasket,
 } from './basketSlice';
-
-// запись корзины в локальное хранилище
-const setLocalBasket = async (value) => {
-  try {
-    const strBasket = JSON.stringify(value);
-    await AsyncStorage.setItem('basket', strBasket);
-  } catch (error) {
-    console.log(error.message)
-  };
-};
-
-// удаления корзины из локального хранилища
-const removeLocalBasket = async () => {
-  try {
-    await AsyncStorage.removeItem('basket');
-  } catch (error) {
-    console.log(error.message)
-  };
-};
-
-// получение корзины из локального хранилища
-const getLocalBasket = async () => {
-  try {
-    const jsonBasket = await AsyncStorage.getItem('basket');
-    return JSON.parse(jsonBasket);
-  } catch (error) {
-    console.log(error.message)
-  };
-}
 
 export const fetchBasket = () => async (dispatch, getState) => {
   const { auth } = getState();
-
   try {
     // если пользователь авторизован, делаем запрос на сервер за его корзиной
     if (auth.isLoggedIn) {
@@ -56,7 +34,7 @@ export const fetchBasket = () => async (dispatch, getState) => {
       // если пользователь не авторизован, достаем его корзину из локального хранилища
       dispatch(loadingSetBasket(true));
       const localBasket = await getLocalBasket();
-      console.log("🚀 корзина не авторизованного юзера", localBasket)
+      console.log("корзина не авторизованного юзера", localBasket)
 
       if (localBasket === null) {
         dispatch(loadingSetBasket(false));
@@ -69,8 +47,8 @@ export const fetchBasket = () => async (dispatch, getState) => {
       } else {
         dispatch(loadingSetBasket(false));
         dispatch(errorSetBasket(''));
-        // здесь надо сделать запрос за корзиной не авторизованного пользователя
-        // dispatch(setBasket(localBasket));
+        //  TODO: здесь надо сделать запрос за корзиной не авторизованного пользователя (т.е. достать из локального хранилища массив отправить на сервер и получить массив подробной корзины)
+        // dispatch(setBasket(arr));
       };
     };
   } catch (error) {
@@ -79,54 +57,29 @@ export const fetchBasket = () => async (dispatch, getState) => {
     console.log(error.message);
   }
 };
-
-export const addToBasket = (idProduct, quantity) => async (dispatch, getState) => {
-  const { auth } = getState();
+export const calculateBasket = (product, quantity) => async (dispatch, getState) => {
+  const { auth, basket } = getState();
   try {
     if (auth.isLoggedIn) {
 
     } else {
+      dispatch(loadingCalculateBasket(true));
       const localBasket = await getLocalBasket();
-      console.log("🚀 ~ addToBasket ~ localBasket:", localBasket)
 
-      // let cartData = localBasket;
-      // if (Object.keys(localBasket).length === 0) {
-      //   cartData[idProduct] = quantity;
-      //   setLocalBasket(cartData);
-      // } else {
-      //   for (let key in cartData) {
-      //     if (key === idProduct) {
-      //       cartData[key] = quantity;
-      //     } else {
-      //       cartData[idProduct] = quantity;
-      //     };
-      //   };
-      //   setLocalBasket(cartData);
+      // считаем локальную корзину
+      const totalLocalBasket = calcLocalBasket(localBasket, product.ID, quantity);
+      console.log("корзина не авторизованного юзера", totalLocalBasket)
+      // считаем подробную корзину
+      const totalBasket = calcBasket(basket.items, product, quantity);
 
-      //   const localBasket1 = await getLocalBasket();
-      //   console.log("🚀 ~ addToBasket ~ localBasket1:", localBasket1)
-      // };
-
-      // removeLocalBasket()
-
-      let findProduct = localBasket.find(el => el.id === idProduct);
-      if (findProduct) {
-        let cartData = [...localBasket];
-
-        cartData.forEach(el => {
-          if (el.id === idProduct) {
-            el.quantity = quantity;
-          }
-        })
-      } else {
-        const totalBasket = [...localBasket, { id: idProduct, quantity: quantity }];
-        setLocalBasket(totalBasket);
-      };
-
-      const localBasket2 = await getLocalBasket();
-      console.log("🚀 ~ addToBasket ~ localBasket2", localBasket2)
+      dispatch(loadingCalculateBasket(false));
+      dispatch(errorCalculateBasket(''));
+      setLocalBasket(totalLocalBasket);
+      dispatch(setBasket(totalBasket));
     };
   } catch (error) {
-
+    dispatch(loadingCalculateBasket(false));
+    dispatch(errorCalculateBasket(error.message));
+    console.log(error.message);
   }
 };
