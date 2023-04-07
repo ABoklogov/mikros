@@ -37,7 +37,6 @@ export default CategorysList = ({ categorys }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 70,
     paddingLeft: 10,
     paddingTop: 10,
   },

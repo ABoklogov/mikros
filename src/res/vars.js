@@ -59,6 +59,7 @@ export const radius = {
 
 export const mHorizontal = {
   baseBlock: 15,
+  listProduct: 5,
 };
 
 export const activeOpacity = 0.3;
@@ -94,6 +95,7 @@ export const strings = {
     subCategorys_7: 'Список подкатегорий 7 уровня',
     products: 'Список товаров',
     cardProduct: 'Карточка товара',
+    filterCatalog: 'Фильтры каталога',
   },
   // избранные (2 уровень)
   nameNestedFavorites: {

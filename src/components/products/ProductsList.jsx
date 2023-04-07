@@ -12,8 +12,9 @@ import PropTypes from 'prop-types';
 // import components
 import ProductsItem from 'components/products/ProductsItem';
 // import vars
-import { colors } from 'res/vars';
+import { colors, mHorizontal } from 'res/vars';
 import { text } from 'res/palette.js';
+
 
 export default ProductsList = ({
   screenName,
@@ -27,6 +28,14 @@ export default ProductsList = ({
   // высчитываем ширину одного элемента
   const numColumn = 2;
   const widthItem = ((window.width - 10) - 4 * 5) / numColumn;
+
+  const HeaderComponent = () => {
+    return (
+      <View style={styles.headerContainer}>
+        <Title text={nameSection} />
+      </View>
+    )
+  };
 
   if (isLoading) {
     return (
@@ -57,6 +66,7 @@ export default ProductsList = ({
             maxToRenderPerBatch={10}
             horizontal={false}
             numColumns={numColumn}
+            ListHeaderComponent={HeaderComponent}
             renderItem={({ item }) => (
               <ProductsItem
                 screenName={screenName}
@@ -83,7 +93,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   container: {
-    marginHorizontal: 5,
+    marginHorizontal: mHorizontal.listProduct,
+  },
+  headerContainer: {
+    marginBottom: 10,
+    marginHorizontal: mHorizontal.listProduct,
   },
   list: {
     alignItems: 'flex-start',

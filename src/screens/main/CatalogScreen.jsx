@@ -1,4 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity
+} from 'react-native';
 // import screens
 import DefaultScreenCatalog from "screens/nested_catalog/DefaultScreenCatalog";
 import SubCategoriesScreen_1 from "screens/nested_catalog/SubCategoriesScreen_1";
@@ -9,10 +15,11 @@ import SubCategoriesScreen_5 from "screens/nested_catalog/SubCategoriesScreen_5"
 import SubCategoriesScreen_6 from "screens/nested_catalog/SubCategoriesScreen_6";
 import SubCategoriesScreen_7 from "screens/nested_catalog/SubCategoriesScreen_7";
 import ProductCardScreen from "screens/nested_catalog/ProductCardScreen";
+import FilterCatalogScreen from "screens/nested_catalog/FilterCatalogScreen";
 import ProductsScreen from "screens/nested_catalog/ProductsScreen";
 // import vars
-import { strings } from "res/vars";
-import { titleHeader } from "res/palette";
+import { strings, colors, activeOpacity } from "res/vars";
+import { titleHeader, text } from "res/palette";
 
 const NestedScreen = createStackNavigator();
 
@@ -34,6 +41,43 @@ export default CatalogScreen = () => {
       };
     },
   };
+  const leftToRightAnimation = ({ current, layouts }) => {
+    return {
+      cardStyle: {
+        transform: [
+          {
+            translateX: current.progress.interpolate({
+              inputRange: [0, 1],
+              outputRange: [-layouts.screen.width, 0],
+            }),
+          },
+        ],
+      },
+    };
+  };
+
+  const closeBtn = (props) => {
+    return (
+      <View style={styles.close}>
+        <CloseButton {...props} />
+      </View>
+    )
+  };
+
+  const resetBtn = (props) => {
+    return (
+      <TouchableOpacity
+        activeOpacity={activeOpacity}
+        onPress={() => { }}
+        style={styles.reset}
+        {...props}
+      >
+        <Text style={styles.resetText}>
+          Сбросить
+        </Text>
+      </TouchableOpacity>
+    )
+  };
 
   return (
     <NestedScreen.Navigator
@@ -46,7 +90,22 @@ export default CatalogScreen = () => {
         name={strings.nameNestedCatalog.categorys}
         component={DefaultScreenCatalog}
         options={{
-          headerShown: false,
+          headerLeft: null, // левая кнопка
+          headerTitleAlign: 'center', // положение центрального элемента
+          headerTitleContainerStyle: {
+            width: '100%'
+          },
+          headerTitle: () => <SearchForm />
+        }}
+      />
+      <NestedScreen.Screen
+        name={strings.nameNestedCatalog.filterCatalog}
+        component={FilterCatalogScreen}
+        options={{
+          cardStyleInterpolator: leftToRightAnimation,
+          title: 'Фильтры',
+          headerLeft: closeBtn,
+          headerRight: resetBtn,
         }}
       />
       <NestedScreen.Screen
@@ -87,6 +146,14 @@ export default CatalogScreen = () => {
       <NestedScreen.Screen
         name={strings.nameNestedCatalog.products}
         component={ProductsScreen}
+        options={{
+          headerLeft: null, // левая кнопка
+          headerTitleAlign: 'center', // положение центрального элемента
+          headerTitleContainerStyle: {
+            width: '100%'
+          },
+          headerTitle: () => <SearchForm />
+        }}
       />
       <NestedScreen.Screen
         name={strings.nameNestedCatalog.cardProduct}
@@ -117,3 +184,16 @@ export default CatalogScreen = () => {
     </NestedScreen.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  close: {
+    padding: 5,
+  },
+  reset: {
+    padding: 10,
+  },
+  resetText: {
+    ...text,
+    color: colors.grey,
+  }
+});
