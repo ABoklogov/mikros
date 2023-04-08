@@ -9,8 +9,12 @@ import HolidaysCardProductScreen from "screens/nested_home/HolidaysCardProductSc
 
 import SaleProductsScreen from "screens/nested_home/SaleProductsScreen";
 import SaleCardProductScreen from "screens/nested_home/SaleCardProductScreen";
+// imports components
+import LocationBlock from 'components/LocationBlock'; 
+// import icons
+import Logo from 'components/icons/Logo';
 // import vars
-import { strings } from "res/vars";
+import { strings, mHorizontal } from "res/vars";
 import { titleHeader } from "res/palette";
 
 const NestedScreen = createStackNavigator();
@@ -26,7 +30,15 @@ export default HomeScreen = () => {
         name="DefaultScreen"
         component={DefaultHomeScreen}
         options={{
-          headerShown: false, // шапка скрина
+          title: null,
+          headerLeft: () => <Logo />,
+          headerRight: () => <LocationBlock />,
+          headerLeftContainerStyle: {
+            paddingLeft: mHorizontal.baseBlock,
+          },
+          headerRightContainerStyle: {
+            paddingRight: mHorizontal.baseBlock,
+          },
         }}
       />
       <NestedScreen.Screen

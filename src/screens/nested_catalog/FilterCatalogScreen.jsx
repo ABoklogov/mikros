@@ -18,7 +18,7 @@ export default FilterCatalogScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text>FilterCatalogScreen</Text>
+      {/* <Text>FilterCatalogScreen</Text> */}
     </View>
   );
 };

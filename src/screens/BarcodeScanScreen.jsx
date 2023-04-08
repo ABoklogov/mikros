@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from 'react-redux';
 import {
   StyleSheet,
@@ -23,6 +24,7 @@ const barcodeTypes = [
 
 export default BarcodeScanScreen = () => {
   const { scaner } = useSelector(state => state);
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const [barcode, setBarcode] = useState(null);
 
@@ -38,9 +40,13 @@ export default BarcodeScanScreen = () => {
 
   // получает и записывает в state номер штрих-кода
   const onBarcodeRead = (code) => {
-    setBarcode(code);
-    dispatch(fetchBarcode(code));
-    console.log("🚀 ~ onBarcodeRead ~ code:", code)
+    if (code === 'onBackPressed') {
+      navigation.goBack();
+    } else {
+      setBarcode(code);
+      dispatch(fetchBarcode(code));
+      console.log("🚀 ~ onBarcodeRead ~ code:", code)
+    };
   };
 
   // очищает из state номер штрих - кода

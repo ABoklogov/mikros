@@ -15,7 +15,6 @@ import ProductsItem from 'components/products/ProductsItem';
 import { colors, mHorizontal } from 'res/vars';
 import { text } from 'res/palette.js';
 
-
 export default ProductsList = ({
   screenName,
   products,
@@ -28,14 +27,6 @@ export default ProductsList = ({
   // высчитываем ширину одного элемента
   const numColumn = 2;
   const widthItem = ((window.width - 10) - 4 * 5) / numColumn;
-
-  const HeaderComponent = () => {
-    return (
-      <View style={styles.headerContainer}>
-        <Title text={nameSection} />
-      </View>
-    )
-  };
 
   if (isLoading) {
     return (
@@ -66,7 +57,8 @@ export default ProductsList = ({
             maxToRenderPerBatch={10}
             horizontal={false}
             numColumns={numColumn}
-            ListHeaderComponent={HeaderComponent}
+            ListHeaderComponent={() => <Title text={nameSection} />}
+            ListHeaderComponentStyle={styles.title}
             renderItem={({ item }) => (
               <ProductsItem
                 screenName={screenName}
@@ -95,14 +87,15 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: mHorizontal.listProduct,
   },
-  headerContainer: {
-    marginBottom: 10,
-    marginHorizontal: mHorizontal.listProduct,
-  },
   list: {
     alignItems: 'flex-start',
     paddingTop: 10,
     paddingBottom: 90,
+  },
+  title: {
+    marginHorizontal: mHorizontal.listProduct,
+    paddingBottom: 10,
+    paddingTop: 10,
   }
 });
 

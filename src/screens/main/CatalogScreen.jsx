@@ -56,14 +56,6 @@ export default CatalogScreen = () => {
     };
   };
 
-  const closeBtn = (props) => {
-    return (
-      <View style={styles.close}>
-        <CloseButton {...props} />
-      </View>
-    )
-  };
-
   const resetBtn = (props) => {
     return (
       <TouchableOpacity
@@ -104,7 +96,10 @@ export default CatalogScreen = () => {
         options={{
           cardStyleInterpolator: leftToRightAnimation,
           title: 'Фильтры',
-          headerLeft: closeBtn,
+          headerLeft: (props) => <CloseButton {...props} />,
+          headerLeftContainerStyle: {
+            padding: 10,
+          },
           headerRight: resetBtn,
         }}
       />
@@ -186,9 +181,6 @@ export default CatalogScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  close: {
-    padding: 5,
-  },
   reset: {
     padding: 10,
   },

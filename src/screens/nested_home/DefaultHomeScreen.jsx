@@ -15,14 +15,11 @@ import { fetchHolidays } from 'store/holidays/holidaysOperations';
 import { fetchSaleProducts } from 'store/sale/saleOperations';
 // import components
 import SearchForm from 'components/search_form/SearchForm';
-import LocationBlock from 'components/LocationBlock';
 import BannersSwiper from 'components/BannersSwiper';
 import SaleProductsBlock from 'components/SaleProductsBlock';
 import HolidaysBlock from 'components/HolidaysBlock';
 // import vars
 import { strings, colors } from 'res/vars';
-// import icons
-import Logo from 'components/icons/Logo';
 
 const getAllKeys = async () => {
   let keys = []
@@ -79,17 +76,9 @@ export default DefaultHomeScreen = () => {
     <ScrollView style={styles.wrapper}>
       <View style={styles.container}>
         <TouchableWithoutFeedback onPress={removesKeyboard}>
-          <View>
-            {/* шапка */}
-            <View style={styles.header}>
-              <Logo />
-              <LocationBlock />
-            </View>
-            {/* форма поиска */}
-            <View style={styles.formSearch}>
-              <SearchForm opensKeyboard={opensKeyboard} />
-              {/* здесь будет история поиска */}
-            </View>
+          <View style={styles.formSearch}>
+            <SearchForm opensKeyboard={opensKeyboard} />
+            {/* здесь будет история поиска */}
           </View>
         </TouchableWithoutFeedback>
 
