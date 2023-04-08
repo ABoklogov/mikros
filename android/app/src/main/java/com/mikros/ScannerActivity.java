@@ -1,18 +1,13 @@
 package com.mikros;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-
 import android.widget.ImageButton;
-import android.util.Log;
-import android.widget.Toast;
-
 
 import com.facebook.react.ReactActivity;
 import com.google.zxing.ResultMetadataType;
@@ -21,7 +16,6 @@ import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
-import com.journeyapps.barcodescanner.ViewfinderView;
 
 import java.util.List;
 
@@ -75,7 +69,6 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
 
             }
         });
-
     }
 
     private void onScanSuccess(String key, String key5) {
@@ -86,11 +79,22 @@ public class ScannerActivity extends ReactActivity implements DecoratedBarcodeVi
         finish();
     }
 
+
     @Override
     protected void onResume() {
         Log.d("LogTrack", "onResume");
         super.onResume();
         capture.onResume();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        Log.d("LogTrack", "onBackPressed");
+        Intent intent = getIntent();
+        setResult(RESULT_CANCELED, intent);
+        finish();
     }
 
     @Override
