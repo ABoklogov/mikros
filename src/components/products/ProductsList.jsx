@@ -28,6 +28,15 @@ export default ProductsList = ({
   const numColumn = 2;
   const widthItem = ((window.width - 10) - 4 * 5) / numColumn;
 
+  const componentTitle = () => {
+    return (
+      <View>
+        <Title text={nameSection} />
+        <Text style={styles.subTitle}>{`(Товаров: ${products.length})`}</Text>
+      </View>
+    )
+  };
+
   if (isLoading) {
     return (
       <View style={styles.containerMsg}>
@@ -57,7 +66,7 @@ export default ProductsList = ({
             maxToRenderPerBatch={10}
             horizontal={false}
             numColumns={numColumn}
-            ListHeaderComponent={() => <Title text={nameSection} />}
+            ListHeaderComponent={componentTitle}
             ListHeaderComponentStyle={styles.title}
             renderItem={({ item }) => (
               <ProductsItem
@@ -94,8 +103,13 @@ const styles = StyleSheet.create({
   },
   title: {
     marginHorizontal: mHorizontal.listProduct,
-    paddingBottom: 10,
+    paddingBottom: 15,
     paddingTop: 10,
+  },
+  subTitle: {
+    ...text,
+    color: colors.grey,
+    marginTop: 5,
   }
 });
 

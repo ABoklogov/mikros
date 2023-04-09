@@ -21,6 +21,7 @@
         "prop-types": "^15.8.1",
         "react": "18.1.0",
         "react-native": "0.70.6",
+        "react-native-element-dropdown": "^2.9.0",
         "react-native-gesture-handler": "^2.8.0",
         "react-native-linear-gradient": "^2.6.2",
         "react-native-mask-input": "^1.2.2",
