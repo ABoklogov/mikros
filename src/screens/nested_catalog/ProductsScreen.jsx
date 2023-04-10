@@ -1,3 +1,4 @@
+import { useState } from 'react';
 // import { useNavigation } from "@react-navigation/native";
 import { useSelector } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
@@ -5,15 +6,22 @@ import { StyleSheet, View } from 'react-native';
 import ProductsList from 'components/products/ProductsList';
 import SortComponent from 'components/SortComponent';
 // import vars
-import { strings, colors } from 'res/vars';
+import { strings, colors, sortData } from 'res/vars';
 
 export default ProductsScreen = ({ route }) => {
   // const navigation = useNavigation();
   const { catalog } = useSelector(state => state);
+  const [sort, setSort] = useState('');
+  console.log("🚀 ~ sort:", sort)
 
   return (
     <View style={styles.container}>
-      <SortComponent filter={strings.nameNestedCatalog.filterCatalog} />
+      <SortComponent
+        filter={strings.nameNestedCatalog.filterCatalog}
+        sort={sort}
+        setSort={setSort}
+        sortData={sortData}
+      />
       <ProductsList
         screenName={route.name}
         products={catalog.products.items}

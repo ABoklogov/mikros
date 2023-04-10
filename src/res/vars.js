@@ -231,3 +231,22 @@ export const images = {
     12757: require(`assets/images/holidays_icon/sun.png`), //Летний ассортимент
   }
 };
+
+export const sortData = [
+  {
+    value: 'price_asc',
+    lable: 'Сначала дешевые',
+  },
+  {
+    value: 'price_desc',
+    lable: 'Сначала дорогие',
+  },
+  {
+    value: 'name_asc',
+    lable: 'От А до Я',
+  },
+  {
+    value: 'name_desc',
+    lable: 'От Я до А',
+  },
+];
