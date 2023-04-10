@@ -10,7 +10,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 // import components
-import SearchForm from 'components/search_form/SearchForm';
+// import SearchForm from 'components/search_form/SearchForm';
 import CategorysList from 'components/categorys/CategorysList';
 // import vars
 import { colors, mHorizontal } from 'res/vars';
@@ -38,16 +38,12 @@ export default DefaultScreenCatalog = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
   };
-  const opensKeyboard = () => setIsShowKeyboard(true);
+  // const opensKeyboard = () => setIsShowKeyboard(true);
   // --- для клавиатуры end ---
 
   return (
     <TouchableWithoutFeedback onPress={removesKeyboard}>
       <View style={styles.container}>
-        <View style={styles.formSearch}>
-          <SearchForm opensKeyboard={opensKeyboard} />
-          {/* здесь будет история поиска */}
-        </View>
 
         {
           catalog.categorys.isLoading ? (
@@ -71,11 +67,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     backgroundColor: colors.white,
-  },
-  formSearch: {
-    marginHorizontal: mHorizontal.baseBlock,
-    paddingBottom: 10,
-    paddingTop: 10,
   },
   loader: {
     width: '100%',

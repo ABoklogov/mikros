@@ -11,9 +11,8 @@ import {
 import PropTypes from 'prop-types';
 // import components
 import ProductsItem from 'components/products/ProductsItem';
-import Title from "components/shared/Title";
 // import vars
-import { mHorizontal, colors } from 'res/vars';
+import { colors, mHorizontal } from 'res/vars';
 import { text } from 'res/palette.js';
 
 export default ProductsList = ({
@@ -28,6 +27,15 @@ export default ProductsList = ({
   // высчитываем ширину одного элемента
   const numColumn = 2;
   const widthItem = ((window.width - 10) - 4 * 5) / numColumn;
+
+  const componentTitle = () => {
+    return (
+      <View>
+        <Title text={nameSection} />
+        <Text style={styles.subTitle}>{`(Товаров: ${products.length})`}</Text>
+      </View>
+    )
+  };
 
   if (isLoading) {
     return (
@@ -49,10 +57,6 @@ export default ProductsList = ({
   } else {
     return (
       <View style={styles.container}>
-        <View style={styles.titleSection}>
-          <Title text={nameSection} />
-        </View>
-
         <SafeAreaView>
           <FlatList
             contentContainerStyle={styles.list}
@@ -62,6 +66,8 @@ export default ProductsList = ({
             maxToRenderPerBatch={10}
             horizontal={false}
             numColumns={numColumn}
+            ListHeaderComponent={componentTitle}
+            ListHeaderComponentStyle={styles.title}
             renderItem={({ item }) => (
               <ProductsItem
                 screenName={screenName}
@@ -70,7 +76,7 @@ export default ProductsList = ({
                 price={item.PRICE?.PRICE}
                 productImg={item.PICTURE}
                 idProduct={item.ID}
-              // product={item}
+                product={item}
               />
             )}
           />
@@ -88,17 +94,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   container: {
-    marginHorizontal: 5,
-  },
-  titleSection: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginHorizontal: mHorizontal.baseBlock,
+    marginHorizontal: mHorizontal.listProduct,
   },
   list: {
     alignItems: 'flex-start',
     paddingTop: 10,
     paddingBottom: 90,
+  },
+  title: {
+    marginHorizontal: mHorizontal.listProduct,
+    paddingBottom: 15,
+    paddingTop: 10,
+  },
+  subTitle: {
+    ...text,
+    color: colors.grey,
+    marginTop: 5,
   }
 });
 

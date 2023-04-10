@@ -8,7 +8,7 @@ import {
 import MainButton from 'components/shared/MainButton';
 // import vars
 import { strings, sizeText } from 'res/vars';
-import { miniText } from 'res/palette';
+import { text } from 'res/palette';
 
 export default AuthBtnBlock = () => {
   const navigation = useNavigation();
@@ -16,7 +16,7 @@ export default AuthBtnBlock = () => {
 
   return (
     <View style={styles.authBox}>
-      <Text style={styles.authText}>{strings.textAuth}</Text>
+      <Text style={styles.authText}>{strings.basketText.textAuth}</Text>
       <MainButton
         text={'Вход или регистрация'}
         onPress={() => navigation.navigate(strings.nameNotTabs.logIn)}
@@ -32,9 +32,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   authText: {
-    ...miniText,
-    fontSize: sizeText.light,
+    ...text,
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 15,
   }
 });

@@ -11,6 +11,9 @@ import {
 import PropTypes from 'prop-types';
 // import components
 import ImageProduct from 'components/card_product/ImageProduct';
+import Name from 'components/shared/poduct_components/Name';
+import Price from 'components/shared/poduct_components/Price';
+import VendorCode from 'components/shared/poduct_components/VendorCode';
 // import vars
 import { fonts, colors, heightText } from 'res/vars';
 import { text, title, sideText, miniText } from 'res/palette.js';
@@ -36,11 +39,14 @@ export default CardProduct = ({
 
           <View style={styles.content}>
             <View style={styles.nameBox}>
-              <Text style={styles.name}>{ name }</Text>
+              <VendorCode code={''} big={true} />
+            </View>
+            <View style={styles.nameBox}>
+              <Name name={name} big={true} />
             </View>
 
             <View style={styles.priceBox}>
-              <Text style={styles.price}>{ price } ₽</Text>
+              <Price price={price} big={true} />
             </View>
 
             {/* <View style={styles.warehouseBox}>
@@ -80,15 +86,8 @@ const styles = StyleSheet.create({
   nameBox: {
     marginBottom: 10,
   },
-  name: {
-    ...text,
-    fontFamily: fonts.bold,
-  },
   priceBox: {
     marginBottom: 10,
-  },
-  price: {
-    ...title,
   },
   warehouseBox: {
     marginBottom: 20,

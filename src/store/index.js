@@ -7,6 +7,7 @@ import { holidaysSlice } from './holidays/holidaysSlice';
 import { ordersSlice } from './orders/ordersSlice';
 import { saleSlice } from './sale/saleSlice';
 import { basketSlice } from './basket/basketSlice';
+import { favoritesSlice } from './favorites/favoritesSlice';
 import { scanerSlice } from './scaner/scanerSlice';
 
 export const store = configureStore({
@@ -24,6 +25,7 @@ export const store = configureStore({
     [saleSlice.name]: saleSlice.reducer,
     [ordersSlice.name]: ordersSlice.reducer,
     [basketSlice.name]: basketSlice.reducer,
+    [favoritesSlice.name]: favoritesSlice.reducer,
     [scanerSlice.name]: scanerSlice.reducer,
   },
 });

@@ -1,14 +1,21 @@
+import { useEffect } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
 // import components
 import ProductsList from 'components/products/ProductsList';
 // import vars
-import { fonts, colors } from 'res/vars';
+import { colors } from 'res/vars';
 
 export default BannersProductsScreen = ({ route }) => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const { homeBanners } = useSelector(state => state);
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: route.params.name
+    });
+  }, []);
 
   return (
     <View style={styles.container}>

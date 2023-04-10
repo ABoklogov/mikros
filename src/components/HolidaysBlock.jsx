@@ -27,7 +27,7 @@ export default HolidaysBlock = () => {
 
   const goToSectionHolidays = (id, name) => {
     dispatch(fetchHolidaysProducts(id, name));
-    navigation.navigate(strings.nameNestedHome.homeHolidaysProducts)
+    navigation.navigate(strings.nameNestedHome.homeHolidaysProducts, { name })
   };
 
   return (

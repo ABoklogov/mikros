@@ -59,6 +59,7 @@ export const radius = {
 
 export const mHorizontal = {
   baseBlock: 15,
+  listProduct: 5,
 };
 
 export const activeOpacity = 0.3;
@@ -94,6 +95,11 @@ export const strings = {
     subCategorys_7: 'Список подкатегорий 7 уровня',
     products: 'Список товаров',
     cardProduct: 'Карточка товара',
+    filterCatalog: 'Фильтры каталога',
+  },
+  // избранные (2 уровень)
+  nameNestedFavorites: {
+    home: 'Отложенные товары',
   },
   // корзина (2 уровень)
   nameNestedBasket: {
@@ -116,12 +122,6 @@ export const strings = {
     barcodeScan: 'Сканер штри-кода',
   },
 
-  textLinkLogIn: 'Нет аккаунта? Зарегистрироваться',
-  textLinkRegistration: 'Уже есть аккаунт? Войти',
-  textAuth: 'Войдите или зарегистрируйтесь, чтобы получить полный доступ к функциям Микрос',
-  textBtnReturnScan: 'Сканировать еще раз',
-  textBtnOpenScan: 'открыть сканер',
-  textNotProductScan: 'Товар не найден',
 
   // плейсхолдеры
   placeholders: {
@@ -163,16 +163,25 @@ export const strings = {
   },
 
   profileText: {
-    favorite: 'Добавляйте сюда товары, которые вам понравились, чтобы не забыть купить их',
     basket: 'Ваша корзина пуста',
     orderHistory: 'У вас еще нет заказов',
   },
+  favoritesText: {
+    emptyText: 'Добавляйте сюда товары, которые вам понравились, чтобы не забыть купить их',
+  },
+  basketText: {
+    textAuth: 'Войдите или зарегистрируйтесь, чтобы получить полный доступ к функциям Микрос',
+  },
+
+  textLinkLogIn: 'Нет аккаунта? Зарегистрироваться',
+  textLinkRegistration: 'Уже есть аккаунт? Войти',
+  textBtnReturnScan: 'Сканировать еще раз',
+  textBtnOpenScan: 'открыть сканер',
+  textNotProductScan: 'Товар не найден',
 
   titles: {
     titleSaleProducts: 'Акционные товары',
   },
-
-
 };
 
 export const images = {

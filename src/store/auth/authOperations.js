@@ -1,6 +1,10 @@
 import API from 'services/auth-api';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  setStoreToken,
+  removeStoreToken,
+  getStoreToken,
+} from 'hooks/auth';
 import {
   registerUser,
   logInUser,
@@ -19,32 +23,6 @@ const token = {
     axios.defaults.headers.common.Authorization = '';
   },
 };
-// запись токена в локальное хранилище
-const setStoreToken = async (value) => {
-  try {
-    await AsyncStorage.setItem('token', value);
-  } catch (error) {
-    console.log(error.message)
-  };
-};
-
-// удаления токена из локального хранилища
-const removeStoreToken = async () => {
-  try {
-    await AsyncStorage.removeItem('token');
-  } catch (error) {
-    console.log(error.message)
-  };
-};
-
-// получение токена
-const getStoreToken = async () => {
-  try {
-    return await AsyncStorage.getItem('token')
-  } catch (error) {
-    console.log(error.message)
-  };
-}
 
 // регистрация
 export const registration = (credentials) => async (dispatch, getState) => {

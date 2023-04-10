@@ -33,7 +33,11 @@ export default SaleProductsBlock = ({
   return (
     <View style={styles.container}>
       <View style={styles.title}>
-        <Item text={title} link={screenName} />
+        <Item
+          text={title}
+          link={screenName}
+          data={{ name: title }}
+        />
       </View>
 
       {
@@ -54,7 +58,7 @@ export default SaleProductsBlock = ({
                     price={item.PRICE?.PRICE}
                     productImg={item.PICTURE}
                     idProduct={item.ID}
-                  // product={item}
+                    product={item}
                   />
                 </View>
               ))

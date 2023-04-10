@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 // import vars
 import { colors } from 'res/vars.js';
 
-export default ArrowIcon = ({ color }) => {
+export default ArrowBackIcon = ({ color }) => {
   return (
     <Svg
       width={25}
       height={25}
       fill="none"
-      viewBox="0 0 15 27"
+      viewBox="0 0 24 24"
     >
       <Path
-        d="m8 4 8 8-8 8"
+        d="M16 20L8 12L16 4"
         stroke={color}
         strokeWidth={2}
         strokeLinecap="round"
@@ -22,10 +22,10 @@ export default ArrowIcon = ({ color }) => {
   )
 };
 
-ArrowIcon.propTypes = {
+ArrowBackIcon.propTypes = {
   color: PropTypes.string,
 };
 
-ArrowIcon.defaultProps = {
-  color: colors.grey,
+ArrowBackIcon.defaultProps = {
+  color: colors.darkGrey,
 };

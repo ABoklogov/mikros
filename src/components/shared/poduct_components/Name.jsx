@@ -5,19 +5,24 @@ import {
 } from 'react-native';
 // import vars
 import { fonts } from 'res/vars';
-import { text } from 'res/palette'
+import { text, miniText } from 'res/palette'
 
-export default Name = ({ name }) => {
+export default Name = ({ name, big }) => {
   return (
-    <Text style={styles.name}>{name}</Text>
+    <Text style={big ? styles.bigName : styles.name}>
+      {name}
+    </Text>
   );
 };
 
 const styles = StyleSheet.create({
-  name: {
+  bigName: {
     ...text,
     fontFamily: fonts.bold,
-  }
+  },
+  name: {
+    ...miniText,
+  },
 });
 
 Name.propTypes = {

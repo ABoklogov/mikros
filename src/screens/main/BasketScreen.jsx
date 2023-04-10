@@ -8,6 +8,7 @@ import OrderingScreen from "screens/nested_basket/OrderingScreen";
 import OrderProcessing from "screens/nested_basket/OrderProcessing";
 // import vars
 import { strings } from "res/vars";
+import { titleHeader } from "res/palette";
 
 const NestedScreen = createStackNavigator();
 
@@ -15,11 +16,16 @@ export default BasketScreen = () => {
   return (
     <NestedScreen.Navigator
       screenOptions={{
-        "headerShown": true, // шапка скрина
+        headerLeft: (props) => <BackButton {...props} />, // кнопка назад в шапке
+        headerShown: true, // шапка скрина
+        headerTitleStyle: titleHeader // стиль заголовка в шапке
       }}>
       <NestedScreen.Screen
         name={strings.nameNestedBasket.home}
         component={DefaultBasketScreen}
+        options={{
+          headerLeft: null,
+        }}
       />
       {/* оформление заказа */}
       <NestedScreen.Screen
