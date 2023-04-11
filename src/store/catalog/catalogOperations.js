@@ -1,4 +1,5 @@
 import API from "services/catalog-api";
+const SortedArray = require('sorted-array-async');
 import {
   setCategorys,
   errorSetCategorys,
@@ -11,6 +12,7 @@ import {
   setRestProduct,
   loadingSetProduct,
   errorSetProduct,
+  setSortProducts,
 } from './catalogSlice';
 
 // функия сортировки
@@ -127,6 +129,87 @@ export const fetchProduct = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch(errorSetProduct(error.message));
     dispatch(loadingSetProduct(false));
+    console.log(error.message);
+  };
+};
+
+// сортировка товаров
+export const sortsProducts = (value) => async (dispatch, getState) => {
+  const { catalog } = getState();
+  let products = [...catalog.products.items];
+  // колбеки сортировки
+  const sortPriceAsc = (a, b) => {
+    return +a.PRICE.PRICE - +b.PRICE.PRICE;
+  };
+  const sortPriceDesc = (a, b) => {
+    return +b.PRICE.PRICE - +a.PRICE.PRICE;
+  };
+  const sortNameAsc = (a, b) => {
+    const nameA = a.NAME.toLowerCase().trim();
+    const nameB = b.NAME.toLowerCase().trim();
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
+    return 0;
+  };
+  const sortNameDesc = (a, b) => {
+    const nameA = a.NAME.toLowerCase().trim();
+    const nameB = b.NAME.toLowerCase().trim();
+    if (nameA > nameB) return -1;
+    if (nameA < nameB) return 1;
+    return 0;
+  };
+  const sortDefault = (a, b) => {
+    return +a.SORT - +b.SORT;
+  };
+
+  try {
+    dispatch(loadingSetCatalog(true));
+    switch (value) {
+      case 'price_asc':
+        const instancePriceAsc = new SortedArray(products, sortPriceAsc);
+        instancePriceAsc.getArray().then(totalArr => {
+          dispatch(loadingSetCatalog(false));
+          dispatch(errorSetCatalog(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+      case 'price_desc':
+        const instancePriceDesc = new SortedArray(products, sortPriceDesc);
+        instancePriceDesc.getArray().then(totalArr => {
+          dispatch(loadingSetCatalog(false));
+          dispatch(errorSetCatalog(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+      case 'name_asc':
+        const instanceNameAsc = new SortedArray(products, sortNameAsc);
+        instanceNameAsc.getArray().then(totalArr => {
+          dispatch(loadingSetCatalog(false));
+          dispatch(errorSetCatalog(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+      case 'name_desc':
+        const instanceNameDesc = new SortedArray(products, sortNameDesc);
+        instanceNameDesc.getArray().then(totalArr => {
+          dispatch(loadingSetCatalog(false));
+          dispatch(errorSetCatalog(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+
+      default:
+        const instanceDefault = new SortedArray(products, sortDefault);
+        instanceDefault.getArray().then(totalArr => {
+          dispatch(loadingSetCatalog(false));
+          dispatch(errorSetCatalog(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+    };
+  } catch (error) {
+    dispatch(loadingSetCatalog(false));
+    dispatch(errorSetCatalog(error.message));
     console.log(error.message);
   };
 };

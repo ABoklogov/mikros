@@ -14,9 +14,9 @@ const initialState = {
     items: [],
     idSection: '',
     nameSection: '',
-    sort: '',
     isLoading: false,
     error: '',
+    sort: '',
   },
   cardProduct: {
     id: '',
@@ -139,45 +139,51 @@ export const catalogSlice = createSlice({
       }
     }),
     // сортировка
-    setSortProducts: (state, { payload }) => {
-      switch (payload) {
-        case 'price_asc':
-          state.products.items.sort((a, b) => {
-            return +a.PRICE.PRICE - +b.PRICE.PRICE;
-          });
-          break;
-        case 'price_desc':
-          state.products.items.sort((a, b) => {
-            return +b.PRICE.PRICE - +a.PRICE.PRICE;
-          });
-          break;
-        case 'name_asc':
-          state.products.items.sort((a, b) => {
-            const nameA = a.NAME.toLowerCase().trim();
-            const nameB = b.NAME.toLowerCase().trim();
-            if (nameA < nameB) return -1;
-            if (nameA > nameB) return 1;
-            return 0;
-          });
-          break;
-        case 'name_desc':
-          state.products.items.sort((a, b) => {
-            const nameA = a.NAME.toLowerCase().trim();
-            const nameB = b.NAME.toLowerCase().trim();
-            if (nameA > nameB) return -1;
-            if (nameA < nameB) return 1;
-            return 0;
-          });
-          break;
+    setSortProducts: (state, { payload }) => ({
+      ...state,
+      products: {
+        ...state.products,
+        items: [...payload.totalArr],
+        sort: payload.value,
+      }
+      // switch (payload) {
+      //   case 'price_asc':
+      //     state.products.items.sort((a, b) => {
+      //       return +a.PRICE.PRICE - +b.PRICE.PRICE;
+      //     });
+      //     break;
+      //   case 'price_desc':
+      //     state.products.items.sort((a, b) => {
+      //       return +b.PRICE.PRICE - +a.PRICE.PRICE;
+      //     });
+      //     break;
+      //   case 'name_asc':
+      //     state.products.items.sort((a, b) => {
+      //       const nameA = a.NAME.toLowerCase().trim();
+      //       const nameB = b.NAME.toLowerCase().trim();
+      //       if (nameA < nameB) return -1;
+      //       if (nameA > nameB) return 1;
+      //       return 0;
+      //     });
+      //     break;
+      //   case 'name_desc':
+      //     state.products.items.sort((a, b) => {
+      //       const nameA = a.NAME.toLowerCase().trim();
+      //       const nameB = b.NAME.toLowerCase().trim();
+      //       if (nameA > nameB) return -1;
+      //       if (nameA < nameB) return 1;
+      //       return 0;
+      //     });
+      //     break;
 
-        default:
-          state.products.items.sort((a, b) => {
-            return +a.SORT - +b.SORT;
-          });
-          break;
-      };
-      state.products.sort = payload;
-    },
+      //   default:
+      //     state.products.items.sort((a, b) => {
+      //       return +a.SORT - +b.SORT;
+      //     });
+      //     break;
+      // };
+      // state.products.sort = payload;
+    }),
   },
 });
 

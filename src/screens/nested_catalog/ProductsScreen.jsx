@@ -1,8 +1,8 @@
 // import { useState } from 'react';
 // import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from 'react-redux';
+import { sortsProducts } from 'store/catalog/catalogOperations';
 import { StyleSheet, View } from 'react-native';
-import { setSortProducts } from 'store/catalog/catalogSlice';
 // import components
 import ProductsList from 'components/products/ProductsList';
 import SortComponent from 'components/SortComponent';
@@ -14,12 +14,14 @@ export default ProductsScreen = ({ route }) => {
   const dispatch = useDispatch();
   const { catalog } = useSelector(state => state);
 
+  const sortCatalog = (value) => dispatch(sortsProducts(value));
+
   return (
     <View style={styles.container}>
       <SortComponent
         filter={strings.nameNestedCatalog.filterCatalog}
         sort={catalog.products.sort}
-        setSort={(value) => dispatch(setSortProducts(value))}
+        setSort={sortCatalog}
         sortData={sortData}
       />
       <ProductsList
