@@ -1,12 +1,7 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import { StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import { SelectCountry } from 'react-native-element-dropdown';
+import { Dropdown } from 'react-native-element-dropdown';
 // import components
-
 // import vars
 import { colors, radius } from 'res/vars';
 import { text } from 'res/palette';
@@ -16,18 +11,15 @@ export default Sort = ({
   setSort,
   sortData
 }) => {
-  console.log("🚀 ~ sort:", sort)
-  console.log("🚀 ~ setSort:", setSort)
-  console.log("🚀 ~ sortData:", sortData)
-
   return (
-    <SelectCountry
+    <Dropdown
       style={styles.dropdown}
       containerStyle={styles.containerStyle}
       selectedTextStyle={styles.selectedTextStyle}
       placeholderStyle={styles.placeholderStyle}
       activeColor={colors.lightGrey}
-      maxHeight={200}
+      itemTextStyle={styles.itemTextStyle}
+      maxHeight={210}
       value={sort}
       data={sortData}
       valueField="value"
@@ -55,7 +47,12 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     ...text,
+    color: colors.blue,
   },
+  itemTextStyle: {
+    ...text,
+    color: colors.black,
+  }
 });
 
 Sort.propTypes = {
