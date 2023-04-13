@@ -16,6 +16,7 @@ const initialState = {
     nameSection: '',
     isLoading: false,
     error: '',
+    sort: '',
   },
   cardProduct: {
     id: '',
@@ -74,6 +75,7 @@ export const catalogSlice = createSlice({
         items: [...payload.totalArr],
         idSection: payload.id,
         nameSection: payload.name,
+        sort: '',
       }
     }),
     // загрузка
@@ -90,6 +92,15 @@ export const catalogSlice = createSlice({
       products: {
         ...state.products,
         error: payload,
+      }
+    }),
+    // сортировка
+    setSortProducts: (state, { payload }) => ({
+      ...state,
+      products: {
+        ...state.products,
+        items: [...payload.totalArr],
+        sort: payload.value,
       }
     }),
 
@@ -152,4 +163,5 @@ export const {
   setRestProduct,
   loadingSetProduct,
   errorSetProduct,
+  setSortProducts,
 } = catalogSlice.actions;

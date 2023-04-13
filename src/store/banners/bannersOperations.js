@@ -1,6 +1,14 @@
 import homeAPI from "services/home-api";
 import API from "services/catalog-api";
-
+const SortedArray = require('sorted-array-async');
+import {
+  sortPriceAsc,
+  sortPriceDesc,
+  sortNameAsc,
+  sortNameDesc,
+  sortDefault,
+  sortCategotys,
+} from 'hooks/sort';
 import {
   setBanners,
   loadingSetBanners,
@@ -13,6 +21,7 @@ import {
   setRestProduct,
   loadingSetProduct,
   errorSetProduct,
+  setSortProducts,
 } from './bannersSlice';
 
 // функия сортировки
@@ -102,6 +111,63 @@ export const fetchBannerProduct = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch(errorSetProduct(error.message));
     dispatch(loadingSetProduct(false));
+    console.log(error.message);
+  };
+};
+
+// сортировка товаров
+export const sortsProductsBanners = (value) => async (dispatch, getState) => {
+  const { homeBanners } = getState();
+  let products = [...homeBanners.products.items];
+
+  try {
+    dispatch(loadingSetBannersProducts(true));
+    switch (value) {
+      case 'price_asc':
+        const instancePriceAsc = new SortedArray(products, sortPriceAsc);
+        instancePriceAsc.getArray().then(totalArr => {
+          dispatch(loadingSetBannersProducts(false));
+          dispatch(errorSetBannersProducts(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+      case 'price_desc':
+        const instancePriceDesc = new SortedArray(products, sortPriceDesc);
+        instancePriceDesc.getArray().then(totalArr => {
+          dispatch(loadingSetBannersProducts(false));
+          dispatch(errorSetBannersProducts(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+      case 'name_asc':
+        const instanceNameAsc = new SortedArray(products, sortNameAsc);
+        instanceNameAsc.getArray().then(totalArr => {
+          dispatch(loadingSetBannersProducts(false));
+          dispatch(errorSetBannersProducts(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+      case 'name_desc':
+        const instanceNameDesc = new SortedArray(products, sortNameDesc);
+        instanceNameDesc.getArray().then(totalArr => {
+          dispatch(loadingSetBannersProducts(false));
+          dispatch(errorSetBannersProducts(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+
+      default:
+        const instanceDefault = new SortedArray(products, sortDefault);
+        instanceDefault.getArray().then(totalArr => {
+          dispatch(loadingSetBannersProducts(false));
+          dispatch(errorSetBannersProducts(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+    };
+  } catch (error) {
+    dispatch(errorSetBannersProducts(error.message));
+    dispatch(loadingSetBannersProducts(false));
     console.log(error.message);
   };
 };

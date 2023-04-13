@@ -12,6 +12,7 @@ const initialState = {
     nameSection: '',
     isLoading: false,
     error: '',
+    sort: '',
   },
   cardProduct: {
     id: '',
@@ -75,6 +76,15 @@ export const holidaysSlice = createSlice({
         error: payload,
       }
     }),
+    // сортировка
+    setSortProducts: (state, { payload }) => ({
+      ...state,
+      products: {
+        ...state.products,
+        items: [...payload.totalArr],
+        sort: payload.value,
+      }
+    }),
 
     // -------- карточка товара --------
     // получаем предварительные данные товара
@@ -132,4 +142,5 @@ export const {
   setRestProduct,
   loadingSetProduct,
   errorSetProduct,
+  setSortProducts,
 } = holidaysSlice.actions;

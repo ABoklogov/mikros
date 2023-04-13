@@ -1,4 +1,13 @@
 import API from "services/catalog-api";
+const SortedArray = require('sorted-array-async');
+import {
+  sortPriceAsc,
+  sortPriceDesc,
+  sortNameAsc,
+  sortNameDesc,
+  sortDefault,
+  sortCategotys,
+} from 'hooks/sort';
 import {
   setCategorys,
   errorSetCategorys,
@@ -11,25 +20,8 @@ import {
   setRestProduct,
   loadingSetProduct,
   errorSetProduct,
+  setSortProducts,
 } from './catalogSlice';
-
-// функия сортировки
-const sort = (arr) => {
-  return arr.sort((a, b) => {
-    if (a.SORT > b.SORT) return 1;
-    if (a.SORT < b.SORT) return -1;
-    return 0;
-  });
-};
-
-// функия сортировки категорий
-const sortArr = (arr) => {
-  return arr.sort((a, b) => {
-    if (a.sort > b.sort) return 1;
-    if (a.sort < b.sort) return -1;
-    return 0;
-  });
-};
 
 // категории
 export const fetchCategorys = () => async (dispatch, getState) => {
@@ -60,11 +52,10 @@ export const fetchCategorys = () => async (dispatch, getState) => {
           };
         });
         // сортируем все категории и подкатегории
-        sortArr(el.sub_category);
-        return sortArr(newArr);
+        el.sub_category.sort(sortCategotys);
+        return newArr.sort(sortCategotys);
       }, []);
 
-      // console.log("🚀 ~ список категорий", totalArr);
       dispatch(setCategorys(totalArr));
     };
   } catch (error) {
@@ -96,10 +87,8 @@ export const fetchProducts = (id, name) => async (dispatch, getState) => {
       }, []);
       // если массив не пустой то сортируем его
       if (totalArr.length > 0) {
-        totalArr = sort(totalArr);
+        totalArr = totalArr.sort(sortDefault);
       };
-
-      // console.log("🚀 ~ список товаров ", totalArr)
       dispatch(setCatalog({ totalArr, id, name }))
     };
   } catch (error) {
@@ -127,6 +116,63 @@ export const fetchProduct = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch(errorSetProduct(error.message));
     dispatch(loadingSetProduct(false));
+    console.log(error.message);
+  };
+};
+
+// сортировка товаров
+export const sortsProducts = (value) => async (dispatch, getState) => {
+  const { catalog } = getState();
+  let products = [...catalog.products.items];
+
+  try {
+    dispatch(loadingSetCatalog(true));
+    switch (value) {
+      case 'price_asc':
+        const instancePriceAsc = new SortedArray(products, sortPriceAsc);
+        instancePriceAsc.getArray().then(totalArr => {
+          dispatch(loadingSetCatalog(false));
+          dispatch(errorSetCatalog(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+      case 'price_desc':
+        const instancePriceDesc = new SortedArray(products, sortPriceDesc);
+        instancePriceDesc.getArray().then(totalArr => {
+          dispatch(loadingSetCatalog(false));
+          dispatch(errorSetCatalog(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+      case 'name_asc':
+        const instanceNameAsc = new SortedArray(products, sortNameAsc);
+        instanceNameAsc.getArray().then(totalArr => {
+          dispatch(loadingSetCatalog(false));
+          dispatch(errorSetCatalog(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+      case 'name_desc':
+        const instanceNameDesc = new SortedArray(products, sortNameDesc);
+        instanceNameDesc.getArray().then(totalArr => {
+          dispatch(loadingSetCatalog(false));
+          dispatch(errorSetCatalog(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+
+      default:
+        const instanceDefault = new SortedArray(products, sortDefault);
+        instanceDefault.getArray().then(totalArr => {
+          dispatch(loadingSetCatalog(false));
+          dispatch(errorSetCatalog(''));
+          dispatch(setSortProducts({ totalArr, value }));
+        });
+        break;
+    };
+  } catch (error) {
+    dispatch(loadingSetCatalog(false));
+    dispatch(errorSetCatalog(error.message));
     console.log(error.message);
   };
 };

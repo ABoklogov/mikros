@@ -1,14 +1,17 @@
 import { useEffect } from 'react';
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { sortsProductsSale } from 'store/sale/saleOperations';
 import { StyleSheet, View } from 'react-native';
 // import components
 import ProductsList from 'components/products/ProductsList';
+import SortComponent from 'components/SortComponent';
 // import vars
-import { colors } from 'res/vars';
+import { strings, colors, sortData } from 'res/vars';
 
 export default SaleProductsScreen = ({ route }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const { sale } = useSelector(state => state);
 
   useEffect(() => {
@@ -17,8 +20,16 @@ export default SaleProductsScreen = ({ route }) => {
     });
   }, []);
 
+  const sortSale = (value) => dispatch(sortsProductsSale(value));
+
   return (
     <View style={styles.container}>
+      <SortComponent
+        filter={strings.nameNestedHome.filterSale}
+        sort={sale.saleProducts.sort}
+        setSort={sortSale}
+        sortData={sortData}
+      />
       <ProductsList
         screenName={route.name}
         products={sale.saleProducts.items}

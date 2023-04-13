@@ -12,6 +12,7 @@ const initialState = {
     nameSection: '',
     isLoading: false,
     error: '',
+    sort: '',
   },
   cardProduct: {
     id: '',
@@ -59,6 +60,7 @@ export const bannersSlice = createSlice({
         items: [...payload.totalArr],
         idSection: payload.id,
         nameSection: payload.name,
+        sort: '',
       }
     }),
     loadingSetBannersProducts: (state, { payload }) => ({
@@ -73,6 +75,15 @@ export const bannersSlice = createSlice({
       products: {
         ...state.products,
         error: payload,
+      }
+    }),
+    // сортировка
+    setSortProducts: (state, { payload }) => ({
+      ...state,
+      products: {
+        ...state.products,
+        items: [...payload.totalArr],
+        sort: payload.value,
       }
     }),
 
@@ -132,4 +143,5 @@ export const {
   setRestProduct,
   loadingSetProduct,
   errorSetProduct,
+  setSortProducts,
 } = bannersSlice.actions;
