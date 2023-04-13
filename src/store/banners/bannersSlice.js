@@ -77,6 +77,15 @@ export const bannersSlice = createSlice({
         error: payload,
       }
     }),
+    // сортировка
+    setSortProducts: (state, { payload }) => ({
+      ...state,
+      products: {
+        ...state.products,
+        items: [...payload.totalArr],
+        sort: payload.value,
+      }
+    }),
 
     // -------- карточка товара --------
     // получаем предварительные данные товара
@@ -117,15 +126,6 @@ export const bannersSlice = createSlice({
       cardProduct: {
         ...state.cardProduct,
         error: payload,
-      }
-    }),
-    // сортировка
-    setSortProducts: (state, { payload }) => ({
-      ...state,
-      products: {
-        ...state.products,
-        items: [...payload.totalArr],
-        sort: payload.value,
       }
     }),
   },

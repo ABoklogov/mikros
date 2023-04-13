@@ -1,6 +1,14 @@
 import API from "services/catalog-api";
 const SortedArray = require('sorted-array-async');
 import {
+  sortPriceAsc,
+  sortPriceDesc,
+  sortNameAsc,
+  sortNameDesc,
+  sortDefault,
+  sortCategotys,
+} from 'hooks/sort';
+import {
   setCategorys,
   errorSetCategorys,
   loadingSetCategorys,
@@ -14,24 +22,6 @@ import {
   errorSetProduct,
   setSortProducts,
 } from './catalogSlice';
-
-// функия сортировки
-const sort = (arr) => {
-  return arr.sort((a, b) => {
-    if (a.SORT > b.SORT) return 1;
-    if (a.SORT < b.SORT) return -1;
-    return 0;
-  });
-};
-
-// функия сортировки категорий
-const sortArr = (arr) => {
-  return arr.sort((a, b) => {
-    if (a.sort > b.sort) return 1;
-    if (a.sort < b.sort) return -1;
-    return 0;
-  });
-};
 
 // категории
 export const fetchCategorys = () => async (dispatch, getState) => {
@@ -62,11 +52,10 @@ export const fetchCategorys = () => async (dispatch, getState) => {
           };
         });
         // сортируем все категории и подкатегории
-        sortArr(el.sub_category);
-        return sortArr(newArr);
+        el.sub_category.sort(sortCategotys);
+        return newArr.sort(sortCategotys);
       }, []);
 
-      // console.log("🚀 ~ список категорий", totalArr);
       dispatch(setCategorys(totalArr));
     };
   } catch (error) {
@@ -98,10 +87,8 @@ export const fetchProducts = (id, name) => async (dispatch, getState) => {
       }, []);
       // если массив не пустой то сортируем его
       if (totalArr.length > 0) {
-        totalArr = sort(totalArr);
+        totalArr = totalArr.sort(sortDefault);
       };
-
-      // console.log("🚀 ~ список товаров ", totalArr)
       dispatch(setCatalog({ totalArr, id, name }))
     };
   } catch (error) {
@@ -137,30 +124,6 @@ export const fetchProduct = (id) => async (dispatch, getState) => {
 export const sortsProducts = (value) => async (dispatch, getState) => {
   const { catalog } = getState();
   let products = [...catalog.products.items];
-  // колбеки сортировки
-  const sortPriceAsc = (a, b) => {
-    return +a.PRICE.PRICE - +b.PRICE.PRICE;
-  };
-  const sortPriceDesc = (a, b) => {
-    return +b.PRICE.PRICE - +a.PRICE.PRICE;
-  };
-  const sortNameAsc = (a, b) => {
-    const nameA = a.NAME.toLowerCase().trim();
-    const nameB = b.NAME.toLowerCase().trim();
-    if (nameA < nameB) return -1;
-    if (nameA > nameB) return 1;
-    return 0;
-  };
-  const sortNameDesc = (a, b) => {
-    const nameA = a.NAME.toLowerCase().trim();
-    const nameB = b.NAME.toLowerCase().trim();
-    if (nameA > nameB) return -1;
-    if (nameA < nameB) return 1;
-    return 0;
-  };
-  const sortDefault = (a, b) => {
-    return +a.SORT - +b.SORT;
-  };
 
   try {
     dispatch(loadingSetCatalog(true));

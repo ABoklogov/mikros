@@ -83,6 +83,8 @@ export const strings = {
     homeSaleProducts: 'Список акционных товаров',
     homeSaleCardProduct: 'Карточка акционного товара',
     filterBanners: 'Фильтры с баннера',
+    filterHolidays: 'Фильтры праздничных товаров',
+    filterSale: 'Фильтры акционных товаров',
   },
   // каталог (2 уровень)
   nameNestedCatalog: {

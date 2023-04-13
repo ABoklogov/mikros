@@ -13,9 +13,11 @@ import FilterBannersProductsScreen from "screens/nested_home/FilterBannersProduc
 
 import HolidaysProductsScreen from "screens/nested_home/HolidaysProductsScreen";
 import HolidaysCardProductScreen from "screens/nested_home/HolidaysCardProductScreen";
+import FilterHolidaysProductsScreen from "screens/nested_home/FilterHolidaysProductsScreen";
 
 import SaleProductsScreen from "screens/nested_home/SaleProductsScreen";
 import SaleCardProductScreen from "screens/nested_home/SaleCardProductScreen";
+import FilterSaleProductsScreen from "screens/nested_home/FilterSaleProductsScreen";
 // imports components
 import LocationBlock from 'components/LocationBlock';
 // import icons
@@ -78,6 +80,7 @@ export default HomeScreen = () => {
           },
         }}
       />
+
       <NestedScreen.Screen
         name={strings.nameNestedHome.homeBannersProducts}
         component={BannersProductsScreen}
@@ -90,6 +93,20 @@ export default HomeScreen = () => {
         }}
       />
       <NestedScreen.Screen
+        name={strings.nameNestedHome.filterBanners}
+        component={FilterBannersProductsScreen}
+        options={{
+          cardStyleInterpolator: leftToRightAnimation,
+          title: 'Фильтры',
+          headerLeft: (props) => <CloseButton {...props} />,
+          headerLeftContainerStyle: {
+            padding: 10,
+          },
+          headerRight: resetBtn,
+        }}
+      />
+
+      <NestedScreen.Screen
         name={strings.nameNestedHome.homeHolidaysProducts}
         component={HolidaysProductsScreen}
       />
@@ -100,6 +117,20 @@ export default HomeScreen = () => {
           headerShown: false, // шапка скрина
         }}
       />
+      <NestedScreen.Screen
+        name={strings.nameNestedHome.filterHolidays}
+        component={FilterHolidaysProductsScreen}
+        options={{
+          cardStyleInterpolator: leftToRightAnimation,
+          title: 'Фильтры',
+          headerLeft: (props) => <CloseButton {...props} />,
+          headerLeftContainerStyle: {
+            padding: 10,
+          },
+          headerRight: resetBtn,
+        }}
+      />
+
       <NestedScreen.Screen
         name={strings.nameNestedHome.homeSaleProducts}
         component={SaleProductsScreen}
@@ -112,8 +143,8 @@ export default HomeScreen = () => {
         }}
       />
       <NestedScreen.Screen
-        name={strings.nameNestedHome.filterBanners}
-        component={FilterBannersProductsScreen}
+        name={strings.nameNestedHome.filterSale}
+        component={FilterSaleProductsScreen}
         options={{
           cardStyleInterpolator: leftToRightAnimation,
           title: 'Фильтры',

@@ -1,7 +1,14 @@
 import homeAPI from "services/home-api";
 import API from "services/catalog-api";
 const SortedArray = require('sorted-array-async');
-
+import {
+  sortPriceAsc,
+  sortPriceDesc,
+  sortNameAsc,
+  sortNameDesc,
+  sortDefault,
+  sortCategotys,
+} from 'hooks/sort';
 import {
   setBanners,
   loadingSetBanners,
@@ -112,30 +119,6 @@ export const fetchBannerProduct = (id) => async (dispatch, getState) => {
 export const sortsProductsBanners = (value) => async (dispatch, getState) => {
   const { homeBanners } = getState();
   let products = [...homeBanners.products.items];
-  // колбеки сортировки
-  const sortPriceAsc = (a, b) => {
-    return +a.PRICE.PRICE - +b.PRICE.PRICE;
-  };
-  const sortPriceDesc = (a, b) => {
-    return +b.PRICE.PRICE - +a.PRICE.PRICE;
-  };
-  const sortNameAsc = (a, b) => {
-    const nameA = a.NAME.toLowerCase().trim();
-    const nameB = b.NAME.toLowerCase().trim();
-    if (nameA < nameB) return -1;
-    if (nameA > nameB) return 1;
-    return 0;
-  };
-  const sortNameDesc = (a, b) => {
-    const nameA = a.NAME.toLowerCase().trim();
-    const nameB = b.NAME.toLowerCase().trim();
-    if (nameA > nameB) return -1;
-    if (nameA < nameB) return 1;
-    return 0;
-  };
-  const sortDefault = (a, b) => {
-    return +a.SORT - +b.SORT;
-  };
 
   try {
     dispatch(loadingSetBannersProducts(true));
