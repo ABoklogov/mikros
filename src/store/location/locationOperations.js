@@ -3,44 +3,31 @@ import {
   loadingSetLocation,
   errorSetLocation
 } from './locationSlice';
-import * as Location from 'expo-location';
+import Geolocation from '@react-native-community/geolocation';
 
-export const fetchLocation = (string) => async (dispatch, getState) => {
+export const fetchLocation = () => async (dispatch, getState) => {
   try {
-    if (string) {
-      dispatch(setLocation(string));
-    } else {
-      dispatch(loadingSetLocation(true));
+    dispatch(loadingSetLocation(true));
+    Geolocation.getCurrentPosition(
+      ({ coords }) => {
+        dispatch(loadingSetLocation(false));
+        dispatch(errorSetLocation(''));
 
-      // находим координаты
-      let { coords } = await Location.getCurrentPositionAsync();
-      const { latitude, longitude } = coords;
+        const currentLongitude = JSON.stringify(coords.longitude);
+        const currentLatitude = JSON.stringify(coords.latitude);
+        // TODO: получили координаты, далее планируется отправить их на сервер, чтобы получить город (через API гугла или яндекса)
+        console.log("🚀 currentLongitude:", currentLongitude)
+        console.log("🚀 currentLatitude:", currentLatitude)
 
-      if (coords) {
-        // находим адрес
-        let response = await Location.reverseGeocodeAsync({
-          latitude,
-          longitude
-        });
-
-        if (response) {
-          dispatch(loadingSetLocation(false));
-          dispatch(errorSetLocation(''));
-        };
-
-        for (let item of response) {
-          if (item.city) {
-            dispatch(setLocation(item.city));
-          } else {
-            dispatch(setLocation('Не определено'));
-          };
-        };
-      };
-    };
+      },
+      (error) => {
+        dispatch(loadingSetLocation(false));
+        dispatch(errorSetLocation(error.message));
+      }
+    )
   } catch (error) {
     dispatch(errorSetLocation(error.message));
     dispatch(loadingSetLocation(false));
-    console.log(error);
     console.log(error.message);
   };
 };

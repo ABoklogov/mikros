@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mikros">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- Required -->
     <uses-permission android:name="android.permission.CAMERA"/>
     <!-- Include this only if you are planning to use the camera roll -->
