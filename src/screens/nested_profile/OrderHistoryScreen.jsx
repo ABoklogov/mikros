@@ -15,13 +15,14 @@ import { colors } from 'res/vars';
 
 export default OrderHistoryScreen = () => {
   const dispatch = useDispatch();
-  const { orders } = useSelector(state => state);
+  const orders = useSelector(state => state.orders.ordersHistory.items);
+  const isLoading = useSelector(state => state.orders.ordersHistory.isLoading);
 
   useEffect(() => {
     dispatch(fetchOrdersHistory());
   }, []);
 
-  if (orders.ordersHistory.isLoading) {
+  if (isLoading) {
     return (
       <View style={styles.container}>
         <ActivityIndicator
@@ -33,15 +34,15 @@ export default OrderHistoryScreen = () => {
   } else {
     return (
       <View>
-        {(orders.ordersHistory.items.length === 0) ? (
+        {(orders.length === 0) ? (
           <View style={styles.container}>
             <NotOrdersBlock />
           </View>
         ) : (
           <View style={styles.containerList}>
             <OrdersList
-              orders={orders.ordersHistory.items}
-              isLoading={orders.ordersHistory.isLoading}
+              orders={orders}
+              isLoading={isLoading}
             />
           </View>
         )}

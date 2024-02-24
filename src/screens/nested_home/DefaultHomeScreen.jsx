@@ -32,31 +32,36 @@ const getAllKeys = async () => {
 };
 
 export default DefaultHomeScreen = () => {
-  const { auth, homeBanners, homeHolidays, sale } = useSelector(state => state);
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const banners = useSelector(state => state.homeBanners.banners.items);
+  const holidays = useSelector(state => state.homeHolidays.holidays.items);
+  const saleProducts = useSelector(state => state.sale.saleProducts.items);
+  const isLoadingSale = useSelector(state => state.sale.saleProducts.isLoading);
+
   const dispatch = useDispatch();
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   // загружаем корзину
   useEffect(() => {
     dispatch(fetchBasket());
-  }, [auth.isLoggedIn]);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     getAllKeys() // показать локальное хранилище
     // // получаем текущего юзера
-    if (!auth.isLoggedIn) {
+    if (!isLoggedIn) {
       dispatch(fetchCurrentUser());
     };
     // // получаем баннеры
-    if (homeBanners.banners.items.length === 0) {
+    if (banners.length === 0) {
       dispatch(fetchBanners());
     };
     // получаем праздники
-    if (homeHolidays.holidays.items.length === 0) {
+    if (holidays.length === 0) {
       dispatch(fetchHolidays());
     };
     // получаем акционные товары
-    if (sale.saleProducts.items.length === 0) {
+    if (saleProducts.length === 0) {
       dispatch(fetchSaleProducts(strings.titles.titleSaleProducts));
     };
     // --- для клавиатуры start ---
@@ -98,8 +103,8 @@ export default DefaultHomeScreen = () => {
             <View style={styles.positionBlock}>
               <SaleProductsBlock
                 title={strings.titles.titleSaleProducts}
-                products={sale.saleProducts.items.slice(0, 20)}
-                isLoading={sale.saleProducts.isLoading}
+                products={saleProducts.slice(0, 20)}
+                isLoading={isLoadingSale}
                 screenName={strings.nameNestedHome.homeSaleProducts}
               />
             </View>

@@ -14,8 +14,6 @@ import CategoryItem from 'components/categorys/CategoryItem';
 // import { text } from 'res/palette';
 
 export default CategorysList = ({ categorys }) => {
-  // const { catalog } = useSelector(state => state);
-
   return (
     <SafeAreaView>
       <FlatList

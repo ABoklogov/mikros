@@ -12,7 +12,7 @@ import { strings, colors, sortData } from 'res/vars';
 export default ProductsScreen = ({ route }) => {
   // const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { catalog } = useSelector(state => state);
+  const products = useSelector(state => state.catalog.products);
 
   const sortCatalog = (value) => dispatch(sortsProducts(value));
 
@@ -20,15 +20,15 @@ export default ProductsScreen = ({ route }) => {
     <View style={styles.container}>
       <SortComponent
         filter={strings.nameNestedCatalog.filterCatalog}
-        sort={catalog.products.sort}
+        sort={products.sort}
         setSort={sortCatalog}
         sortData={sortData}
       />
       <ProductsList
         screenName={route.name}
-        products={catalog.products.items}
-        isLoading={catalog.products.isLoading}
-        nameSection={catalog.products.nameSection}
+        products={products.items}
+        isLoading={products.isLoading}
+        nameSection={products.nameSection}
       />
     </View>
   );

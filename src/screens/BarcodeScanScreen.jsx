@@ -23,7 +23,10 @@ const barcodeTypes = [
 ];
 
 export default BarcodeScanScreen = () => {
-  const { scaner } = useSelector(state => state);
+  const isLoading = useSelector(state => state.scaner.isLoading);
+  const scanerError = useSelector(state => state.scaner.error);
+  const scanerProduct = useSelector(state => state.scaner.product);
+
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [barcode, setBarcode] = useState(null);
@@ -56,7 +59,7 @@ export default BarcodeScanScreen = () => {
     if (!barcode) openScaner();
   };
 
-  if (scaner.isLoading) {
+  if (isLoading) {
     return (
       <View style={styles.container}>
         <ActivityIndicator
@@ -65,7 +68,7 @@ export default BarcodeScanScreen = () => {
         />
       </View>
     )
-  } else if (scaner.error) {
+  } else if (scanerError) {
     return (
       <View style={styles.container}>
         {
@@ -88,16 +91,16 @@ export default BarcodeScanScreen = () => {
     return (
       <View style={styles.container}>
         {
-          scaner.product &&
+          scanerProduct &&
           <>
             <Text style={styles.barcodeText}>
-              {scaner.product.NAME}
+              {scanerProduct.NAME}
             </Text>
             <Text style={styles.barcodeText}>
-              {`${scaner.product.PRICE} руб.`}
+              {`${scanerProduct.PRICE} руб.`}
             </Text>
             <Text style={styles.barcodeText}>
-              {`Артикул: ${scaner.product.PROPERTYS.CML2_ARTICLE}`}
+              {`Артикул: ${scanerProduct.PROPERTYS.CML2_ARTICLE}`}
             </Text>
 
             <View style={styles.btnScan}>

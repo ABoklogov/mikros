@@ -8,7 +8,6 @@ import { fonts, colors } from 'res/vars';
 
 export default SubCategoriesScreen = ({ route }) => {
   // const navigation = useNavigation();
-  // const { catalog } = useSelector(state => state);
 
   return (
     <View style={styles.container}>

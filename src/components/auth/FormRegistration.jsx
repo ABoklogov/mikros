@@ -37,7 +37,7 @@ export default FormRegistration = ({
   setShowBackdrop,
   showBackdrop
 }) => {
-  const { auth } = useSelector(state => state);
+  const registered = useSelector((state) => state.auth.registered);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -70,17 +70,17 @@ export default FormRegistration = ({
 
   useEffect(() => {
     // если регистрация прошла успешно, то показываем алерт с переходом на экран авторизации
-    if (auth.registered === 'success') {
+    if (registered === 'success') {
       toglleModalSuccess();
       dispatch(registerUser(''));
       // если регистрация закончилась ошибкой, показываем алерт ошибки и возвращаемся на первый этап регистрации
-    } else if (auth.registered === 'rejected') {
+    } else if (registered === 'rejected') {
       dispatch(registerUser(''));
       toglleModalError();
     } else {
       return
     };
-  }, [auth.registered]);
+  }, [registered]);
 
   useEffect(() => {
     // если все поля заполнены, делаем кнопку активной

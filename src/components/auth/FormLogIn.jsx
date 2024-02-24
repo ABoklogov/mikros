@@ -31,7 +31,9 @@ export default FormLogIn = ({
   setShowBackdrop,
   showBackdrop
 }) => {
-  const { auth } = useSelector(state => state);
+  const authorization = useSelector(state => state.auth.authorization);
+  const userName = useSelector(state => state.auth.user.name);
+
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -50,18 +52,18 @@ export default FormLogIn = ({
 
   // Если вход успешный и нет ошибки показываем модалку с переходом в каталог, а иначе - модалку с ошибкой
   useEffect(() => {
-    if (auth.authorization === 'success') {
+    if (authorization === 'success') {
       toglleModalSuccess();
       dispatch(resultLogIn(''));
       // Загружаем корзину пользователя
       dispatch(fetchBasket());
-    } else if (auth.authorization === 'rejected') {
+    } else if (authorization === 'rejected') {
       dispatch(resultLogIn(''));
       toglleModalError();
     } else {
       return
     };
-  }, [auth.authorization]);
+  }, [authorization]);
 
   useEffect(() => {
     // если все поля заполнены, делаем кнопку активной
@@ -172,7 +174,7 @@ export default FormLogIn = ({
           >
             <View style={styles.modalView}>
               <Text style={styles.modalTopText}>
-                {`Добро пожаловать ${auth.user.name}`}
+                {`Добро пожаловать ${userName}`}
               </Text>
               <Text style={styles.modalBottomText}>
                 Вы успешно вошли!

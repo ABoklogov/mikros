@@ -23,7 +23,8 @@ const widthItem = WIDTH / 4.5;
 export default HolidaysBlock = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { homeHolidays } = useSelector(state => state);
+  const holidays = useSelector(state => state.homeHolidays.holidays.items);
+  const isLoadingHolidays = useSelector(state => state.homeHolidays.holidays.isLoading);
 
   const goToSectionHolidays = (id, name) => {
     dispatch(fetchHolidaysProducts(id, name));
@@ -33,7 +34,7 @@ export default HolidaysBlock = () => {
   return (
     <View style={styles.container}>
       {
-        (homeHolidays.holidays.items.length === 0 || homeHolidays.holidays.isLoading) ? (
+        (holidays.length === 0 || isLoadingHolidays) ? (
           <HolidaysPreloader
             width={widthItem}
             height={widthItem}
@@ -45,7 +46,7 @@ export default HolidaysBlock = () => {
               horizontal
             >
               {
-                homeHolidays.holidays.items?.map(item => (
+                holidays?.map(item => (
                   <TouchableOpacity
                     key={item.id}
                     activeOpacity={activeOpacity}

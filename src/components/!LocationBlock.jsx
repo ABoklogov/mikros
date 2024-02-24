@@ -11,7 +11,7 @@ import MarkIcon from 'components/icons/MarkIcon';
 
 export default LocationBlock = () => {
   const dispatch = useDispatch();
-  const { location } = useSelector(state => state);
+  const city = useSelector(state => state.location.city);
   const [hasLocationPromissions, setHasLocationPromissions] = useState();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default LocationBlock = () => {
     <View style={styles.headerLocation}>
       <MarkIcon />
       <Text>местоположение</Text>
-      {/* <Text>{location.city}</Text> */}
+      {/* <Text>{city}</Text> */}
     </View>
   );
 };

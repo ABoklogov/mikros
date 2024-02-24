@@ -15,7 +15,6 @@ import { text, title } from 'res/palette';
 export default BasketBlock = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { auth } = useSelector(state => state);
 
   return (
     <View style={styles.container}>

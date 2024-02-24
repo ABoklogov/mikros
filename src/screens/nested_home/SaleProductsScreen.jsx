@@ -12,7 +12,7 @@ import { strings, colors, sortData } from 'res/vars';
 export default SaleProductsScreen = ({ route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { sale } = useSelector(state => state);
+  const saleProducts = useSelector(state => state.sale.saleProducts);
 
   useEffect(() => {
     navigation.setOptions({
@@ -26,15 +26,15 @@ export default SaleProductsScreen = ({ route }) => {
     <View style={styles.container}>
       <SortComponent
         filter={strings.nameNestedHome.filterSale}
-        sort={sale.saleProducts.sort}
+        sort={saleProducts.sort}
         setSort={sortSale}
         sortData={sortData}
       />
       <ProductsList
         screenName={route.name}
-        products={sale.saleProducts.items}
-        isLoading={sale.saleProducts.isLoading}
-        nameSection={sale.saleProducts.nameSection}
+        products={saleProducts.items}
+        isLoading={saleProducts.isLoading}
+        nameSection={saleProducts.nameSection}
       />
     </View>
   );

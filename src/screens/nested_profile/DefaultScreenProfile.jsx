@@ -16,7 +16,7 @@ const HEIGHT = Dimensions.get('window').height;
 
 export default DefaultScreenProfile = () => {
   // const dispatch = useDispatch();
-  const { auth } = useSelector(state => state);
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   // const navigation = useNavigation();
   const [showBackdrop, setShowBackdrop] = useState(false);
 
@@ -27,7 +27,7 @@ export default DefaultScreenProfile = () => {
 
         <View style={styles.box}>
           {
-            !auth.isLoggedIn ? (
+            !isLoggedIn ? (
               <AuthBtnBlock />
             ) : (
               <ProfileBlock>

@@ -21,13 +21,12 @@ const avatar = require('assets/images/default-avatar.png');
 
 export default UserInfoBlock = ({ setShowBackdrop }) => {
   const dispatch = useDispatch();
-  const { auth } = useSelector(state => state);
-  const [modalVisible, setModalVisible] = useState(false);
+  const name = useSelector(state => state.auth.user.name.trim());
+  const lastName = useSelector(state => state.auth.user.lastName.trim());
+  const email = useSelector(state => state.auth.user.email);
+  const phone = useSelector(state => state.auth.user.phone);
 
-  const name = auth.user.name.trim();
-  const lastName = auth.user.lastName.trim();
-  const email = auth.user.email;
-  const phone = auth.user.phone;
+  const [modalVisible, setModalVisible] = useState(false);
 
   const showModal = () => {
     setModalVisible(true);

@@ -19,7 +19,7 @@ import { strings, colors } from 'res/vars';
 import { text } from 'res/palette';
 
 export default MainProfileBlock = () => {
-  const { auth } = useSelector(state => state);
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   // const navigation = useNavigation();
 
   return (
@@ -27,7 +27,7 @@ export default MainProfileBlock = () => {
       <View style={styles.firstItem}>
         <Item
           text={'Мои данные'}
-          link={auth.isLoggedIn ? strings.nameNestedProfile.profileInfo : strings.nameNotTabs.logIn}
+          link={isLoggedIn ? strings.nameNestedProfile.profileInfo : strings.nameNotTabs.logIn}
         >
           <ProfileIcon size={30} color={colors.blue} />
         </Item>
@@ -49,7 +49,7 @@ export default MainProfileBlock = () => {
       <View style={styles.item}>
         <Item
           text={'История заказов'}
-          link={auth.isLoggedIn ? strings.nameNestedProfile.orderHistory : strings.nameNotTabs.logIn}
+          link={isLoggedIn ? strings.nameNestedProfile.orderHistory : strings.nameNotTabs.logIn}
         >
           <OrderHistoryIcon />
         </Item>

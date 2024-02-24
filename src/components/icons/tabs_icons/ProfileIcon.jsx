@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import { colors } from 'res/vars.js';
 
 export default ProfileIcon = ({ color, size }) => {
-  const { auth } = useSelector(state => state);
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   return (
-    auth.isLoggedIn ? (
+    isLoggedIn ? (
       <Svg
         width={size}
         height={size}

@@ -22,7 +22,7 @@ export default SubCategoryItem = ({
   subCategorys,
   parentCategorys,
 }) => {
-  const { catalog } = useSelector(state => state);
+  // const { catalog } = useSelector(state => state);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 

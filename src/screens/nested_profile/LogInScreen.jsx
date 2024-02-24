@@ -16,7 +16,7 @@ import { strings, colors } from 'res/vars';
 // import { text } from 'res/palette';
 
 export default LogInScreen = () => {
-  const { auth } = useSelector(state => state);
+  const isLoadingAuth = useSelector(state => state.auth.isLoading);
   const navigation = useNavigation();
   const [showBackdrop, setShowBackdrop] = useState(false);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -36,7 +36,7 @@ export default LogInScreen = () => {
   return (
     <View style={styles.wrapper}>
       {
-        auth.isLoading && (
+        isLoadingAuth && (
           <View style={styles.backdrop}>
             <ActivityIndicator
               size="large"

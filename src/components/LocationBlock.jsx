@@ -17,7 +17,7 @@ import { text } from 'res/palette';
 
 export default LocationBlock = () => {
   const dispatch = useDispatch();
-  const { location } = useSelector(state => state);
+  const city = useSelector(state => state.location.city);
 
   useEffect(() => {
     (async () => {
@@ -44,13 +44,13 @@ export default LocationBlock = () => {
 
   return (
     <View style={styles.headerLocation}>
-      <MarkIcon color={location.city ? colors.blue : colors.grey} />
+      <MarkIcon color={city ? colors.blue : colors.grey} />
       <Text style={{
         ...text,
-        color: location.city ? colors.blue : colors.grey
+        color: city ? colors.blue : colors.grey
       }}
       >
-        {location.city ? location.city : 'не определено'}
+        {city ? city : 'не определено'}
       </Text>
     </View>
   );

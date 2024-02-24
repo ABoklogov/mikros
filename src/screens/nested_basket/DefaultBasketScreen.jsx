@@ -15,12 +15,12 @@ import { colors } from 'res/vars';
 
 export default DefaultBasketScreen = () => {
   const dispatch = useDispatch();
-  const { basket, auth } = useSelector(state => state);
-
+  const basket = useSelector(state => state.basket);
+  // const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   // загружаем корзину
   // useEffect(() => {
   //   dispatch(fetchBasket());
-  // }, [auth.isLoggedIn]);
+  // }, [isLoggedIn]);
 
   if (basket.isLoading) {
     return (

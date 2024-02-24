@@ -22,7 +22,8 @@ const heightBanner = 162; // высота баннера (прелоадера)
 export default BannersSwiper = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { homeBanners } = useSelector(state => state);
+  const banners = useSelector(state => state.homeBanners.banners.items);
+  const isLoadingBanners = useSelector(state => state.homeBanners.banners.isLoading);
   const [sizeImage, setSizeImage] = useState(null);
 
   const goToSectionSale = (id, name) => {
@@ -59,7 +60,7 @@ export default BannersSwiper = () => {
   return (
     <View style={styles.container}>
       {
-        (homeBanners.banners.items.length === 0 || homeBanners.banners.isLoading) ? (
+        (banners.length === 0 || isLoadingBanners) ? (
           <Preloader
             width={widthBanner}
             height={heightBanner}
@@ -73,7 +74,7 @@ export default BannersSwiper = () => {
             index={0}
             showPagination
             paginationStyleItem={styles.dot}
-            data={homeBanners.banners.items}
+            data={banners}
             renderItem={({ item }) => (
               <TouchableOpacity
                 key={item.id}

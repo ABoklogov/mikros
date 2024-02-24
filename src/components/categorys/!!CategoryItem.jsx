@@ -24,7 +24,7 @@ export default CategoryItem = ({
   parentCategorys,
   id,
 }) => {
-  const { catalog } = useSelector(state => state);
+  // const { catalog } = useSelector(state => state);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 

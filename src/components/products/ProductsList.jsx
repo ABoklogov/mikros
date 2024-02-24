@@ -21,7 +21,6 @@ export default ProductsList = ({
   isLoading,
   nameSection,
 }) => {
-  // const { catalog } = useSelector(state => state);
   const window = useWindowDimensions();
 
   // высчитываем ширину одного элемента

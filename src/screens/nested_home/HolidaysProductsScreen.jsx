@@ -12,7 +12,7 @@ import { strings, colors, sortData } from 'res/vars';
 export default HolidaysProductsScreen = ({ route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { homeHolidays } = useSelector(state => state);
+  const holidaysProducts = useSelector(state => state.homeHolidays.products);
 
   useEffect(() => {
     navigation.setOptions({
@@ -26,15 +26,15 @@ export default HolidaysProductsScreen = ({ route }) => {
     <View style={styles.container}>
       <SortComponent
         filter={strings.nameNestedHome.filterHolidays}
-        sort={homeHolidays.products.sort}
+        sort={holidaysProducts.sort}
         setSort={sortHolidays}
         sortData={sortData}
       />
       <ProductsList
         screenName={route.name}
-        products={homeHolidays.products.items}
-        isLoading={homeHolidays.products.isLoading}
-        nameSection={homeHolidays.products.nameSection}
+        products={holidaysProducts.items}
+        isLoading={holidaysProducts.isLoading}
+        nameSection={holidaysProducts.nameSection}
       />
     </View>
   );

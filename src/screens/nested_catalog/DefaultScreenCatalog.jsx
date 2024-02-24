@@ -17,7 +17,7 @@ import { colors, mHorizontal } from 'res/vars';
 // import { text } from 'res/palette';
 
 export default DefaultScreenCatalog = () => {
-  const { catalog } = useSelector(state => state);
+  const categorys = useSelector(state => state.catalog.categorys);
   const dispatch = useDispatch();
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   // const navigation = useNavigation();
@@ -26,7 +26,7 @@ export default DefaultScreenCatalog = () => {
   // слушатель закрытия клавиатуры (при закрытии клавиатуры возвращаемся в первоначальное состояние):
   useEffect(() => {
     // получаем категории товаров
-    if (catalog.categorys.items.length === 0) {
+    if (categorys.items.length === 0) {
       dispatch(fetchCategorys());
     };
 
@@ -46,7 +46,7 @@ export default DefaultScreenCatalog = () => {
       <View style={styles.container}>
 
         {
-          catalog.categorys.isLoading ? (
+          categorys.isLoading ? (
             <View style={styles.loader}>
               <ActivityIndicator
                 size="large"
@@ -54,7 +54,7 @@ export default DefaultScreenCatalog = () => {
               />
             </View>
           ) : (
-            <CategorysList categorys={catalog.categorys.items} />
+            <CategorysList categorys={categorys.items} />
           )
         }
       </View>

@@ -6,23 +6,23 @@ import { useSelector } from 'react-redux';
 import { colors } from 'res/vars.js';
 
 export default BasketIcon = ({ color, size }) => {
-  const { basket } = useSelector(state => state);
+  const basketItems = useSelector(state => state.basket.items);
   const navigation = useNavigation();
   // счетчик у иконки
   useEffect(() => {
-    if (basket.items.length > 0) {
+    if (basketItems.length > 0) {
       navigation.setOptions({
-        tabBarBadge: basket.items.length,
+        tabBarBadge: basketItems.length,
       });
     } else {
       navigation.setOptions({
         tabBarBadge: null,
       });
     };
-  }, [basket.items.length]);
+  }, [basketItems.length]);
 
   return (
-    (basket.items.length > 0) ? (
+    (basketItems.length > 0) ? (
       <Svg
         width={size}
         height={size}
