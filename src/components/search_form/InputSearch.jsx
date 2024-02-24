@@ -119,3 +119,6 @@ InputSearch.propTypes = {
   submit: PropTypes.func,
   stateKey: PropTypes.string,
 };
+InputSearch.defaultProps = {
+  opensKeyboard: () => {},
+};
